@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Tab {
   id: string;
@@ -75,56 +76,36 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
     }
   };
 
-  // Mobile sliding tabs layout
+  // Mobile accordion layout
   if (isMobile) {
+    const handleAccordionChange = (value: string) => {
+      if (value) {
+        onTabChange(value);
+      }
+      // When value is empty (collapsed), don't force any tab to be active
+    };
+
     return (
       <div className={cn('w-full', className)}>
-        {/* Mobile tab navigation */}
-        <div className="flex overflow-x-auto bg-govuk-light-grey border-b border-govuk-mid-grey">
+        <Accordion type="single" collapsible value={activeTab} onValueChange={handleAccordionChange}>
           {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={cn(
-                'flex-shrink-0 px-4 py-3 text-sm font-medium whitespace-nowrap border-b-4 transition-colors',
-                'focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-0',
-                activeTab === tab.id
-                  ? 'border-govuk-blue bg-white text-govuk-blue'
-                  : 'border-transparent text-govuk-black hover:bg-govuk-light-grey'
-              )}
-            >
-              <div className="flex items-center gap-2">
-                <span>{tab.label}</span>
-                {tab.isActive && (
-                  <span className="inline-flex items-center px-1.5 py-0.5 text-xs font-medium bg-govuk-green text-white rounded">
-                    Active
-                  </span>
-                )}
-              </div>
-            </button>
-          ))}
-        </div>
-
-        {/* Mobile tab content with slide animation */}
-        <div className="relative overflow-hidden">
-          <div 
-            className="flex transition-transform duration-300 ease-out"
-            style={{
-              transform: `translateX(-${tabs.findIndex(tab => tab.id === activeTab) * 100}%)`,
-              width: `${tabs.length * 100}%`
-            }}
-          >
-            {tabs.map((tab) => (
-              <div
-                key={tab.id}
-                className="w-full flex-shrink-0 p-4"
-                style={{ width: `${100 / tabs.length}%` }}
-              >
+            <AccordionItem key={tab.id} value={tab.id}>
+              <AccordionTrigger className="text-left px-4 py-3 font-medium text-govuk-black hover:bg-govuk-light-grey">
+                <div className="flex items-center justify-between w-full pr-4">
+                  <span>{tab.label}</span>
+                  {tab.isActive && (
+                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
+                      Active
+                    </span>
+                  )}
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
                 {tab.content}
-              </div>
-            ))}
-          </div>
-        </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     );
   }
