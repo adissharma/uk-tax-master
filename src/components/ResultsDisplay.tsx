@@ -4,7 +4,12 @@ import { GOVUKButton } from './GOVUKButton';
 import { Copy } from 'lucide-react';
 
 export function ResultsDisplay() {
-  const { result, isCalculating } = useCalculatorStore();
+  const { result, isCalculating, inputs } = useCalculatorStore();
+
+  // Don't show anything if no salary entered
+  if (inputs.grossAnnualSalary === 0) {
+    return null;
+  }
 
   if (isCalculating || !result) {
     return (
@@ -98,59 +103,99 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
         {/* Deductions Breakdown */}
         <div>
           <h3 className="text-lg font-bold text-govuk-black mb-4">Deductions breakdown</h3>
-          <div className="border-2 border-govuk-mid-grey">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-govuk-light-grey border-b border-govuk-mid-grey">
-                  <th scope="col" className="px-4 py-2 text-left font-bold">Deduction</th>
-                  <th scope="col" className="px-4 py-2 text-right font-bold">Annual</th>
-                  <th scope="col" className="px-4 py-2 text-right font-bold">Monthly</th>
-                  <th scope="col" className="px-4 py-2 text-right font-bold">Weekly</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-govuk-mid-grey">
-                  <th scope="row" className="px-4 py-3 text-left font-medium">Income tax</th>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.incomeTax.annual)}</td>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.incomeTax.monthly)}</td>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.incomeTax.annual / 52)}</td>
-                </tr>
-                <tr className="border-b border-govuk-mid-grey">
-                  <th scope="row" className="px-4 py-3 text-left font-medium">National Insurance</th>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.nationalInsurance.employee.annual)}</td>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.nationalInsurance.employee.monthly)}</td>
-                  <td className="px-4 py-3 text-right">{formatCurrency(result.nationalInsurance.employee.annual / 52)}</td>
-                </tr>
-                {result.studentLoan.annual > 0 && (
-                  <tr className="border-b border-govuk-mid-grey">
-                    <th scope="row" className="px-4 py-3 text-left font-medium">Student loan repayment</th>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.studentLoan.annual)}</td>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.studentLoan.monthly)}</td>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.studentLoan.annual / 52)}</td>
-                  </tr>
-                )}
-                {result.pension.employee.annual > 0 && (
-                  <tr className="border-b border-govuk-mid-grey">
-                    <th scope="row" className="px-4 py-3 text-left font-medium">Pension contribution</th>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.pension.employee.annual)}</td>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.pension.employee.monthly)}</td>
-                    <td className="px-4 py-3 text-right">{formatCurrency(result.pension.employee.annual / 52)}</td>
-                  </tr>
-                )}
-                <tr className="bg-govuk-light-grey font-bold">
-                  <th scope="row" className="px-4 py-4 text-left">Total deductions</th>
-                  <td className="px-4 py-4 text-right">
-                    {formatCurrency(result.gross.annual - result.net.annual)}
-                  </td>
-                  <td className="px-4 py-4 text-right">
-                    {formatCurrency((result.gross.annual - result.net.annual) / 12)}
-                  </td>
-                  <td className="px-4 py-4 text-right">
-                    {formatCurrency((result.gross.annual - result.net.annual) / 52)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Income Tax */}
+            <div className="bg-govuk-light-red border-l-4 border-govuk-red p-4">
+              <h4 className="font-bold text-govuk-black mb-2">Income tax</h4>
+              <div className="space-y-1">
+                <div className="text-lg font-bold text-govuk-black">
+                  {formatCurrency(result.incomeTax.annual)}
+                </div>
+                <div className="text-sm text-govuk-dark-grey">
+                  {formatCurrency(result.incomeTax.monthly)} per month
+                </div>
+                <div className="text-sm text-govuk-dark-grey">
+                  {formatCurrency(result.incomeTax.annual / 52)} per week
+                </div>
+              </div>
+            </div>
+
+            {/* National Insurance */}
+            <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
+              <h4 className="font-bold text-govuk-black mb-2">National Insurance</h4>
+              <div className="space-y-1">
+                <div className="text-lg font-bold text-govuk-black">
+                  {formatCurrency(result.nationalInsurance.employee.annual)}
+                </div>
+                <div className="text-sm text-govuk-dark-grey">
+                  {formatCurrency(result.nationalInsurance.employee.monthly)} per month
+                </div>
+                <div className="text-sm text-govuk-dark-grey">
+                  {formatCurrency(result.nationalInsurance.employee.annual / 52)} per week
+                </div>
+              </div>
+            </div>
+
+            {/* Student Loan (if applicable) */}
+            {result.studentLoan.annual > 0 && (
+              <div className="bg-govuk-light-yellow border-l-4 border-govuk-yellow p-4">
+                <h4 className="font-bold text-govuk-black mb-2">Student loan</h4>
+                <div className="space-y-1">
+                  <div className="text-lg font-bold text-govuk-black">
+                    {formatCurrency(result.studentLoan.annual)}
+                  </div>
+                  <div className="text-sm text-govuk-dark-grey">
+                    {formatCurrency(result.studentLoan.monthly)} per month
+                  </div>
+                  <div className="text-sm text-govuk-dark-grey">
+                    {formatCurrency(result.studentLoan.annual / 52)} per week
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Pension (if applicable) */}
+            {result.pension.employee.annual > 0 && (
+              <div className="bg-govuk-light-purple border-l-4 border-govuk-purple p-4">
+                <h4 className="font-bold text-govuk-black mb-2">Pension</h4>
+                <div className="space-y-1">
+                  <div className="text-lg font-bold text-govuk-black">
+                    {formatCurrency(result.pension.employee.annual)}
+                  </div>
+                  <div className="text-sm text-govuk-dark-grey">
+                    {formatCurrency(result.pension.employee.monthly)} per month
+                  </div>
+                  <div className="text-sm text-govuk-dark-grey">
+                    {formatCurrency(result.pension.employee.annual / 52)} per week
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Total Deductions Card */}
+          <div className="mt-6 bg-govuk-light-grey border-2 border-govuk-mid-grey p-6">
+            <h4 className="text-xl font-bold text-govuk-black mb-4">Total deductions</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <div className="text-2xl font-bold text-govuk-black">
+                  {formatCurrency(result.gross.annual - result.net.annual)}
+                </div>
+                <div className="text-govuk-dark-grey">Per year</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-govuk-black">
+                  {formatCurrency((result.gross.annual - result.net.annual) / 12)}
+                </div>
+                <div className="text-govuk-dark-grey">Per month</div>
+              </div>  
+              <div>
+                <div className="text-2xl font-bold text-govuk-black">
+                  {formatCurrency((result.gross.annual - result.net.annual) / 52)}
+                </div>
+                <div className="text-govuk-dark-grey">Per week</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

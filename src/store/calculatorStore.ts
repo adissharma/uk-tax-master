@@ -16,7 +16,7 @@ interface CalculatorState {
 }
 
 const defaultInputs: CalculationInputs = {
-  grossAnnualSalary: 30000,
+  grossAnnualSalary: 0,
   taxYear: '2024-25',
   region: 'england',
   studentLoanPlan: 'none',
@@ -35,13 +35,17 @@ export const useCalculatorStore = create<CalculatorState>()(
       
       updateInputs: (newInputs) => {
         const inputs = { ...get().inputs, ...newInputs };
-        set({ inputs, isCalculating: true });
+        set({ inputs, isCalculating: inputs.grossAnnualSalary > 0 });
         
-        // Debounced calculation
-        setTimeout(() => {
-          const result = calculateSalary(inputs);
-          set({ result, isCalculating: false });
-        }, 150);
+        // Only calculate if there's a valid salary
+        if (inputs.grossAnnualSalary > 0) {
+          setTimeout(() => {
+            const result = calculateSalary(inputs);
+            set({ result, isCalculating: false });
+          }, 150);
+        } else {
+          set({ result: null, isCalculating: false });
+        }
       },
       
       setActiveTab: (tab) => {
@@ -54,14 +58,20 @@ export const useCalculatorStore = create<CalculatorState>()(
       
       calculate: () => {
         const { inputs } = get();
-        set({ isCalculating: true });
         
-        try {
-          const result = calculateSalary(inputs);
-          set({ result, isCalculating: false });
-        } catch (error) {
-          console.error('Calculation error:', error);
-          set({ isCalculating: false });
+        // Only calculate if there's a valid salary
+        if (inputs.grossAnnualSalary > 0) {
+          set({ isCalculating: true });
+          
+          try {
+            const result = calculateSalary(inputs);
+            set({ result, isCalculating: false });
+          } catch (error) {
+            console.error('Calculation error:', error);
+            set({ isCalculating: false });
+          }
+        } else {
+          set({ result: null, isCalculating: false });
         }
       },
     }),
@@ -73,5 +83,4 @@ export const useCalculatorStore = create<CalculatorState>()(
   )
 );
 
-// Initialize calculation on store creation
-useCalculatorStore.getState().calculate();
+// Don't initialize calculation on store creation - wait for user input
