@@ -88,7 +88,7 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
   const showResults = inputs.grossAnnualSalary > 0 && !isCalculating && result;
 
   return (
-    <div className="bg-govuk-white border border-govuk-mid-grey max-w-4xl mx-auto mb-8">
+    <div className="bg-govuk-white border border-govuk-mid-grey mb-8">
       {/* Salary Input Section */}
       <div className="bg-govuk-light-blue border-b border-govuk-mid-grey p-6">
         <GOVUKInput
