@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { X } from 'lucide-react';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { GOVUKButton } from '@/components/GOVUKButton';
 
 interface Tab {
   id: string;
@@ -19,6 +21,8 @@ interface VerticalTabsProps {
 
 export function VerticalTabs({ tabs, activeTab, onTabChange, className }: VerticalTabsProps) {
   const isMobile = useIsMobile();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
 
   // Handle URL hash changes
   useEffect(() => {
@@ -76,37 +80,94 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
     }
   };
 
-  // Mobile accordion layout
-  if (isMobile) {
-    const handleAccordionChange = (value: string) => {
-      if (value) {
-        onTabChange(value);
-      }
-      // When value is empty (collapsed), don't force any tab to be active
-    };
+  const handleTabClick = (tab: Tab) => {
+    setSelectedTab(tab);
+    setIsDrawerOpen(true);
+  };
 
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+    setSelectedTab(null);
+  };
+
+  const handleSave = () => {
+    if (selectedTab) {
+      onTabChange(selectedTab.id);
+    }
+    handleDrawerClose();
+  };
+
+  // Mobile vertical tabs layout with drawer
+  if (isMobile) {
     return (
-      <div className={cn('w-full', className)}>
-        <Accordion type="single" collapsible value={activeTab} onValueChange={handleAccordionChange}>
-          {tabs.map((tab) => (
-            <AccordionItem key={tab.id} value={tab.id}>
-              <AccordionTrigger className="text-left px-4 py-3 font-medium text-govuk-black hover:bg-govuk-light-grey">
-                <div className="flex items-center justify-between w-full pr-4">
-                  <span>{tab.label}</span>
-                  {tab.isActive && (
-                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
-                      Active
-                    </span>
-                  )}
+      <>
+        <div className={cn('w-full', className)}>
+          <div className="space-y-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab)}
+                className="w-full px-4 py-4 text-left border-l-4 border-govuk-light-grey bg-white hover:bg-govuk-light-grey focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-0 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-base font-medium text-govuk-black">{tab.label}</span>
+                  <div className="flex items-center gap-2">
+                    {tab.isActive && (
+                      <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
+                        Active
+                      </span>
+                    )}
+                    <svg 
+                      className="w-5 h-5 text-govuk-mid-grey" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4">
-                {tab.content}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+          <DrawerContent className="h-[90vh] w-[90vw] ml-auto rounded-l-lg rounded-r-none">
+            <div className="flex flex-col h-full">
+              {/* Sticky Header */}
+              <div className="sticky top-0 bg-white border-b border-govuk-light-grey px-4 py-3 flex items-center justify-between">
+                <GOVUKButton
+                  variant="link"
+                  size="sm"
+                  onClick={handleDrawerClose}
+                  className="p-0 h-auto font-normal"
+                >
+                  <X className="w-5 h-5 mr-1" />
+                  Close
+                </GOVUKButton>
+                
+                <DrawerTitle className="text-lg font-bold text-govuk-black">
+                  {selectedTab?.label}
+                </DrawerTitle>
+                
+                <GOVUKButton
+                  variant="primary"
+                  size="sm"
+                  onClick={handleSave}
+                >
+                  Save
+                </GOVUKButton>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto p-4">
+                {selectedTab?.content}
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      </>
     );
   }
 
