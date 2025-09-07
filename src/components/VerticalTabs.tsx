@@ -5,6 +5,7 @@ interface Tab {
   id: string;
   label: string;
   content: React.ReactNode;
+  isActive?: boolean;
 }
 
 interface VerticalTabsProps {
@@ -89,7 +90,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               aria-controls={`panel-${tab.id}`}
               tabIndex={activeTab === tab.id ? 0 : -1}
               className={cn(
-                'block w-full text-left px-4 py-3 text-base font-medium border-l-4 transition-colors',
+                'block w-full text-left px-4 py-3 text-base font-medium border-l-4 transition-colors relative',
                 'focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-0',
                 activeTab === tab.id
                   ? 'border-govuk-blue bg-govuk-light-blue text-govuk-blue'
@@ -98,7 +99,14 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, tab.id)}
             >
-              {tab.label}
+              <div className="flex items-center justify-between">
+                <span>{tab.label}</span>
+                {tab.isActive && (
+                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
+                    Active
+                  </span>
+                )}
+              </div>
             </button>
           ))}
         </div>

@@ -10,7 +10,7 @@ import { StudentLoanTab } from '@/components/tabs/StudentLoanTab';
 import { PensionTab } from '@/components/tabs/PensionTab';
 
 const Index = () => {
-  const { activeTab, setActiveTab } = useCalculatorStore();
+  const { activeTab, setActiveTab, inputs } = useCalculatorStore();
 
   // Initialize from URL hash on mount
   useEffect(() => {
@@ -25,16 +25,19 @@ const Index = () => {
       id: 'tax-code',
       label: 'Tax Code',
       content: <TaxCodeTab />,
+      isActive: true, // Tax code is always active
     },
     {
       id: 'student-loan',
       label: 'Student Loan',
       content: <StudentLoanTab />,
+      isActive: inputs.studentLoanPlan !== 'none' || inputs.hasPostgradLoan,
     },
     {
       id: 'pension',
       label: 'Pension',
       content: <PensionTab />,
+      isActive: inputs.pensionContribution > 0,
     },
     {
       id: 'bonus',
@@ -48,6 +51,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: false, // Not implemented yet
     },
     {
       id: 'overtime',
@@ -61,6 +65,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: false, // Not implemented yet
     },
     {
       id: 'childcare',
@@ -74,6 +79,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: false, // Not implemented yet
     },
     {
       id: 'salary-sacrifice',
@@ -87,6 +93,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: inputs.salaryExchange, // Active if salary exchange is enabled
     },
     {
       id: 'taxable-benefits',
@@ -100,6 +107,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: false, // Not implemented yet
     },
     {
       id: 'additional-options',
@@ -113,6 +121,7 @@ const Index = () => {
           </div>
         </div>
       ),
+      isActive: false, // Not implemented yet
     },
   ];
 
