@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { GOVUKHeader } from '@/components/GOVUKHeader';
 import { GOVUKFooter } from '@/components/GOVUKFooter';
-import { SalaryInput } from '@/components/SalaryInput';
-import { ResultsDisplay } from '@/components/ResultsDisplay';
+import { SalaryCalculator } from '@/components/SalaryCalculator';
 import { VerticalTabs } from '@/components/VerticalTabs';
 import { TaxCodeTab } from '@/components/tabs/TaxCodeTab';
 import { StudentLoanTab } from '@/components/tabs/StudentLoanTab';
@@ -131,12 +130,9 @@ const Index = () => {
       
       {/* Main content */}
       <main id="main-content" className="max-w-6xl mx-auto">
-        {/* Salary Input Section */}
-        <SalaryInput />
-        
-        {/* Results Display */}
-        <div className="px-4">
-          <ResultsDisplay />
+        {/* Salary Calculator */}
+        <div className="px-4 pt-6">
+          <SalaryCalculator />
         </div>
         
         {/* Settings Tabs */}
