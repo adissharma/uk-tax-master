@@ -161,12 +161,11 @@
   }
   
   .govuk-table__head {
-    border-bottom: 1px solid hsl(var(--govuk-black));
+    border-bottom: 2px solid hsl(var(--govuk-black));
   }
   
   .govuk-table__header {
-    @apply font-bold py-2 px-3 border-0;
-    border-bottom: 1px solid hsl(var(--govuk-black));
+    @apply font-bold py-3 px-3 border-0;
   }
   
   .govuk-table__body {
@@ -177,8 +176,12 @@
     border-bottom: 1px solid hsl(var(--govuk-mid-grey));
   }
   
+  .govuk-table__row--thick-border {
+    border-bottom: 2px solid hsl(var(--govuk-black));
+  }
+  
   .govuk-table__cell {
-    @apply py-2 px-3 border-0;
+    @apply py-3 px-3 border-0;
   }
   
   .govuk-table__cell--numeric {

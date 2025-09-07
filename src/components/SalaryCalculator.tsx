@@ -124,10 +124,10 @@ export function SalaryCalculator() {
                   <td className="govuk-table__cell text-right font-bold text-govuk-blue">
                     {formatCurrency(result.gross.annual)}
                   </td>
-                  <td className="govuk-table__cell text-right">
+                  <td className="govuk-table__cell text-right font-bold text-govuk-blue">
                     {formatCurrency(result.gross.monthly)}
                   </td>
-                  <td className="govuk-table__cell text-right">
+                  <td className="govuk-table__cell text-right font-bold text-govuk-blue">
                     {formatCurrency(result.gross.weekly)}
                   </td>
                 </tr>
@@ -193,7 +193,7 @@ export function SalaryCalculator() {
                   )}
 
                   {/* Total Deductions - only show when expanded */}
-                  <tr className="govuk-table__row border-t-2 border-govuk-mid-grey">
+                  <tr className="govuk-table__row govuk-table__row--thick-border">
                     <th scope="row" className="govuk-table__header font-bold">Total deductions</th>
                     <td className="govuk-table__cell text-right font-bold text-govuk-red">
                       -{formatCurrency(result.gross.annual - result.net.annual)}
@@ -209,7 +209,7 @@ export function SalaryCalculator() {
               )}
 
               {/* Take-home Pay - always visible */}
-              <tr className={`govuk-table__row ${isExpanded ? 'border-t-2 border-govuk-mid-grey' : ''} bg-govuk-light-green`}>
+              <tr className={`govuk-table__row ${isExpanded ? 'govuk-table__row--thick-border' : ''} bg-govuk-light-green`}>
                 <th scope="row" className="govuk-table__header font-bold text-lg">Your take-home pay</th>
                 <td className="govuk-table__cell text-right font-bold text-lg text-govuk-green">
                   {formatCurrency(result.net.annual)}
