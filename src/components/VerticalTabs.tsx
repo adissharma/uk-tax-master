@@ -78,9 +78,18 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
 
   // Mobile accordion layout
   if (isMobile) {
+    const handleAccordionChange = (value: string) => {
+      // If clicking on the already active tab, close it by navigating to first tab
+      if (value === activeTab) {
+        onTabChange(tabs[0]?.id || 'summary');
+      } else if (value) {
+        onTabChange(value);
+      }
+    };
+
     return (
       <div className={cn('w-full', className)}>
-        <Accordion type="single" value={activeTab} onValueChange={(value) => value && onTabChange(value)}>
+        <Accordion type="single" collapsible value={activeTab} onValueChange={handleAccordionChange}>
           {tabs.map((tab) => (
             <AccordionItem key={tab.id} value={tab.id}>
               <AccordionTrigger className="text-left px-4 py-3 font-medium text-govuk-black hover:bg-govuk-light-grey">
