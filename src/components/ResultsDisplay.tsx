@@ -6,25 +6,9 @@ import { Copy } from 'lucide-react';
 export function ResultsDisplay() {
   const { result, isCalculating, inputs } = useCalculatorStore();
 
-  // Don't show anything if no salary entered
-  if (inputs.grossAnnualSalary === 0) {
+  // Don't show anything if no salary entered or while calculating
+  if (inputs.grossAnnualSalary === 0 || isCalculating || !result) {
     return null;
-  }
-
-  if (isCalculating || !result) {
-    return (
-      <div className="bg-govuk-light-grey border-2 border-govuk-mid-grey p-8 mb-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-govuk-mid-grey rounded w-1/2 mb-4"></div>
-          <div className="h-12 bg-govuk-mid-grey rounded w-3/4 mb-6"></div>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="h-20 bg-govuk-mid-grey rounded"></div>
-            <div className="h-20 bg-govuk-mid-grey rounded"></div>
-            <div className="h-20 bg-govuk-mid-grey rounded"></div>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   const copyResults = async () => {
