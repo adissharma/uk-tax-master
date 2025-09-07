@@ -135,7 +135,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
         </div>
 
         <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerContent className="h-screen w-[90vw] fixed right-0 top-0 ml-[10vw] rounded-l-lg rounded-r-none data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right">
+          <DrawerContent className="h-screen w-[90vw] fixed right-0 top-0 ml-[10vw] rounded-l-lg rounded-r-none border-0 data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right">
             <div className="flex flex-col h-full">
               {/* Sticky Header */}
               <div className="sticky top-0 bg-white border-b border-govuk-light-grey px-4 py-3 flex items-center justify-between">
