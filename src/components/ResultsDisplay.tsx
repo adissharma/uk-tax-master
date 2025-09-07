@@ -35,7 +35,7 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
   };
 
   return (
-    <div className="bg-govuk-white border-2 border-govuk-mid-grey mb-8">
+    <div className="bg-govuk-white border-2 border-govuk-mid-grey border-t-0 mb-8">
       {/* Header */}
       <div className="bg-govuk-mid-grey px-6 py-3 flex justify-between items-center">
         <h2 className="text-xl font-bold text-govuk-black m-0">Your salary calculation</h2>
@@ -51,13 +51,6 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
       </div>
 
       <div className="p-6 space-y-6">
-        {/* Gross Salary */}
-        <div className="border-b border-govuk-mid-grey pb-4">
-          <h3 className="text-lg font-bold text-govuk-black mb-2">Gross yearly salary</h3>
-          <div className="text-3xl font-bold text-govuk-blue">
-            {formatCurrency(result.gross.annual)}
-          </div>
-        </div>
 
         {/* Take-home Pay */}
         <div className="border-b border-govuk-mid-grey pb-4">

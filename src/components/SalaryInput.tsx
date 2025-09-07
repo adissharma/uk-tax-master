@@ -66,7 +66,7 @@ export function SalaryInput() {
   };
 
   return (
-    <div className="bg-govuk-light-blue border-b-4 border-govuk-blue p-6 mb-8">
+    <div className="bg-govuk-light-blue border-b-4 border-govuk-blue p-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col lg:flex-row lg:items-end gap-4">
           <div className="flex-1">
@@ -85,29 +85,6 @@ export function SalaryInput() {
             />
           </div>
           
-          <div className="flex gap-3">
-            <GOVUKButton 
-              variant="link" 
-              size="sm"
-              onClick={() => {
-                // Toggle advanced options - placeholder for now
-                console.log('Advanced options clicked');
-              }}
-            >
-              Advanced options
-            </GOVUKButton>
-            
-            <GOVUKButton 
-              variant="link" 
-              size="sm"
-              onClick={() => {
-                // Scroll to methodology - placeholder for now
-                console.log('How we calculate clicked');
-              }}
-            >
-              How we calculate
-            </GOVUKButton>
-          </div>
         </div>
       </div>
     </div>
