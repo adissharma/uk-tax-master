@@ -45,34 +45,34 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
   return (
     <>
       <div className={cn('w-full', className)}>
-        <div className="space-y-3">
+        <div className="space-y-4">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab)}
-              className="w-full bg-white border border-border rounded-lg p-6 text-left transition-all hover:shadow-md hover:border-primary/20 active:scale-[0.98] touch-manipulation"
+              className="w-full bg-white border-2 border-govuk-mid-grey hover:border-govuk-blue focus:border-govuk-yellow focus:ring-4 focus:ring-govuk-yellow focus:ring-offset-0 p-govuk-4 text-left transition-all active:scale-[0.98] touch-manipulation focus:outline-none"
             >
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-3">
-                    <h3 className="text-lg font-semibold text-foreground">
+                <div className="flex items-center gap-govuk-3">
+                  <div className="flex items-center gap-govuk-2">
+                    <h3 className="text-govuk-19 font-bold text-govuk-black leading-tight">
                       {tab.label}
                     </h3>
                     {(tab.isActive || savedTabs.has(tab.id)) && (
                       <div className="flex items-center gap-2">
                         {savedTabs.has(tab.id) && (
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                          <Check className="w-4 h-4 text-govuk-green" />
                         )}
                         {tab.isActive && (
-                          <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
-                            Active
+                          <span className="inline-flex items-center px-2 py-1 text-govuk-14 font-bold bg-govuk-blue text-white">
+                            ACTIVE
                           </span>
                         )}
                       </div>
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                <ChevronRight className="w-5 h-5 text-govuk-dark-grey flex-shrink-0" />
               </div>
             </button>
           ))}
@@ -86,36 +86,33 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
         >
           {selectedTab && (
             <>
-              <SheetHeader className="flex-shrink-0 sticky top-0 z-10 bg-background border-b px-6 py-4">
+              <SheetHeader className="flex-shrink-0 sticky top-0 z-10 bg-white border-b-2 border-govuk-mid-grey px-govuk-4 py-govuk-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Button
-                      variant="ghost"
-                      size="icon"
+                  <div className="flex items-center gap-govuk-3">
+                    <button
                       onClick={handleClose}
-                      className="h-8 w-8 rounded-full"
+                      className="flex items-center justify-center h-8 w-8 border-2 border-govuk-mid-grey bg-white hover:border-govuk-blue focus:border-govuk-yellow focus:ring-4 focus:ring-govuk-yellow focus:ring-offset-0 focus:outline-none transition-colors"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-4 w-4 text-govuk-black" />
                       <span className="sr-only">Close</span>
-                    </Button>
-                    <SheetTitle className="text-xl font-semibold">
+                    </button>
+                    <SheetTitle className="text-govuk-24 font-bold text-govuk-black leading-tight">
                       {selectedTab.label}
                     </SheetTitle>
                   </div>
-                  <Button
+                  <button
                     onClick={handleSave}
-                    size="sm"
-                    className="gap-2"
+                    className="inline-flex items-center gap-2 px-govuk-3 py-govuk-2 bg-govuk-green text-white font-bold border-2 border-govuk-green hover:bg-green-700 hover:border-green-700 focus:bg-govuk-yellow focus:text-govuk-black focus:border-govuk-black focus:ring-4 focus:ring-govuk-yellow focus:ring-offset-0 focus:outline-none transition-colors"
                   >
                     <Check className="h-4 w-4" />
                     Save
-                  </Button>
+                  </button>
                 </div>
               </SheetHeader>
               
-              <div className="flex-1 overflow-auto px-6 py-4">
-                {selectedTab.content}
-              </div>
+               <div className="flex-1 overflow-auto px-govuk-4 py-govuk-4 bg-govuk-light-grey">
+                 {selectedTab.content}
+               </div>
             </>
           )}
         </SheetContent>
