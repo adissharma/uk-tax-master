@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useCalculatorStore } from '@/store/calculatorStore';
-import { GOVUKHeader } from '@/components/GOVUKHeader';
-import { GOVUKFooter } from '@/components/GOVUKFooter';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { SalaryCalculator } from '@/components/SalaryCalculator';
 import { VerticalTabs } from '@/components/VerticalTabs';
 import { TaxCodeTab } from '@/components/tabs/TaxCodeTab';
@@ -126,7 +126,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <GOVUKHeader />
+      <Header />
       
       {/* Main content */}
       <main id="main-content" className="max-w-6xl mx-auto">
@@ -146,7 +146,7 @@ const Index = () => {
         </div>
       </main>
       
-      <GOVUKFooter />
+      <Footer />
     </div>
   );
 };
