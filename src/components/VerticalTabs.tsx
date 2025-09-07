@@ -81,10 +81,8 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
     const handleAccordionChange = (value: string) => {
       if (value) {
         onTabChange(value);
-      } else {
-        // If value is empty (accordion collapsed), navigate to first tab
-        onTabChange(tabs[0]?.id || 'summary');
       }
+      // When value is empty (collapsed), don't force any tab to be active
     };
 
     return (
