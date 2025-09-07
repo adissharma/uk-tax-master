@@ -46,8 +46,8 @@ export const useCalculatorStore = create<CalculatorState>()(
       
       setActiveTab: (tab) => {
         set({ activeTab: tab });
-        // Update URL hash
-        if (typeof window !== 'undefined') {
+        // Only update URL hash if it's different from current hash to prevent loops
+        if (typeof window !== 'undefined' && window.location.hash.slice(1) !== tab) {
           window.location.hash = tab;
         }
       },

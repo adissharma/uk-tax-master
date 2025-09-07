@@ -19,17 +19,20 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
-      if (hash && tabs.find(tab => tab.id === hash)) {
+      if (hash && tabs.find(tab => tab.id === hash) && hash !== activeTab) {
         onTabChange(hash);
       }
     };
 
-    // Set initial tab from URL hash
-    handleHashChange();
+    // Set initial tab from URL hash only if different from current
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash && tabs.find(tab => tab.id === initialHash) && initialHash !== activeTab) {
+      onTabChange(initialHash);
+    }
     
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [tabs, onTabChange]);
+  }, [tabs, activeTab]); // Remove onTabChange from dependencies to prevent re-runs
 
   const handleKeyDown = (event: React.KeyboardEvent, tabId: string) => {
     const currentIndex = tabs.findIndex(tab => tab.id === activeTab);
