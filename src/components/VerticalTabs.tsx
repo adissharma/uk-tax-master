@@ -79,11 +79,11 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
   // Mobile accordion layout
   if (isMobile) {
     const handleAccordionChange = (value: string) => {
-      // If clicking on the already active tab, close it by navigating to first tab
-      if (value === activeTab) {
-        onTabChange(tabs[0]?.id || 'summary');
-      } else if (value) {
+      if (value) {
         onTabChange(value);
+      } else {
+        // If value is empty (accordion collapsed), navigate to first tab
+        onTabChange(tabs[0]?.id || 'summary');
       }
     };
 
