@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Tab {
   id: string;
@@ -16,6 +18,8 @@ interface VerticalTabsProps {
 }
 
 export function VerticalTabs({ tabs, activeTab, onTabChange, className }: VerticalTabsProps) {
+  const isMobile = useIsMobile();
+
   // Handle URL hash changes
   useEffect(() => {
     const handleHashChange = () => {
@@ -72,6 +76,34 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
     }
   };
 
+  // Mobile accordion layout
+  if (isMobile) {
+    return (
+      <div className={cn('w-full', className)}>
+        <Accordion type="single" value={activeTab} onValueChange={(value) => value && onTabChange(value)}>
+          {tabs.map((tab) => (
+            <AccordionItem key={tab.id} value={tab.id}>
+              <AccordionTrigger className="text-left px-4 py-3 font-medium text-govuk-black hover:bg-govuk-light-grey">
+                <div className="flex items-center justify-between w-full pr-4">
+                  <span>{tab.label}</span>
+                  {tab.isActive && (
+                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
+                      Active
+                    </span>
+                  )}
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
+                {tab.content}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    );
+  }
+
+  // Desktop tab layout
   return (
     <div className={cn('flex flex-col lg:flex-row gap-8', className)}>
       {/* Tabs Navigation */}
