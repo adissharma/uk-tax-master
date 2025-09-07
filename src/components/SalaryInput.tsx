@@ -5,14 +5,20 @@ import { useCalculatorStore } from '@/store/calculatorStore';
 
 export function SalaryInput() {
   const { inputs, updateInputs } = useCalculatorStore();
-  const [displayValue, setDisplayValue] = useState(inputs.grossAnnualSalary.toString());
+  const [displayValue, setDisplayValue] = useState(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setDisplayValue(inputs.grossAnnualSalary.toString());
+    setDisplayValue(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
   }, [inputs.grossAnnualSalary]);
 
   const validateAndUpdate = (value: string) => {
+    // Handle empty input
+    if (!value.trim()) {
+      updateInputs({ grossAnnualSalary: 0 });
+      return;
+    }
+    
     const numValue = parseFloat(value.replace(/[£,]/g, ''));
     
     if (isNaN(numValue)) {
