@@ -3,11 +3,11 @@ import { useCalculatorStore } from '@/store/calculatorStore';
 import { GOVUKHeader } from '@/components/GOVUKHeader';
 import { GOVUKFooter } from '@/components/GOVUKFooter';
 import { SalaryInput } from '@/components/SalaryInput';
+import { ResultsDisplay } from '@/components/ResultsDisplay';
 import { VerticalTabs } from '@/components/VerticalTabs';
-import { SummaryTab } from '@/components/tabs/SummaryTab';
-import { BreakdownTab } from '@/components/tabs/BreakdownTab';
-import { IncomeTaxTab } from '@/components/tabs/IncomeTaxTab';
-import { NationalInsuranceTab } from '@/components/tabs/NationalInsuranceTab';
+import { TaxCodeTab } from '@/components/tabs/TaxCodeTab';
+import { StudentLoanTab } from '@/components/tabs/StudentLoanTab';
+import { PensionTab } from '@/components/tabs/PensionTab';
 
 const Index = () => {
   const { activeTab, setActiveTab } = useCalculatorStore();
@@ -22,47 +22,94 @@ const Index = () => {
 
   const tabs = [
     {
-      id: 'summary',
-      label: 'Take-home summary',
-      content: <SummaryTab />,
-    },
-    {
-      id: 'breakdown',
-      label: 'Monthly / Weekly / Daily / Hourly',
-      content: <BreakdownTab />,
-    },
-    {
-      id: 'income-tax',
-      label: 'Income Tax breakdown',
-      content: <IncomeTaxTab />,
-    },
-    {
-      id: 'national-insurance',
-      label: 'National Insurance breakdown',
-      content: <NationalInsuranceTab />,
+      id: 'tax-code',
+      label: 'Tax Code',
+      content: <TaxCodeTab />,
     },
     {
       id: 'student-loan',
-      label: 'Student loan',
+      label: 'Student Loan',
+      content: <StudentLoanTab />,
+    },
+    {
+      id: 'pension',
+      label: 'Pension',
+      content: <PensionTab />,
+    },
+    {
+      id: 'bonus',
+      label: 'Bonus',
       content: (
         <div className="space-y-4">
-          <h2 className="govuk-heading-l">Student loan repayments</h2>
+          <h2 className="govuk-heading-l">Bonus payments</h2>
           <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
-            <p>Student loan calculations will be available in the next update.</p>
-            <p className="mt-2 text-sm">Configure your student loan plan in the advanced options above.</p>
+            <p>Bonus calculation features will be available in the next update.</p>
+            <p className="mt-2 text-sm">Add one-off payments and bonuses to see their tax impact.</p>
           </div>
         </div>
       ),
     },
     {
-      id: 'pension',
-      label: 'Pension contributions',
+      id: 'overtime',
+      label: 'Overtime',
       content: (
         <div className="space-y-4">
-          <h2 className="govuk-heading-l">Pension breakdown</h2>
+          <h2 className="govuk-heading-l">Overtime payments</h2>
           <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
-            <p>Detailed pension calculations will be available in the next update.</p>
-            <p className="mt-2 text-sm">Basic pension calculations are included in the summary.</p>
+            <p>Overtime calculation features will be available in the next update.</p>
+            <p className="mt-2 text-sm">Calculate tax on overtime and additional hours worked.</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'childcare',
+      label: 'Childcare',
+      content: (
+        <div className="space-y-4">
+          <h2 className="govuk-heading-l">Childcare vouchers</h2>
+          <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+            <p>Childcare voucher calculations will be available in the next update.</p>
+            <p className="mt-2 text-sm">Include childcare vouchers and salary sacrifice schemes.</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'salary-sacrifice',
+      label: 'Salary Sacrifice',
+      content: (
+        <div className="space-y-4">
+          <h2 className="govuk-heading-l">Salary sacrifice schemes</h2>
+          <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+            <p>Additional salary sacrifice options will be available in the next update.</p>
+            <p className="mt-2 text-sm">Beyond pensions - cycle to work, electric cars, etc.</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'taxable-benefits',
+      label: 'Taxable Benefits',
+      content: (
+        <div className="space-y-4">
+          <h2 className="govuk-heading-l">Benefits in kind</h2>
+          <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+            <p>Taxable benefits calculations will be available in the next update.</p>
+            <p className="mt-2 text-sm">Company cars, medical insurance, and other taxable benefits.</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'additional-options',
+      label: 'Additional Options',
+      content: (
+        <div className="space-y-4">
+          <h2 className="govuk-heading-l">Additional calculation options</h2>
+          <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+            <p>Advanced options will be available in the next update.</p>
+            <p className="mt-2 text-sm">Marriage allowance, blind person's allowance, and other adjustments.</p>
           </div>
         </div>
       ),
@@ -78,8 +125,14 @@ const Index = () => {
         {/* Salary Input Section */}
         <SalaryInput />
         
-        {/* Calculator Results */}
+        {/* Results Display */}
+        <div className="px-4">
+          <ResultsDisplay />
+        </div>
+        
+        {/* Settings Tabs */}
         <div className="px-4 pb-8">
+          <h2 className="govuk-heading-l mb-6">Adjust your calculation</h2>
           <VerticalTabs
             tabs={tabs}
             activeTab={activeTab}
