@@ -23,6 +23,8 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
   const isMobile = useIsMobile();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
+  
+  // Force cache refresh
 
   // Handle URL hash changes
   useEffect(() => {
