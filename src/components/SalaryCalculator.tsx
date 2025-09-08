@@ -68,9 +68,9 @@ export function SalaryCalculator() {
   const showResults = inputs.grossAnnualSalary > 0 && !isCalculating && result;
 
   return (
-    <div className="bg-govuk-white border border-govuk-mid-grey mb-8">
-      {/* Salary Input Section */}
-      <div className="bg-govuk-light-blue border-b border-govuk-mid-grey p-6">
+    <div className="space-y-8">
+      {/* Hero Salary Input Section */}
+      <div className="text-center py-12">
         <GOVUKInput
           label="Gross yearly salary"
           hint="Enter your salary before tax and other deductions"
@@ -80,7 +80,7 @@ export function SalaryCalculator() {
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           error={error}
-          className="text-2xl py-3 font-bold"
+          className="text-3xl py-4 font-bold max-w-md mx-auto"
           inputMode="numeric"
           autoComplete="off"
         />
@@ -88,7 +88,7 @@ export function SalaryCalculator() {
 
       {/* Results Section */}
       {showResults && (
-        <div className="p-6">
+        <div className="bg-govuk-white border border-govuk-mid-grey p-6">
           {/* Header with Expand/Collapse Button */}
           <div className="flex justify-between items-center mb-6 pb-4 border-b border-govuk-mid-grey">
             <h2 className="text-xl font-bold text-govuk-black m-0">Your salary calculation</h2>
