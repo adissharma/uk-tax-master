@@ -70,7 +70,7 @@ export function SalaryCalculator() {
   return (
     <div className="space-y-8">
       {/* Hero Salary Input Section */}
-      <div className="py-12">
+      <div className="py-8">
         <GOVUKInput
           label="Gross yearly salary"
           hint="Enter your salary before tax and other deductions"
@@ -88,9 +88,9 @@ export function SalaryCalculator() {
 
       {/* Results Section */}
       {showResults && (
-        <div className="py-8">
+        <div className="py-4">
           {/* Header with Expand/Collapse Button */}
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-govuk-black">Your salary calculation</h2>
             <button
               onClick={toggleExpanded}
@@ -102,30 +102,31 @@ export function SalaryCalculator() {
           </div>
 
           {/* Results Table */}
-          <table className="w-full">
+          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <table className="w-full">
             <caption className="sr-only">
               Salary breakdown showing gross pay, deductions and take-home amounts
             </caption>
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-3 text-sm font-medium text-govuk-dark-grey">Item</th>
-                <th className="text-right py-3 text-sm font-medium text-govuk-dark-grey">Annual</th>
-                <th className="text-right py-3 text-sm font-medium text-govuk-dark-grey">Monthly</th>
-                <th className="text-right py-3 text-sm font-medium text-govuk-dark-grey">Weekly</th>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-700">Item</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-700">Annual</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-700">Monthly</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-700">Weekly</th>
               </tr>
             </thead>
             <tbody>
               {/* Gross Salary - only show when expanded */}
               {isExpanded && (
-                <tr className="border-b border-gray-100">
-                  <th className="text-left py-3 font-medium">Gross yearly salary</th>
-                  <td className="text-right py-3 font-medium text-govuk-blue">
+                <tr className="border-b border-gray-100 hover:bg-gray-50">
+                  <th className="text-left px-6 py-4 font-medium text-gray-900">Gross yearly salary</th>
+                  <td className="text-right px-6 py-4 font-medium text-govuk-blue">
                     {formatCurrency(result.gross.annual)}
                   </td>
-                  <td className="text-right py-3 font-medium text-govuk-blue">
+                  <td className="text-right px-6 py-4 font-medium text-govuk-blue">
                     {formatCurrency(result.gross.monthly)}
                   </td>
-                  <td className="text-right py-3 font-medium text-govuk-blue">
+                  <td className="text-right px-6 py-4 font-medium text-govuk-blue">
                     {formatCurrency(result.gross.weekly)}
                   </td>
                 </tr>
@@ -134,72 +135,72 @@ export function SalaryCalculator() {
               {/* Deductions - only show when expanded */}
               {isExpanded && (
                 <>
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left py-3">Income tax</th>
-                    <td className="text-right py-3 text-govuk-red">
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <th className="text-left px-6 py-4 text-gray-900">Income tax</th>
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.incomeTax.annual)}
                     </td>
-                    <td className="text-right py-3 text-govuk-red">
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.incomeTax.monthly)}
                     </td>
-                    <td className="text-right py-3 text-govuk-red">
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.incomeTax.annual / 52)}
                     </td>
                   </tr>
 
-                  <tr className="border-b border-gray-100">
-                    <th className="text-left py-3">National Insurance</th>
-                    <td className="text-right py-3 text-govuk-red">
+                  <tr className="border-b border-gray-100 hover:bg-gray-50">
+                    <th className="text-left px-6 py-4 text-gray-900">National Insurance</th>
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.nationalInsurance.employee.annual)}
                     </td>
-                    <td className="text-right py-3 text-govuk-red">
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.nationalInsurance.employee.monthly)}
                     </td>
-                    <td className="text-right py-3 text-govuk-red">
+                    <td className="text-right px-6 py-4 text-govuk-red">
                       -{formatCurrency(result.nationalInsurance.employee.annual / 52)}
                     </td>
                   </tr>
 
                   {result.studentLoan.annual > 0 && (
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left py-3">Student loan</th>
-                      <td className="text-right py-3 text-govuk-red">
+                    <tr className="border-b border-gray-100 hover:bg-gray-50">
+                      <th className="text-left px-6 py-4 text-gray-900">Student loan</th>
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.studentLoan.annual)}
                       </td>
-                      <td className="text-right py-3 text-govuk-red">
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.studentLoan.monthly)}
                       </td>
-                      <td className="text-right py-3 text-govuk-red">
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.studentLoan.annual / 52)}
                       </td>
                     </tr>
                   )}
 
                   {result.pension.employee.annual > 0 && (
-                    <tr className="border-b border-gray-100">
-                      <th className="text-left py-3">Pension</th>
-                      <td className="text-right py-3 text-govuk-red">
+                    <tr className="border-b border-gray-100 hover:bg-gray-50">
+                      <th className="text-left px-6 py-4 text-gray-900">Pension</th>
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.pension.employee.annual)}
                       </td>
-                      <td className="text-right py-3 text-govuk-red">
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.pension.employee.monthly)}
                       </td>
-                      <td className="text-right py-3 text-govuk-red">
+                      <td className="text-right px-6 py-4 text-govuk-red">
                         -{formatCurrency(result.pension.employee.annual / 52)}
                       </td>
                     </tr>
                   )}
 
                   {/* Total Deductions - only show when expanded */}
-                  <tr className="border-b-2 border-gray-300">
-                    <th className="text-left py-3 font-medium">Total deductions</th>
-                    <td className="text-right py-3 font-medium text-govuk-red">
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="text-left px-6 py-4 font-semibold text-gray-900">Total deductions</th>
+                    <td className="text-right px-6 py-4 font-semibold text-govuk-red">
                       -{formatCurrency(result.gross.annual - result.net.annual)}
                     </td>
-                    <td className="text-right py-3 font-medium text-govuk-red">
+                    <td className="text-right px-6 py-4 font-semibold text-govuk-red">
                       -{formatCurrency((result.gross.annual - result.net.annual) / 12)}
                     </td>
-                    <td className="text-right py-3 font-medium text-govuk-red">
+                    <td className="text-right px-6 py-4 font-semibold text-govuk-red">
                       -{formatCurrency((result.gross.annual - result.net.annual) / 52)}
                     </td>
                   </tr>
@@ -207,20 +208,21 @@ export function SalaryCalculator() {
               )}
 
               {/* Take-home Pay - always visible */}
-              <tr className={`${isExpanded ? 'border-t-2 border-gray-300' : ''} bg-green-50`}>
-                <th className="text-left py-4 font-bold text-lg">Your take-home pay</th>
-                <td className="text-right py-4 font-bold text-lg text-govuk-green">
+              <tr className="bg-govuk-light-green">
+                <th className="text-left px-6 py-5 font-bold text-lg text-gray-900">Your take-home pay</th>
+                <td className="text-right px-6 py-5 font-bold text-lg text-govuk-green">
                   {formatCurrency(result.net.annual)}
                 </td>
-                <td className="text-right py-4 font-bold text-lg text-govuk-green">
+                <td className="text-right px-6 py-5 font-bold text-lg text-govuk-green">
                   {formatCurrency(result.net.monthly)}
                 </td>
-                <td className="text-right py-4 font-bold text-lg text-govuk-green">
+                <td className="text-right px-6 py-5 font-bold text-lg text-govuk-green">
                   {formatCurrency(result.net.weekly)}
                 </td>
               </tr>
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
     </div>
