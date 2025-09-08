@@ -11,9 +11,11 @@ export function Header() {
       
       {/* Logo */}
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <h1 className="text-3xl font-bold text-black m-0">
-          whatismypay.co.uk
-        </h1>
+        <img 
+          src="/lovable-uploads/09f9d6fc-85f2-4e97-97bf-fc9a78aaeb62.png" 
+          alt="whatismypay.co.uk"
+          className="h-12"
+        />
       </div>
     </header>
   );
