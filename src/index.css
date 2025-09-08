@@ -2,106 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Material Design 3 Design System */
+/* GOV.UK Design System inspired color palette and tokens */
 
-/* Roboto Font - Material Design 3 default typography */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* GDS Transport Web Font */
+@font-face {
+  font-family: "GDS Transport";
+  src: url("https://assets.publishing.service.gov.uk/static/fonts/light_94a07e06a1-v2.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "GDS Transport";  
+  src: url("https://assets.publishing.service.gov.uk/static/fonts/regular_92035ff59c-v2.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "GDS Transport";
+  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "GDS Transport";
+  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback;
+}
 
 @layer base {
   :root {
-    /* Material Design 3 Color System - Light Theme */
+    /* GOV.UK Brand Colors */
+    --govuk-black: 206 12% 6%;
+    --govuk-dark-grey: 210 11% 15%;
+    --govuk-mid-grey: 210 14% 89%;
+    --govuk-light-grey: 210 17% 95%;
+    --govuk-white: 0 0% 100%;
     
-    /* Primary Colors */
-    --md-primary: 258 89% 66%;
-    --md-on-primary: 0 0% 100%;
-    --md-primary-container: 261 100% 95%;
-    --md-on-primary-container: 256 100% 13%;
+    /* GOV.UK Blue */
+    --govuk-blue: 220 43% 20%;
+    --govuk-light-blue: 204 100% 97%;
     
-    /* Secondary Colors */
-    --md-secondary: 258 22% 59%;
-    --md-on-secondary: 0 0% 100%;
-    --md-secondary-container: 260 39% 91%;
-    --md-on-secondary-container: 257 36% 16%;
+    /* Status Colors */
+    --govuk-green: 120 44% 34%;
+    --govuk-light-green: 120 43% 95%;
+    --govuk-red: 0 73% 41%;
+    --govuk-light-red: 0 100% 97%;
+    --govuk-orange: 35 100% 50%;
+    --govuk-yellow: 48 100% 67%;
     
-    /* Tertiary Colors */
-    --md-tertiary: 30 81% 56%;
-    --md-on-tertiary: 0 0% 100%;
-    --md-tertiary-container: 31 100% 93%;
-    --md-on-tertiary-container: 28 100% 11%;
+    /* Semantic Design Tokens */
+    --background: var(--govuk-white);
+    --foreground: var(--govuk-black);
     
-    /* Error Colors */
-    --md-error: 0 84% 60%;
-    --md-on-error: 0 0% 100%;
-    --md-error-container: 0 100% 95%;
-    --md-on-error-container: 0 100% 11%;
+    --primary: var(--govuk-blue);
+    --primary-foreground: var(--govuk-white);
+    --primary-hover: 220 43% 16%;
     
-    /* Surface Colors */
-    --md-surface: 0 0% 99%;
-    --md-on-surface: 258 8% 7%;
-    --md-surface-variant: 261 11% 92%;
-    --md-on-surface-variant: 258 12% 42%;
-    --md-surface-container-highest: 260 6% 93%;
-    --md-surface-container-high: 260 7% 96%;
-    --md-surface-container: 260 11% 98%;
-    --md-surface-container-low: 0 0% 100%;
-    --md-surface-container-lowest: 0 0% 100%;
-    --md-inverse-surface: 259 19% 13%;
-    --md-inverse-on-surface: 258 7% 87%;
-    --md-inverse-primary: 261 100% 87%;
+    --secondary: var(--govuk-mid-grey);
+    --secondary-foreground: var(--govuk-black);
     
-    /* Outline Colors */
-    --md-outline: 258 12% 72%;
-    --md-outline-variant: 261 11% 84%;
+    --accent: var(--govuk-light-blue);
+    --accent-foreground: var(--govuk-blue);
     
-    /* Semantic Design Tokens mapping to Material 3 */
-    --background: var(--md-surface);
-    --foreground: var(--md-on-surface);
+    --muted: var(--govuk-light-grey);
+    --muted-foreground: var(--govuk-dark-grey);
     
-    --primary: var(--md-primary);
-    --primary-foreground: var(--md-on-primary);
-    --primary-hover: 258 89% 60%;
+    --border: var(--govuk-black);
+    --input-border: var(--govuk-black);
+    --input-background: var(--govuk-white);
+    --input-focus: 50 100% 50%;
     
-    --secondary: var(--md-secondary);
-    --secondary-foreground: var(--md-on-secondary);
+    --destructive: var(--govuk-red);
+    --destructive-foreground: var(--govuk-white);
     
-    --accent: var(--md-tertiary);
-    --accent-foreground: var(--md-on-tertiary);
+    --success: var(--govuk-green);
+    --success-foreground: var(--govuk-white);
     
-    --muted: var(--md-surface-variant);
-    --muted-foreground: var(--md-on-surface-variant);
+    --warning: var(--govuk-orange);
+    --warning-foreground: var(--govuk-black);
     
-    --border: var(--md-outline-variant);
-    --input-border: var(--md-outline);
-    --input-background: var(--md-surface-container);
-    --input-focus: var(--md-primary);
+    /* Typography scale */
+    --text-xl: 2rem;
+    --text-lg: 1.5rem;
+    --text-md: 1.25rem;
+    --text-sm: 1.125rem;
+    --text-xs: 1rem;
     
-    --destructive: var(--md-error);
-    --destructive-foreground: var(--md-on-error);
-    
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 100%;
-    
-    --warning: var(--md-tertiary);
-    --warning-foreground: var(--md-on-tertiary);
-    
-    /* Material 3 Typography Scale */
-    --display-large: 3.5rem;
-    --display-medium: 2.8125rem;
-    --display-small: 2.25rem;
-    --headline-large: 2rem;
-    --headline-medium: 1.75rem;
-    --headline-small: 1.5rem;
-    --title-large: 1.375rem;
-    --title-medium: 1rem;
-    --title-small: 0.875rem;
-    --body-large: 1rem;
-    --body-medium: 0.875rem;
-    --body-small: 0.75rem;
-    --label-large: 0.875rem;
-    --label-medium: 0.75rem;
-    --label-small: 0.6875rem;
-    
-    /* Material 3 Spacing Scale */
+    /* Spacing scale */
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
     --space-md: 1rem;
@@ -110,60 +105,9 @@
     --space-2xl: 3rem;
     --space-3xl: 4rem;
     
-    /* Material 3 Border Radius */
-    --radius: 0.75rem;
-    --radius-sm: 0.5rem;
-    --radius-xs: 0.25rem;
-    
     /* Focus styles */
-    --focus-width: 2px;
-    --focus-color: var(--md-primary);
-  }
-  
-  .dark {
-    /* Material Design 3 Color System - Dark Theme */
-    
-    /* Primary Colors */
-    --md-primary: 261 100% 87%;
-    --md-on-primary: 256 100% 13%;
-    --md-primary-container: 257 100% 26%;
-    --md-on-primary-container: 261 100% 95%;
-    
-    /* Secondary Colors */
-    --md-secondary: 260 39% 77%;
-    --md-on-secondary: 257 36% 26%;
-    --md-secondary-container: 257 36% 36%;
-    --md-on-secondary-container: 260 39% 91%;
-    
-    /* Tertiary Colors */
-    --md-tertiary: 31 100% 80%;
-    --md-on-tertiary: 28 100% 21%;
-    --md-tertiary-container: 29 100% 31%;
-    --md-on-tertiary-container: 31 100% 93%;
-    
-    /* Error Colors */
-    --md-error: 0 93% 58%;
-    --md-on-error: 0 100% 21%;
-    --md-error-container: 0 100% 31%;
-    --md-on-error-container: 0 100% 95%;
-    
-    /* Surface Colors */
-    --md-surface: 258 8% 7%;
-    --md-on-surface: 258 7% 87%;
-    --md-surface-variant: 258 12% 20%;
-    --md-on-surface-variant: 261 11% 69%;
-    --md-surface-container-highest: 260 6% 17%;
-    --md-surface-container-high: 260 7% 14%;
-    --md-surface-container: 260 11% 12%;
-    --md-surface-container-low: 258 8% 10%;
-    --md-surface-container-lowest: 260 14% 6%;
-    --md-inverse-surface: 258 7% 87%;
-    --md-inverse-on-surface: 259 19% 13%;
-    --md-inverse-primary: 258 89% 66%;
-    
-    /* Outline Colors */
-    --md-outline: 258 12% 42%;
-    --md-outline-variant: 258 12% 30%;
+    --focus-width: 3px;
+    --focus-color: var(--input-focus);
   }
 }
 
@@ -173,173 +117,105 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: "Roboto", sans-serif;
-    line-height: 1.6;
-    font-weight: 400;
-  }
-  
-  /* Material Design 3 Typography Classes */
-  .display-large {
-    font-size: var(--display-large);
-    line-height: 1.12;
-    font-weight: 400;
-    letter-spacing: -0.25px;
-  }
-  
-  .display-medium {
-    font-size: var(--display-medium);
-    line-height: 1.16;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .display-small {
-    font-size: var(--display-small);
-    line-height: 1.22;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .headline-large {
-    font-size: var(--headline-large);
-    line-height: 1.25;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .headline-medium {
-    font-size: var(--headline-medium);
-    line-height: 1.29;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .headline-small, h1 {
-    font-size: var(--headline-small);
-    line-height: 1.33;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .title-large, h2 {
-    font-size: var(--title-large);
-    line-height: 1.27;
-    font-weight: 400;
-    letter-spacing: 0px;
-  }
-  
-  .title-medium, h3 {
-    font-size: var(--title-medium);
+    @apply bg-background text-foreground font-sans;
+    font-family: "GDS Transport", Arial, sans-serif;
     line-height: 1.5;
-    font-weight: 500;
-    letter-spacing: 0.15px;
   }
   
-  .title-small, h4 {
-    font-size: var(--title-small);
-    line-height: 1.43;
-    font-weight: 500;
-    letter-spacing: 0.1px;
+  /* GOV.UK Typography */
+  h1, .govuk-heading-xl {
+    @apply text-4xl font-bold leading-tight mb-6;
   }
   
-  .body-large, p {
-    font-size: var(--body-large);
-    line-height: 1.5;
-    font-weight: 400;
-    letter-spacing: 0.5px;
+  h2, .govuk-heading-l {
+    @apply text-2xl font-bold leading-tight mb-4;
   }
   
-  .body-medium {
-    font-size: var(--body-medium);
-    line-height: 1.43;
-    font-weight: 400;
-    letter-spacing: 0.25px;
+  h3, .govuk-heading-m {
+    @apply text-xl font-bold leading-tight mb-3;
   }
   
-  .body-small {
-    font-size: var(--body-small);
-    line-height: 1.33;
-    font-weight: 400;
-    letter-spacing: 0.4px;
+  h4, .govuk-heading-s {
+    @apply text-lg font-bold leading-tight mb-2;
   }
   
-  .label-large {
-    font-size: var(--label-large);
-    line-height: 1.43;
-    font-weight: 500;
-    letter-spacing: 0.1px;
+  .govuk-body {
+    @apply text-base leading-relaxed mb-4;
   }
   
-  .label-medium {
-    font-size: var(--label-medium);
-    line-height: 1.33;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+  .govuk-body-s {
+    @apply text-sm leading-relaxed mb-3;
   }
   
-  .label-small {
-    font-size: var(--label-small);
-    line-height: 1.45;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Material Design 3 Focus Styles */
-  .md-focus {
+  /* Focus styles following GOV.UK pattern */
+  .govuk-focus {
     outline: var(--focus-width) solid hsl(var(--focus-color));
-    outline-offset: 2px;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 2px;
   }
   
-  /* Material Design 3 Elevation */
-  .elevation-1 {
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  /* Skip link */
+  .govuk-skip-link {
+    @apply absolute left-0 top-0 z-50 bg-primary text-primary-foreground px-4 py-2 font-bold;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
   }
   
-  .elevation-2 {
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  .govuk-skip-link:focus {
+    @apply govuk-focus;
+    transform: translateY(0);
   }
   
-  .elevation-3 {
-    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+  /* GOV.UK Table Styles */
+  .govuk-table {
+    @apply w-full border-collapse mb-6;
   }
   
-  .elevation-4 {
-    box-shadow: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+  .govuk-table__caption {
+    @apply font-bold text-left mb-2;
   }
   
-  .elevation-5 {
-    box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+  .govuk-table__caption--s {
+    @apply text-base;
   }
   
-  /* Material Design 3 Table Styles */
-  .md-table {
-    @apply w-full mb-6;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    background-color: hsl(var(--md-surface-container));
+  .govuk-table__caption--m {
+    @apply text-lg;
   }
   
-  .md-table__header {
-    @apply font-medium py-4 px-4 text-left;
-    background-color: hsl(var(--md-surface-container-high));
-    color: hsl(var(--md-on-surface));
-    border-bottom: 1px solid hsl(var(--md-outline-variant));
+  .govuk-table__caption--l {
+    @apply text-xl;
   }
   
-  .md-table__cell {
-    @apply py-4 px-4;
-    border-bottom: 1px solid hsl(var(--md-outline-variant));
+  .govuk-table__caption--xl {
+    @apply text-2xl;
   }
   
-  .md-table__row:hover {
-    background-color: hsl(var(--md-surface-container-high));
+  .govuk-table__head {
+    border-bottom: 2px solid hsl(var(--govuk-black));
   }
   
-  .md-table__cell--numeric {
-    @apply text-right;
-    font-variant-numeric: tabular-nums;
+  .govuk-table__header {
+    @apply font-bold py-3 px-3 border-0;
+  }
+  
+  .govuk-table__body {
+    
+  }
+  
+  .govuk-table__row {
+    border-bottom: 1px solid hsl(var(--govuk-mid-grey));
+  }
+  
+  .govuk-table__row--thick-border {
+    border-bottom: 2px solid hsl(var(--govuk-black));
+  }
+  
+  .govuk-table__cell {
+    @apply py-3 px-3 border-0;
+  }
+  
+  .govuk-table__cell--numeric {
+    @apply text-right font-mono;
   }
 }

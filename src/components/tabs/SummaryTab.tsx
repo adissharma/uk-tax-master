@@ -1,6 +1,6 @@
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { formatCurrency } from '@/lib/calculator/engine';
-import { MaterialButton } from '../MaterialButton';
+import { GOVUKButton } from '../GOVUKButton';
 import { Copy } from 'lucide-react';
 
 export function SummaryTab() {
@@ -45,15 +45,15 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
     <div className="space-y-6">
       <div className="flex justify-between items-start">
         <h2 className="govuk-heading-l">Take-home pay summary</h2>
-        <MaterialButton
-          variant="tonal"
+        <GOVUKButton
+          variant="secondary"
           size="sm"
           onClick={copyResults}
           className="flex items-center gap-2"
         >
           <Copy size={16} />
           Copy results
-        </MaterialButton>
+        </GOVUKButton>
       </div>
 
       {/* Main Summary */}

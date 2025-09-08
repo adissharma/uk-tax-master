@@ -1,5 +1,5 @@
 import { useCalculatorStore } from '@/store/calculatorStore';
-import { MaterialInput } from '../MaterialInput';
+import { GOVUKInput } from '../GOVUKInput';
 import { useState } from 'react';
 
 export function TaxCodeTab() {
@@ -30,7 +30,7 @@ export function TaxCodeTab() {
       </div> */}
 
       <div className="space-y-4">
-        <MaterialInput
+        <GOVUKInput
           label="Tax code"
           hint="Enter your tax code from your payslip or P60. If you're not sure, use 1257L."
           value={taxCode}

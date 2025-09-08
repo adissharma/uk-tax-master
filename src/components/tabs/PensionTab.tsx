@@ -1,5 +1,5 @@
 import { useCalculatorStore } from '@/store/calculatorStore';
-import { MaterialInput } from '../MaterialInput';
+import { GOVUKInput } from '../GOVUKInput';
 import { useState } from 'react';
 
 export function PensionTab() {
@@ -34,7 +34,7 @@ export function PensionTab() {
       </div> */}
 
       <div className="space-y-6">
-        <MaterialInput
+        <GOVUKInput
           label="Employee contribution percentage"
           hint="Enter the percentage of your salary that you contribute to your pension"
           value={employeeContribution}
