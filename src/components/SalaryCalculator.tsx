@@ -70,17 +70,17 @@ export function SalaryCalculator() {
   return (
     <div className="space-y-8">
       {/* Hero Salary Input Section */}
-      <div className="text-center py-12">
+      <div className="py-12">
         <GOVUKInput
           label="Gross yearly salary"
           hint="Enter your salary before tax and other deductions"
-          prefix="£"
+          placeholder="£45,000"
           value={displayValue}
           onChange={handleInputChange}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
           error={error}
-          className="text-3xl py-4 font-bold max-w-md mx-auto"
+          className="text-3xl py-4 font-bold max-w-md"
           inputMode="numeric"
           autoComplete="off"
         />
