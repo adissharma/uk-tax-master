@@ -14,7 +14,7 @@ export function Header() {
         <img 
           src="/lovable-uploads/09f9d6fc-85f2-4e97-97bf-fc9a78aaeb62.png" 
           alt="whatismypay.co.uk"
-          className="h-12"
+          className="h-20"
         />
       </div>
     </header>
