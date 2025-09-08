@@ -22,12 +22,12 @@ export function TaxCodeTab() {
     <div className="space-y-6">
       <h2 className="govuk-heading-l">Tax code and region</h2>
       
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <p className="text-sm mb-2">
           Your tax code determines how much tax-free income you get each year. 
           Most people have the standard tax code 1257L.
         </p>
-      </div>
+      </div> */}
 
       <div className="space-y-4">
         <GOVUKInput
@@ -73,7 +73,7 @@ export function TaxCodeTab() {
           </div>
         </fieldset>
 
-        <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
+        {/* <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
           <h3 className="font-bold mb-2">About tax codes</h3>
           <ul className="text-sm space-y-1">
             <li>• 1257L is the most common tax code for 2024-25</li>
@@ -81,7 +81,7 @@ export function TaxCodeTab() {
             <li>• L means you're entitled to the standard tax-free Personal Allowance</li>
             <li>• Check your payslip or contact HMRC if you're unsure</li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

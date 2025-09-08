@@ -137,7 +137,7 @@ export function NationalInsuranceTab() {
       </div>
 
       {/* Employer NI Summary */}
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <h3 className="font-bold mb-2">Employer National Insurance</h3>
         <p className="mb-2">
           Your employer also pays National Insurance on your salary: 
@@ -150,7 +150,7 @@ export function NationalInsuranceTab() {
       </div>
 
       {/* Additional Information */}
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <h3 className="font-bold mb-2">About National Insurance</h3>
         <ul className="space-y-2 text-sm">
           <li>• National Insurance is calculated on your gross earnings before pension contributions (if salary exchange)</li>
@@ -159,7 +159,7 @@ export function NationalInsuranceTab() {
           <li>• The Primary Threshold is currently £{niThresholds.primaryThreshold.toLocaleString()} per year</li>
           <li>• The Upper Earnings Limit is currently £{niThresholds.upperEarningsLimit.toLocaleString()} per year</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }

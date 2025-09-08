@@ -27,11 +27,11 @@ export function PensionTab() {
     <div className="space-y-6">
       <h2 className="govuk-heading-l">Pension contributions</h2>
       
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <p className="text-sm">
           Enter your pension contribution details. Most employers offer workplace pensions with matching contributions.
         </p>
-      </div>
+      </div> */}
 
       <div className="space-y-6">
         <GOVUKInput
@@ -81,7 +81,7 @@ export function PensionTab() {
           </div>
         </fieldset>
 
-        <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
+        {/* <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
           <h3 className="font-bold mb-2">About pension contributions</h3>
           <ul className="text-sm space-y-1">
             <li>• Most employers will match your contributions up to a certain percentage</li>
@@ -97,7 +97,7 @@ export function PensionTab() {
             Most employers match employee contributions. We assume your employer contributes the same percentage as you do.
             This employer contribution doesn't affect your take-home pay but increases your total pension pot.
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

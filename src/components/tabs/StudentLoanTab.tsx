@@ -17,11 +17,11 @@ export function StudentLoanTab() {
     <div className="space-y-6">
       <h2 className="govuk-heading-l">Student loan repayments</h2>
       
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <p className="text-sm">
           If you're still repaying your Student Loan, please select the repayment option that applies to you.
         </p>
-      </div>
+      </div> */}
 
       <fieldset className="space-y-4">
         <legend className="font-bold text-lg mb-4">Student loan repayment plan</legend>
@@ -102,7 +102,7 @@ export function StudentLoanTab() {
         </div>
       </fieldset>
 
-      <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
+      {/* <div className="bg-govuk-light-blue border-l-4 border-govuk-blue p-4">
         <h3 className="font-bold mb-2">Student loan repayment rates (2024-25)</h3>
         <ul className="text-sm space-y-1">
           <li>• <strong>Plan 1:</strong> 9% on income over £22,015</li>
@@ -110,7 +110,7 @@ export function StudentLoanTab() {
           <li>• <strong>Plan 4:</strong> 9% on income over £31,395</li>
           <li>• <strong>Postgraduate:</strong> 6% on income over £21,000</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }

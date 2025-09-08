@@ -91,7 +91,7 @@ export function IncomeTaxTab() {
       </div>
 
       {/* Additional Information */}
-      <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
+      {/* <div className="bg-govuk-light-grey border-l-4 border-govuk-dark-grey p-4">
         <h3 className="font-bold mb-2">How income tax is calculated</h3>
         <ul className="space-y-2 text-sm">
           <li>• Your personal allowance of {formatCurrency(result.personalAllowance)} is tax-free</li>
@@ -101,7 +101,7 @@ export function IncomeTaxTab() {
             <li className="text-govuk-red">• Your personal allowance is reduced because your income is over £100,000</li>
           )}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
