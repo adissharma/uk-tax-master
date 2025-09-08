@@ -15,7 +15,7 @@ export default {
     extend: {
       colors: {
         border: "hsl(var(--border))",
-        input: "hsl(var(--input-background))",
+        input: "hsl(var(--input-border))",
         ring: "hsl(var(--input-focus))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -48,7 +48,32 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        // GOV.UK specific colors
+        // Modern color palette
+        slate: {
+          50: "hsl(var(--slate-50))",
+          100: "hsl(var(--slate-100))",
+          200: "hsl(var(--slate-200))",
+          300: "hsl(var(--slate-300))",
+          400: "hsl(var(--slate-400))",
+          500: "hsl(var(--slate-500))",
+          600: "hsl(var(--slate-600))",
+          700: "hsl(var(--slate-700))",
+          800: "hsl(var(--slate-800))",
+          900: "hsl(var(--slate-900))",
+        },
+        emerald: {
+          50: "hsl(var(--emerald-50))",
+          100: "hsl(var(--emerald-100))",
+          200: "hsl(var(--emerald-200))",
+          300: "hsl(var(--emerald-300))",
+          400: "hsl(var(--emerald-400))",
+          500: "hsl(var(--emerald-500))",
+          600: "hsl(var(--emerald-600))",
+          700: "hsl(var(--emerald-700))",
+          800: "hsl(var(--emerald-800))",
+          900: "hsl(var(--emerald-900))",
+        },
+        // Legacy GOV.UK colors for backward compatibility
         govuk: {
           black: "hsl(var(--govuk-black))",
           'dark-grey': "hsl(var(--govuk-dark-grey))",
@@ -66,6 +91,15 @@ export default {
         },
       },
       fontSize: {
+        xs: "var(--text-xs)",
+        sm: "var(--text-sm)", 
+        base: "var(--text-base)",
+        lg: "var(--text-lg)",
+        xl: "var(--text-xl)",
+        "2xl": "var(--text-2xl)",
+        "3xl": "var(--text-3xl)",
+        "4xl": "var(--text-4xl)",
+        // Legacy govuk sizes for compatibility
         'govuk-xl': 'var(--text-xl)',
         'govuk-lg': 'var(--text-lg)',
         'govuk-md': 'var(--text-md)',
@@ -73,6 +107,16 @@ export default {
         'govuk-xs': 'var(--text-xs)',
       },
       spacing: {
+        1: "var(--space-1)",
+        2: "var(--space-2)",
+        3: "var(--space-3)",
+        4: "var(--space-4)",
+        5: "var(--space-5)",
+        6: "var(--space-6)",
+        8: "var(--space-8)",
+        10: "var(--space-10)",
+        12: "var(--space-12)",
+        // Legacy govuk spacing for compatibility
         'govuk-xs': 'var(--space-xs)',
         'govuk-sm': 'var(--space-sm)',
         'govuk-md': 'var(--space-md)',
@@ -82,9 +126,18 @@ export default {
         'govuk-3xl': 'var(--space-3xl)',
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "var(--radius-sm)",
+        DEFAULT: "var(--radius)",
+        lg: "var(--radius-lg)",
+      },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        DEFAULT: "var(--shadow)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+      },
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

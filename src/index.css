@@ -1,113 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* GOV.UK Design System inspired color palette and tokens */
-
-/* GDS Transport Web Font */
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/light_94a07e06a1-v2.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";  
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/regular_92035ff59c-v2.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: fallback;
-}
-
 @layer base {
   :root {
-    /* GOV.UK Brand Colors */
-    --govuk-black: 206 12% 6%;
-    --govuk-dark-grey: 210 11% 15%;
-    --govuk-mid-grey: 210 14% 89%;
-    --govuk-light-grey: 210 17% 95%;
+    /* Modern Color Palette */
+    --slate-50: 248 250 252;
+    --slate-100: 241 245 249;
+    --slate-200: 226 232 240;
+    --slate-300: 203 213 225;
+    --slate-400: 148 163 184;
+    --slate-500: 100 116 139;
+    --slate-600: 71 85 105;
+    --slate-700: 51 65 85;
+    --slate-800: 30 41 59;
+    --slate-900: 15 23 42;
+    
+    /* Modern Green Palette */
+    --emerald-50: 236 253 245;
+    --emerald-100: 209 250 229;
+    --emerald-200: 167 243 208;
+    --emerald-300: 110 231 183;
+    --emerald-400: 52 211 153;
+    --emerald-500: 16 185 129;
+    --emerald-600: 5 150 105;
+    --emerald-700: 4 120 87;
+    --emerald-800: 6 95 70;
+    --emerald-900: 6 78 59;
+    
+    /* Legacy GOV.UK Colors (for backward compatibility) */
+    --govuk-black: var(--slate-900);
+    --govuk-dark-grey: var(--slate-700);
+    --govuk-mid-grey: var(--slate-200);
+    --govuk-light-grey: var(--slate-100);
     --govuk-white: 0 0% 100%;
-    
-    /* GOV.UK Blue */
-    --govuk-blue: 220 43% 20%;
-    --govuk-light-blue: 204 100% 97%;
-    
-    /* Status Colors */
-    --govuk-green: 120 44% 34%;
-    --govuk-light-green: 120 43% 95%;
-    --govuk-red: 0 73% 41%;
+    --govuk-blue: var(--emerald-600);
+    --govuk-light-blue: var(--emerald-50);
+    --govuk-green: var(--emerald-600);
+    --govuk-light-green: var(--emerald-50);
+    --govuk-red: 0 84% 60%;
     --govuk-light-red: 0 100% 97%;
-    --govuk-orange: 35 100% 50%;
+    --govuk-orange: 25 95% 53%;
     --govuk-yellow: 48 100% 67%;
     
-    /* Semantic Design Tokens */
-    --background: var(--govuk-white);
-    --foreground: var(--govuk-black);
+    /* Modern Semantic Design Tokens */
+    --background: var(--slate-50);
+    --foreground: var(--slate-900);
     
-    --primary: var(--govuk-blue);
-    --primary-foreground: var(--govuk-white);
-    --primary-hover: 220 43% 16%;
+    --primary: var(--emerald-600);
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: var(--emerald-700);
     
-    --secondary: var(--govuk-mid-grey);
-    --secondary-foreground: var(--govuk-black);
+    --secondary: var(--slate-100);
+    --secondary-foreground: var(--slate-900);
     
-    --accent: var(--govuk-light-blue);
-    --accent-foreground: var(--govuk-blue);
+    --accent: var(--emerald-50);
+    --accent-foreground: var(--emerald-700);
     
-    --muted: var(--govuk-light-grey);
-    --muted-foreground: var(--govuk-dark-grey);
+    --muted: var(--slate-50);
+    --muted-foreground: var(--slate-600);
     
-    --border: var(--govuk-black);
-    --input-border: var(--govuk-black);
-    --input-background: var(--govuk-white);
-    --input-focus: 50 100% 50%;
+    --border: var(--slate-200);
+    --input-border: var(--slate-300);
+    --input-background: 0 0% 100%;
+    --input-focus: var(--emerald-500);
     
-    --destructive: var(--govuk-red);
-    --destructive-foreground: var(--govuk-white);
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
     
-    --success: var(--govuk-green);
-    --success-foreground: var(--govuk-white);
+    --success: var(--emerald-600);
+    --success-foreground: 0 0% 100%;
     
-    --warning: var(--govuk-orange);
-    --warning-foreground: var(--govuk-black);
+    --warning: 25 95% 53%;
+    --warning-foreground: 0 0% 100%;
     
-    /* Typography scale */
-    --text-xl: 2rem;
-    --text-lg: 1.5rem;
-    --text-md: 1.25rem;
-    --text-sm: 1.125rem;
-    --text-xs: 1rem;
+    /* Modern Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
     
-    /* Spacing scale */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
+    /* Modern Spacing Scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    
+    /* Modern Radius */
+    --radius: 0.5rem;
+    --radius-sm: 0.25rem;
+    --radius-lg: 0.75rem;
+    
+    /* Modern Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     
     /* Focus styles */
-    --focus-width: 3px;
-    --focus-color: var(--input-focus);
+    --focus-width: 2px;
+    --focus-color: var(--emerald-500);
   }
 }
 
@@ -117,46 +120,49 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: "GDS Transport", Arial, sans-serif;
-    line-height: 1.5;
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
-  /* GOV.UK Typography */
+  /* Modern Typography */
   h1, .govuk-heading-xl {
-    @apply text-4xl font-bold leading-tight mb-6;
+    @apply text-3xl md:text-4xl font-semibold leading-tight mb-6 text-slate-900;
   }
   
   h2, .govuk-heading-l {
-    @apply text-2xl font-bold leading-tight mb-4;
+    @apply text-2xl font-semibold leading-tight mb-4 text-slate-900;
   }
   
   h3, .govuk-heading-m {
-    @apply text-xl font-bold leading-tight mb-3;
+    @apply text-xl font-medium leading-tight mb-3 text-slate-800;
   }
   
   h4, .govuk-heading-s {
-    @apply text-lg font-bold leading-tight mb-2;
+    @apply text-lg font-medium leading-tight mb-2 text-slate-800;
   }
   
   .govuk-body {
-    @apply text-base leading-relaxed mb-4;
+    @apply text-base leading-relaxed mb-4 text-slate-700;
   }
   
   .govuk-body-s {
-    @apply text-sm leading-relaxed mb-3;
+    @apply text-sm leading-relaxed mb-3 text-slate-600;
   }
   
-  /* Focus styles following GOV.UK pattern */
+  /* Modern Focus styles */
   .govuk-focus {
     outline: var(--focus-width) solid hsl(var(--focus-color));
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 2px;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
   
   /* Skip link */
   .govuk-skip-link {
-    @apply absolute left-0 top-0 z-50 bg-primary text-primary-foreground px-4 py-2 font-bold;
+    @apply absolute left-4 top-4 z-50 bg-primary text-primary-foreground px-4 py-2 font-medium rounded-md;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
   }
@@ -166,13 +172,16 @@
     transform: translateY(0);
   }
   
-  /* GOV.UK Table Styles */
+  /* Modern Table Styles */
   .govuk-table {
-    @apply w-full border-collapse mb-6;
+    @apply w-full mb-6 bg-white rounded-lg overflow-hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: var(--shadow);
   }
   
   .govuk-table__caption {
-    @apply font-bold text-left mb-2;
+    @apply font-semibold text-left mb-4 text-slate-900;
   }
   
   .govuk-table__caption--s {
@@ -192,27 +201,33 @@
   }
   
   .govuk-table__head {
-    border-bottom: 2px solid hsl(var(--govuk-black));
+    @apply bg-slate-50;
+    border-bottom: 1px solid hsl(var(--slate-200));
   }
   
   .govuk-table__header {
-    @apply font-bold py-3 px-3 border-0;
+    @apply font-medium py-4 px-6 border-0 text-slate-700;
   }
   
   .govuk-table__body {
-    
+    @apply bg-white;
   }
   
   .govuk-table__row {
-    border-bottom: 1px solid hsl(var(--govuk-mid-grey));
+    border-bottom: 1px solid hsl(var(--slate-100));
+    transition: background-color 0.2s ease;
+  }
+  
+  .govuk-table__row:hover {
+    @apply bg-slate-25;
   }
   
   .govuk-table__row--thick-border {
-    border-bottom: 2px solid hsl(var(--govuk-black));
+    border-bottom: 2px solid hsl(var(--slate-300));
   }
   
   .govuk-table__cell {
-    @apply py-3 px-3 border-0;
+    @apply py-4 px-6 border-0 text-slate-600;
   }
   
   .govuk-table__cell--numeric {
