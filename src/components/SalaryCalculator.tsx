@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { GOVUKInput } from './GOVUKInput';
-import { GOVUKButton } from './GOVUKButton';
+import { MaterialInput } from './MaterialInput';
+import { MaterialButton } from './MaterialButton';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { formatCurrency } from '@/lib/calculator/engine';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -71,7 +71,7 @@ export function SalaryCalculator() {
     <div className="bg-govuk-white border border-govuk-mid-grey mb-8">
       {/* Salary Input Section */}
       <div className="bg-govuk-light-blue border-b border-govuk-mid-grey p-6">
-        <GOVUKInput
+        <MaterialInput
           label="Gross yearly salary"
           hint="Enter your salary before tax and other deductions"
           prefix="£"
@@ -92,15 +92,15 @@ export function SalaryCalculator() {
           {/* Header with Expand/Collapse Button */}
           <div className="flex justify-between items-center mb-6 pb-4 border-b border-govuk-mid-grey">
             <h2 className="text-xl font-bold text-govuk-black m-0">Your salary calculation</h2>
-            <GOVUKButton
-              variant="secondary"
+            <MaterialButton
+              variant="tonal"
               size="sm"
               onClick={toggleExpanded}
               className="flex items-center gap-2"
             >
               {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               {isExpanded ? 'Show less' : 'Show breakdown'}
-            </GOVUKButton>
+            </MaterialButton>
           </div>
 
           {/* Results Table */}
