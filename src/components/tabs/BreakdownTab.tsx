@@ -38,7 +38,7 @@ export function BreakdownTab() {
 
       {/* Period Selector */}
       <fieldset className="border border-govuk-mid-grey p-4">
-        <legend className="font-bold px-2">Select time period</legend>
+        <legend className="font-medium px-2 text-sm">Select time period</legend>
         <div className="flex flex-wrap gap-2 mt-2">
           {periods.map((period) => (
             <label key={period.key} className="flex items-center">

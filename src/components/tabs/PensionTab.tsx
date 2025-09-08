@@ -47,7 +47,7 @@ export function PensionTab() {
         />
 
         <fieldset className="border-2 border-govuk-mid-grey p-4">
-          <legend className="font-bold px-2 text-lg">Pension scheme type</legend>
+          <legend className="font-medium px-2 text-base">Pension scheme type</legend>
           <div className="space-y-3 mt-3">
             <label className="flex items-start gap-3">
               <input

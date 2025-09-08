@@ -39,7 +39,7 @@ export function TaxCodeTab() {
         />
 
         <fieldset className="border-2 border-govuk-mid-grey p-4">
-          <legend className="font-bold px-2 text-lg">Select your region</legend>
+          <legend className="font-medium px-2 text-base">Select your region</legend>
           <div className="space-y-3 mt-3">
             <label className="flex items-start gap-3">
               <input

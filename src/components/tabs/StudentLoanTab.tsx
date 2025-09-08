@@ -24,7 +24,7 @@ export function StudentLoanTab() {
       </div> */}
 
       <fieldset className="space-y-4">
-        <legend className="font-bold text-lg mb-4">Student loan repayment plan</legend>
+        <legend className="font-medium text-base mb-4">Student loan repayment plan</legend>
         
         <div className="space-y-3">
           <label className="flex items-start gap-3">
