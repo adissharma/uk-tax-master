@@ -219,7 +219,7 @@
   }
   
   .govuk-table__row:hover {
-    @apply bg-slate-25;
+    @apply bg-slate-50;
   }
   
   .govuk-table__row--thick-border {
