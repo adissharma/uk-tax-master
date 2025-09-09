@@ -8,13 +8,11 @@ export function Header() {
         Skip to main content
       </a>
       
-      <div className="max-w-6xl mx-auto px-4 py-6">
-        <div className="flex items-center space-x-3">
-          <img 
-            src="/lovable-uploads/bf032563-ad79-4edf-9dd6-386b1866e55e.png" 
-            alt="whatismypay.co.uk"
-            className="h-20"
-          />
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-center">
+          <h1 className="heading-lg text-foreground mb-0">
+            Salary Calculator
+          </h1>
         </div>
       </div>
     </header>
