@@ -8,10 +8,10 @@
 /* ===== Pinterest Gestalt Design System ===== */
 @layer base {
   :root {
-    /* Pinterest Primary Colors */
-    --pinterest-red: 0 84% 60%;
-    --pinterest-red-dark: 0 74% 50%;
-    --pinterest-red-light: 0 84% 90%;
+    /* Neutral Primary Colors */
+    --neutral-primary: 210 40% 45%;
+    --neutral-primary-dark: 210 40% 35%;
+    --neutral-primary-light: 210 40% 85%;
     
     /* Neutral Colors */
     --gray-0: 0 0% 100%;
@@ -33,19 +33,19 @@
     --card-foreground: var(--gray-900);
     --popover: var(--gray-0);
     --popover-foreground: var(--gray-900);
-    --primary: var(--pinterest-red);
+    --primary: var(--neutral-primary);
     --primary-foreground: var(--gray-0);
     --secondary: var(--gray-100);
     --secondary-foreground: var(--gray-900);
     --muted: var(--gray-100);
     --muted-foreground: var(--gray-600);
-    --accent: var(--pinterest-red-light);
+    --accent: var(--neutral-primary-light);
     --accent-foreground: var(--gray-900);
-    --destructive: var(--pinterest-red);
+    --destructive: 0 84% 60%;
     --destructive-foreground: var(--gray-0);
     --border: var(--gray-200);
     --input: var(--gray-0);
-    --ring: var(--pinterest-red);
+    --ring: var(--neutral-primary);
     --radius: 16px;
 
     /* Success & Warning Colors */
@@ -55,7 +55,7 @@
     --warning-foreground: var(--gray-900);
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--pinterest-red)), hsl(var(--pinterest-red-dark)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--neutral-primary)), hsl(var(--neutral-primary-dark)));
     --gradient-subtle: linear-gradient(180deg, hsl(var(--gray-50)), hsl(var(--gray-100)));
     
     /* Shadows */
