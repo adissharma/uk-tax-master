@@ -79,7 +79,6 @@ const Results = () => {
         <div className="space-y-8">
           {/* Results Header */}
           <div className="text-center">
-            <h1 className="govuk-heading-xl">Your salary calculation results</h1>
             <p className="text-lg text-muted-foreground">
               Based on a gross yearly salary of {formatCurrency(inputs.grossAnnualSalary)}
             </p>
