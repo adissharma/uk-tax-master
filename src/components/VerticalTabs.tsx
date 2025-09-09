@@ -109,7 +109,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               <button
                 key={tab.id}
                 onClick={() => handleTabClick(tab)}
-                className="w-full px-4 py-4 text-left border-l-4 border-govuk-light-grey bg-white hover:bg-govuk-light-grey focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-0 transition-colors"
+                className="w-full px-4 py-4 text-left border-l-4 border-govuk-light-grey bg-white hover:bg-govuk-light-grey focus:outline-none focus:ring-4 focus:ring-govuk-blue focus:ring-offset-0 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-base font-medium text-govuk-black">{tab.label}</span>
@@ -193,7 +193,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               tabIndex={activeTab === tab.id ? 0 : -1}
               className={cn(
                 'block w-full text-left px-4 py-3 text-base font-medium border-l-4 transition-colors relative',
-                'focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-offset-0',
+                'focus:outline-none focus:ring-4 focus:ring-govuk-blue focus:ring-offset-0',
                 activeTab === tab.id
                   ? 'border-govuk-blue bg-govuk-light-blue text-govuk-blue'
                   : 'border-transparent text-govuk-black hover:border-govuk-mid-grey hover:bg-govuk-light-grey'
