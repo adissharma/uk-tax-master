@@ -131,7 +131,7 @@ export default function Index() {
       
       <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
-          {/* Desktop: Side by side, Mobile/Tablet: Stacked */}
+          {/* Desktop: Side by side, Mobile: Stacked */}
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-stretch">
             {/* Step 1: Salary Input */}
             <div className="lg:w-1/4">
