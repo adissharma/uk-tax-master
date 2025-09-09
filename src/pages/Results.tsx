@@ -191,16 +191,8 @@ const Results = () => {
           {/* Adjustments Summary */}
           {adjustments.length > 0 && (
             <div className="bg-white rounded-lg border border-muted p-8">
-              <div className="flex items-center justify-between mb-6">
+              <div className="mb-6">
                 <h2 className="govuk-heading-l mb-0">Your adjustments</h2>
-                <GOVUKButton
-                  variant="secondary"
-                  onClick={() => navigate('/')}
-                  className="flex items-center gap-2"
-                >
-                  <Edit3 size={16} />
-                  Edit adjustments
-                </GOVUKButton>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -215,19 +207,13 @@ const Results = () => {
           )}
 
           {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <GOVUKButton
               onClick={() => navigate('/')}
               className="flex items-center gap-2"
             >
               <Edit3 size={16} />
-              Recalculate with different salary
-            </GOVUKButton>
-            <GOVUKButton
-              variant="secondary"
-              onClick={() => window.print()}
-            >
-              Print results
+              Change my details
             </GOVUKButton>
           </div>
         </div>
