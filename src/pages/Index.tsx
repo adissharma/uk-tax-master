@@ -134,26 +134,26 @@ export default function Index() {
           {/* Desktop: Side by side, Mobile: Stacked */}
           <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
             {/* Step 1: Salary Input */}
-            <div className="lg:w-1/4">
+            <div className="lg:w-1/3">
               <PinterestCard className="p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     1
                   </span>
-                  <h2 className="heading-lg mb-0">Enter salary</h2>
+                  <h2 className="heading-lg mb-0">Enter your salary</h2>
                 </div>
                 <SalaryCalculator />
               </PinterestCard>
             </div>
 
             {/* Step 2: Calculation Settings */}
-            <div className="lg:w-3/4">
+            <div className="lg:w-2/3">
               <PinterestCard className="p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     2
                   </span>
-                  <h2 className="heading-lg mb-0">Add adjustments <span className="font-normal text-muted-foreground">(optional)</span></h2>
+                  <h2 className="heading-lg mb-0">Add adjustments (optional)</h2>
                 </div>
                 <VerticalTabs
                   tabs={tabs}
@@ -168,7 +168,7 @@ export default function Index() {
 
       <div className="container mx-auto px-4 py-8 text-center">
         <p className="body-sm text-muted-foreground">
-          Calculate Pay
+          Calculations based on 2024-25 UK tax rates and thresholds
         </p>
       </div>
       
