@@ -21,17 +21,21 @@ export function TaxCodeTab() {
   return (
     <div className="space-y-6">
       <div className="space-y-4">
-        <GOVUKInput
-          label="Tax code"
-          hint="Enter your tax code from your payslip or P60. If you're not sure, use 1257L."
-          value={taxCode}
-          onChange={handleTaxCodeChange}
-          className="w-32"
-        />
+        <div>
+          <h2 className="heading-lg">Tax code</h2>
+          <GOVUKInput
+            label=""
+            hint="Enter your tax code from your payslip or P60. If you're not sure, use 1257L."
+            value={taxCode}
+            onChange={handleTaxCodeChange}
+            className="w-32"
+          />
+        </div>
 
-        <fieldset>
-          <legend className="font-medium text-base mb-3">Region</legend>
-          <div className="space-y-3">
+        <div>
+          <h2 className="heading-lg">Region</h2>
+          <fieldset>
+            <div className="space-y-3">
             <label className="flex items-start gap-3">
               <input
                 type="radio"
@@ -61,8 +65,9 @@ export function TaxCodeTab() {
                 <div className="text-sm text-muted-foreground">Scottish Income Tax rates apply</div>
               </div>
             </label>
-          </div>
-        </fieldset>
+            </div>
+          </fieldset>
+        </div>
       </div>
     </div>
   );
