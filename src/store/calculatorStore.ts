@@ -35,15 +35,10 @@ export const useCalculatorStore = create<CalculatorState>()(
       
       updateInputs: (newInputs) => {
         const inputs = { ...get().inputs, ...newInputs };
-        set({ inputs, isCalculating: inputs.grossAnnualSalary > 0 });
+        set({ inputs });
         
-        // Only calculate if there's a valid salary
-        if (inputs.grossAnnualSalary > 0) {
-          setTimeout(() => {
-            const result = calculateSalary(inputs);
-            set({ result, isCalculating: false });
-          }, 150);
-        } else {
+        // Don't auto-calculate anymore - only update inputs
+        if (inputs.grossAnnualSalary === 0) {
           set({ result: null, isCalculating: false });
         }
       },
