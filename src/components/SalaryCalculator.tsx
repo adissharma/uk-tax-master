@@ -76,46 +76,33 @@ export function SalaryCalculator() {
   const canSubmit = inputs.grossAnnualSalary > 0 && !error;
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <PinterestCard className="p-8">
-        <div className="text-center mb-8">
-          <h2 className="display-md mb-4">
-            Calculate your take-home pay
-          </h2>
-          <p className="body-lg text-muted-foreground">
-            Get an accurate breakdown of your UK salary after tax, National Insurance, and other deductions
-          </p>
-        </div>
+    <div className="space-y-6">
+      {/* Salary Input */}
+      <PinterestInput
+        label="Annual gross salary"
+        hint="Enter your yearly salary before tax and deductions"
+        placeholder="£45,000"
+        value={displayValue}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        error={error}
+        className="text-2xl py-4 font-semibold text-center"
+        inputMode="numeric"
+        autoComplete="off"
+      />
 
-        <div className="space-y-6">
-          {/* Salary Input */}
-          <PinterestInput
-            label="Annual gross salary"
-            hint="Enter your yearly salary before tax and deductions"
-            placeholder="£45,000"
-            value={displayValue}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            onKeyDown={handleKeyDown}
-            error={error}
-            className="text-2xl py-4 font-semibold text-center"
-            inputMode="numeric"
-            autoComplete="off"
-          />
-
-          {/* Submit Button */}
-          <div className="flex justify-center pt-4">
-            <PinterestButton
-              onClick={handleSubmit}
-              disabled={!canSubmit}
-              size="lg"
-              className="min-w-[280px]"
-            >
-              Calculate my take-home pay
-            </PinterestButton>
-          </div>
-        </div>
-      </PinterestCard>
+      {/* Submit Button */}
+      <div className="flex justify-center pt-4">
+        <PinterestButton
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          size="lg"
+          className="min-w-[280px]"
+        >
+          Calculate my take-home pay
+        </PinterestButton>
+      </div>
     </div>
   );
 }
