@@ -132,10 +132,10 @@ export default function Index() {
       <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           {/* Desktop: Side by side, Mobile/Tablet: Stacked */}
-          <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 xl:items-stretch">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 lg:items-stretch">
             {/* Step 1: Salary Input */}
-            <div className="xl:w-1/4">
-              <PinterestCard className="p-6 xl:p-8 h-full">
+            <div className="lg:w-1/4">
+              <PinterestCard className="p-6 lg:p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     1
@@ -147,8 +147,8 @@ export default function Index() {
             </div>
 
             {/* Step 2: Calculation Settings */}
-            <div className="xl:w-3/4">
-              <PinterestCard className="p-6 xl:p-8 h-full">
+            <div className="lg:w-3/4">
+              <PinterestCard className="p-6 lg:p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     2
