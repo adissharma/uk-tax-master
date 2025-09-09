@@ -111,11 +111,11 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
                 onClick={() => handleTabClick(tab)}
                 className="w-full px-4 py-4 text-left border-l-4 border-muted bg-background hover:bg-muted focus:outline-none focus:ring-4 focus:ring-govuk-blue focus:ring-offset-0 transition-colors ml-2 rounded-r-lg"
               >
-              <div className="flex items-center justify-between">
-                <span className="text-base font-medium text-govuk-black">{tab.label}</span>
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between min-w-0">
+                <span className="text-base font-medium text-govuk-black truncate">{tab.label}</span>
+                <div className="flex items-center gap-2 flex-shrink-0">
                   {tab.isActive && (
-                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-full">
+                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-lg">
                       In use
                     </span>
                   )}
@@ -180,7 +180,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
       <nav 
         role="tablist" 
         aria-orientation="vertical"
-        className="flex-shrink-0 lg:min-w-fit lg:max-w-xs"
+        className="flex-shrink-0 w-64 lg:w-64"
       >
         <div>
           {tabs.map((tab) => (
@@ -201,10 +201,10 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, tab.id)}
             >
-              <div className="flex items-center justify-between">
-                <span>{tab.label}</span>
+              <div className="flex items-center justify-between min-w-0">
+                <span className="truncate">{tab.label}</span>
                 {tab.isActive && (
-                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-full">
+                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-lg ml-2 flex-shrink-0">
                     In use
                   </span>
                 )}
