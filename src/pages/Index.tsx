@@ -134,7 +134,7 @@ export default function Index() {
           {/* Step 1: Salary Input */}
           <PinterestCard className="p-8">
             <div className="flex items-center gap-4 mb-6">
-              <span className="flex items-center justify-center w-10 h-10 bg-primary text-primary-foreground rounded-full text-sm font-semibold">
+              <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                 1
               </span>
               <h2 className="heading-lg mb-0">Enter your salary</h2>
@@ -145,7 +145,7 @@ export default function Index() {
           {/* Step 2: Calculation Settings */}
           <PinterestCard className="p-8">
             <div className="flex items-center gap-4 mb-6">
-              <span className="flex items-center justify-center w-10 h-10 bg-primary text-primary-foreground rounded-full text-sm font-semibold">
+              <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                 2
               </span>
               <h2 className="heading-lg mb-0">Tweak your details</h2>

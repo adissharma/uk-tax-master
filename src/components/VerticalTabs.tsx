@@ -115,7 +115,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
                 <span className="text-base font-medium text-govuk-black">{tab.label}</span>
                 <div className="flex items-center gap-2">
                   {tab.isActive && (
-                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
+                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-full">
                       In use
                     </span>
                   )}
@@ -204,7 +204,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               <div className="flex items-center justify-between">
                 <span>{tab.label}</span>
                 {tab.isActive && (
-                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
+                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium border border-primary text-primary bg-transparent rounded-full">
                     In use
                   </span>
                 )}
