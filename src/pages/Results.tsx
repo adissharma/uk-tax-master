@@ -85,27 +85,9 @@ const Results = () => {
             </p>
           </div>
 
-          {/* Main Results */}
+          {/* Salary Calculation Results */}
           <div className="bg-white rounded-lg border border-muted p-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="space-y-2">
-                <h3 className="text-sm font-medium text-muted-foreground">Annual Take-Home</h3>
-                <p className="text-3xl font-bold text-success">{formatCurrency(result.net.annual)}</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-sm font-medium text-muted-foreground">Monthly Take-Home</h3>
-                <p className="text-3xl font-bold text-success">{formatCurrency(result.net.monthly)}</p>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-sm font-medium text-muted-foreground">Weekly Take-Home</h3>
-                <p className="text-3xl font-bold text-success">{formatCurrency(result.net.weekly)}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Detailed Breakdown */}
-          <div className="bg-white rounded-lg border border-muted p-8">
-            <h2 className="govuk-heading-l mb-6">Detailed breakdown</h2>
+            <h2 className="govuk-heading-l mb-6">Your salary calculation</h2>
             
             <div className="border border-muted rounded-lg overflow-hidden">
               <table className="w-full">
@@ -189,22 +171,8 @@ const Results = () => {
                     </tr>
                   )}
 
-                  {/* Total Deductions */}
-                  <tr className="border-b border-muted bg-muted/50">
-                    <th className="text-left px-4 py-3 font-semibold text-foreground">Total deductions</th>
-                    <td className="text-right px-4 py-3 font-semibold text-destructive">
-                      -{formatCurrency(result.gross.annual - result.net.annual)}
-                    </td>
-                    <td className="text-right px-4 py-3 font-semibold text-destructive">
-                      -{formatCurrency((result.gross.annual - result.net.annual) / 12)}
-                    </td>
-                    <td className="text-right px-4 py-3 font-semibold text-destructive">
-                      -{formatCurrency((result.gross.annual - result.net.annual) / 52)}
-                    </td>
-                  </tr>
-
-                  {/* Take-home Pay */}
-                  <tr className="bg-success/10">
+                  {/* Take-home Pay - highlighted result */}
+                  <tr className="bg-success/10 border-t-2 border-success/30">
                     <th className="text-left px-4 py-4 font-bold text-lg text-foreground">Your take-home pay</th>
                     <td className="text-right px-4 py-4 font-bold text-lg text-success">
                       {formatCurrency(result.net.annual)}
