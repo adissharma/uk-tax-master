@@ -129,20 +129,34 @@ const Index = () => {
       <Header />
       
       {/* Main content */}
-      <main id="main-content" className="max-w-6xl mx-auto">
-        {/* Salary Calculator */}
-        <div className="px-4 pt-6">
-          <SalaryCalculator />
-        </div>
-        
-        {/* Settings Tabs */}
-        <div className="px-4 pb-8">
-          <h2 className="govuk-heading-l mb-6">Adjust your calculation</h2>
-          <VerticalTabs
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
+      <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
+        {/* 2-Step Form Container */}
+        <div className="space-y-8">
+          {/* Step 1: Salary Input */}
+          <div className="bg-white rounded-lg border border-muted p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="flex items-center justify-center w-8 h-8 bg-primary text-primary-foreground rounded-full text-sm font-bold">
+                1
+              </span>
+              <h2 className="govuk-heading-l mb-0">Enter your salary</h2>
+            </div>
+            <SalaryCalculator />
+          </div>
+
+          {/* Step 2: Calculation Settings */}
+          <div className="bg-white rounded-lg border border-muted p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <span className="flex items-center justify-center w-8 h-8 bg-primary text-primary-foreground rounded-full text-sm font-bold">
+                2
+              </span>
+              <h2 className="govuk-heading-l mb-0">Adjust your calculation</h2>
+            </div>
+            <VerticalTabs
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
         </div>
       </main>
       
