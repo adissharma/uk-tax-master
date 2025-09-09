@@ -2,220 +2,231 @@
 @tailwind components;
 @tailwind utilities;
 
-/* GOV.UK Design System inspired color palette and tokens */
+/* Import Inter font for Pinterest aesthetic */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* GDS Transport Web Font */
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/light_94a07e06a1-v2.woff2") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";  
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/regular_92035ff59c-v2.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
-  font-weight: 600;
-  font-style: normal;
-  font-display: fallback;
-}
-
-@font-face {
-  font-family: "GDS Transport";
-  src: url("https://assets.publishing.service.gov.uk/static/fonts/bold_f38c35ac67-v2.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: fallback;
-}
-
+/* ===== Pinterest Gestalt Design System ===== */
 @layer base {
   :root {
-    /* GOV.UK Brand Colors */
-    --govuk-black: 206 12% 6%;
-    --govuk-dark-grey: 210 11% 15%;
-    --govuk-mid-grey: 210 14% 89%;
-    --govuk-light-grey: 210 17% 95%;
-    --govuk-white: 0 0% 100%;
+    /* Pinterest Primary Colors */
+    --pinterest-red: 0 84% 60%;
+    --pinterest-red-dark: 0 74% 50%;
+    --pinterest-red-light: 0 84% 90%;
     
-    /* GOV.UK Blue */
-    --govuk-blue: 220 43% 20%;
-    --govuk-light-blue: 204 100% 97%;
+    /* Neutral Colors */
+    --gray-0: 0 0% 100%;
+    --gray-50: 0 0% 98%;
+    --gray-100: 0 0% 95%;
+    --gray-200: 0 0% 90%;
+    --gray-300: 0 0% 83%;
+    --gray-400: 0 0% 68%;
+    --gray-500: 0 0% 51%;
+    --gray-600: 0 0% 43%;
+    --gray-700: 0 0% 32%;
+    --gray-800: 0 0% 18%;
+    --gray-900: 0 0% 11%;
+
+    /* Semantic Colors */
+    --background: var(--gray-0);
+    --foreground: var(--gray-900);
+    --card: var(--gray-0);
+    --card-foreground: var(--gray-900);
+    --popover: var(--gray-0);
+    --popover-foreground: var(--gray-900);
+    --primary: var(--pinterest-red);
+    --primary-foreground: var(--gray-0);
+    --secondary: var(--gray-100);
+    --secondary-foreground: var(--gray-900);
+    --muted: var(--gray-100);
+    --muted-foreground: var(--gray-600);
+    --accent: var(--pinterest-red-light);
+    --accent-foreground: var(--gray-900);
+    --destructive: var(--pinterest-red);
+    --destructive-foreground: var(--gray-0);
+    --border: var(--gray-200);
+    --input: var(--gray-0);
+    --ring: var(--pinterest-red);
+    --radius: 16px;
+
+    /* Success & Warning Colors */
+    --success: 142 76% 36%;
+    --success-foreground: var(--gray-0);
+    --warning: 45 93% 47%;
+    --warning-foreground: var(--gray-900);
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--pinterest-red)), hsl(var(--pinterest-red-dark)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--gray-50)), hsl(var(--gray-100)));
     
-    /* Status Colors */
-    --govuk-green: 120 44% 34%;
-    --govuk-light-green: 120 43% 95%;
-    --govuk-red: 0 73% 41%;
-    --govuk-light-red: 0 100% 97%;
-    --govuk-orange: 35 100% 50%;
-    --govuk-yellow: 48 100% 67%;
-    
-    /* Semantic Design Tokens */
-    --background: var(--govuk-white);
-    --foreground: var(--govuk-black);
-    
-    --primary: var(--govuk-blue);
-    --primary-foreground: var(--govuk-white);
-    --primary-hover: 220 43% 16%;
-    
-    --secondary: var(--govuk-mid-grey);
-    --secondary-foreground: var(--govuk-black);
-    
-    --accent: var(--govuk-light-blue);
-    --accent-foreground: var(--govuk-blue);
-    
-    --muted: var(--govuk-light-grey);
-    --muted-foreground: var(--govuk-dark-grey);
-    
-    --border: var(--govuk-black);
-    --input-border: var(--govuk-black);
-    --input-background: var(--govuk-white);
-    --input-focus: 50 100% 50%;
-    
-    --destructive: var(--govuk-red);
-    --destructive-foreground: var(--govuk-white);
-    
-    --success: var(--govuk-green);
-    --success-foreground: var(--govuk-white);
-    
-    --warning: var(--govuk-orange);
-    --warning-foreground: var(--govuk-black);
-    
-    /* Typography scale */
-    --text-xl: 2rem;
-    --text-lg: 1.5rem;
-    --text-md: 1.25rem;
-    --text-sm: 1.125rem;
-    --text-xs: 1rem;
-    
-    /* Spacing scale */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
-    
-    /* Focus styles */
-    --focus-width: 3px;
-    --focus-color: var(--input-focus);
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    /* Typography Scale */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-4xl: 36px;
+    --text-5xl: 48px;
+
+    /* Spacing Scale */
+    --spacing-0: 0px;
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-8: 32px;
+    --spacing-10: 40px;
+    --spacing-12: 48px;
+    --spacing-16: 64px;
+    --spacing-20: 80px;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark Mode Support */
+  .dark {
+    --background: var(--gray-900);
+    --foreground: var(--gray-50);
+    --card: var(--gray-800);
+    --card-foreground: var(--gray-50);
+    --popover: var(--gray-800);
+    --popover-foreground: var(--gray-50);
+    --muted: var(--gray-800);
+    --muted-foreground: var(--gray-400);
+    --border: var(--gray-700);
+    --input: var(--gray-800);
   }
 }
 
+/* ===== Global Styles ===== */
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: "GDS Transport", Arial, sans-serif;
-    line-height: 1.5;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
-  
-  /* GOV.UK Typography */
-  h1, .govuk-heading-xl {
-    @apply text-4xl font-bold leading-tight mb-6;
+}
+
+/* ===== Pinterest-Inspired Typography ===== */
+@layer base {
+  /* Display Headings */
+  .display-xl {
+    @apply text-5xl font-semibold text-foreground leading-tight tracking-tight;
   }
-  
-  h2, .govuk-heading-l {
-    @apply text-2xl font-bold leading-tight mb-4;
+
+  .display-lg {
+    @apply text-4xl font-semibold text-foreground leading-tight tracking-tight;
   }
-  
-  h3, .govuk-heading-m {
-    @apply text-xl font-bold leading-tight mb-3;
+
+  .display-md {
+    @apply text-3xl font-semibold text-foreground leading-tight;
   }
-  
-  h4, .govuk-heading-s {
-    @apply text-lg font-bold leading-tight mb-2;
+
+  /* Headings */
+  h1, .heading-xl {
+    @apply text-2xl font-semibold text-foreground leading-tight mb-6;
   }
-  
-  .govuk-body {
-    @apply text-base leading-relaxed mb-4;
+
+  h2, .heading-lg {
+    @apply text-xl font-semibold text-foreground leading-tight mb-4;
   }
-  
-  .govuk-body-s {
-    @apply text-sm leading-relaxed mb-3;
+
+  h3, .heading-md {
+    @apply text-lg font-medium text-foreground leading-tight mb-3;
   }
-  
-  /* Focus styles following GOV.UK pattern */
-  .govuk-focus {
-    outline: var(--focus-width) solid hsl(var(--focus-color));
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 2px;
+
+  h4, .heading-sm {
+    @apply text-base font-medium text-foreground leading-snug mb-2;
   }
-  
-  /* Skip link */
-  .govuk-skip-link {
-    @apply absolute left-0 top-0 z-50 bg-primary text-primary-foreground px-4 py-2 font-bold;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
+
+  /* Body Text */
+  .body-lg {
+    @apply text-lg text-foreground leading-relaxed;
   }
-  
-  .govuk-skip-link:focus {
-    @apply govuk-focus;
-    transform: translateY(0);
+
+  .body-md, p {
+    @apply text-base text-foreground leading-relaxed;
   }
-  
-  /* GOV.UK Table Styles */
-  .govuk-table {
-    @apply w-full border-collapse mb-6;
+
+  .body-sm {
+    @apply text-sm text-muted-foreground leading-relaxed;
   }
-  
-  .govuk-table__caption {
-    @apply font-bold text-left mb-2;
+
+  .body-xs {
+    @apply text-xs text-muted-foreground leading-normal;
   }
-  
-  .govuk-table__caption--s {
-    @apply text-base;
+}
+
+/* ===== Component Styling ===== */
+@layer components {
+  .pinterest-card {
+    @apply bg-card rounded-2xl shadow-sm border border-border overflow-hidden;
+    @apply hover:shadow-md transition-shadow duration-200;
   }
-  
-  .govuk-table__caption--m {
-    @apply text-lg;
+
+  .pinterest-button {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full;
+    @apply font-medium text-sm transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
   }
-  
-  .govuk-table__caption--l {
-    @apply text-xl;
+
+  .pinterest-button-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+    @apply shadow-sm hover:shadow-md;
   }
-  
-  .govuk-table__caption--xl {
-    @apply text-2xl;
+
+  .pinterest-button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+    @apply border border-border;
   }
-  
-  .govuk-table__head {
-    border-bottom: 2px solid hsl(var(--govuk-black));
+
+  .pinterest-input {
+    @apply w-full px-4 py-3 rounded-2xl border border-input bg-background;
+    @apply text-foreground placeholder:text-muted-foreground;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
+    @apply transition-colors duration-200;
   }
-  
-  .govuk-table__header {
-    @apply font-bold py-3 px-3 border-0;
+
+  /* Skip link for accessibility */
+  .skip-link {
+    @apply absolute top-0 left-0 z-50 px-4 py-2 bg-primary text-primary-foreground;
+    @apply -translate-y-full focus:translate-y-0 transition-transform duration-200;
+    @apply rounded-br-lg font-medium text-sm;
   }
-  
-  .govuk-table__body {
-    
+}
+
+/* ===== Custom Scrollbar ===== */
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 6px;
   }
-  
-  .govuk-table__row {
-    border-bottom: 1px solid hsl(var(--govuk-mid-grey));
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
   }
-  
-  .govuk-table__row--thick-border {
-    border-bottom: 2px solid hsl(var(--govuk-black));
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground));
+    border-radius: 3px;
   }
-  
-  .govuk-table__cell {
-    @apply py-3 px-3 border-0;
-  }
-  
-  .govuk-table__cell--numeric {
-    @apply text-right font-mono;
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--foreground));
   }
 }

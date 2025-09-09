@@ -1,23 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GOVUKInput } from './GOVUKInput';
-import { GOVUKButton } from './GOVUKButton';
+import { PinterestInput } from './PinterestInput';
+import { PinterestButton } from './PinterestButton';
+import { PinterestCard } from './PinterestCard';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { formatCurrency } from '@/lib/calculator/engine';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export function SalaryCalculator() {
   const navigate = useNavigate();
   const { inputs, updateInputs, result, isCalculating, calculate } = useCalculatorStore();
   const [displayValue, setDisplayValue] = useState(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
   const [error, setError] = useState('');
-  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     setDisplayValue(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
   }, [inputs.grossAnnualSalary]);
 
-  const validateAndUpdate = (value: string, shouldCalculate = false) => {
+  const validateAndUpdate = (value: string) => {
     // Handle empty input
     if (!value.trim()) {
       updateInputs({ grossAnnualSalary: 0 });
@@ -27,7 +26,7 @@ export function SalaryCalculator() {
     const numValue = parseFloat(value.replace(/[£,]/g, ''));
     
     if (isNaN(numValue)) {
-      setError('Enter a valid salary amount');
+      setError('Please enter a valid salary amount');
       return;
     }
     
@@ -60,11 +59,11 @@ export function SalaryCalculator() {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       validateAndUpdate(displayValue);
+      if (inputs.grossAnnualSalary > 0 && !error) {
+        calculate();
+        navigate('/results');
+      }
     }
-  };
-
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
   };
 
   const handleSubmit = () => {
@@ -77,34 +76,46 @@ export function SalaryCalculator() {
   const canSubmit = inputs.grossAnnualSalary > 0 && !error;
 
   return (
-    <div className="space-y-6">
-      {/* Salary Input */}
-      <div>
-        <GOVUKInput
-          label="Gross yearly salary"
-          hint="Enter your salary before tax and other deductions"
-          placeholder="£45,000"
-          value={displayValue}
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          error={error}
-          className="text-2xl py-3 font-bold"
-          inputMode="numeric"
-          autoComplete="off"
-        />
-      </div>
+    <div className="max-w-2xl mx-auto">
+      <PinterestCard className="p-8">
+        <div className="text-center mb-8">
+          <h2 className="display-md mb-4">
+            Calculate your take-home pay
+          </h2>
+          <p className="body-lg text-muted-foreground">
+            Get an accurate breakdown of your UK salary after tax, National Insurance, and other deductions
+          </p>
+        </div>
 
-      {/* Submit Button */}
-      <div className="flex justify-center">
-        <GOVUKButton
-          onClick={handleSubmit}
-          disabled={!canSubmit}
-          className="w-full sm:w-auto text-lg px-8 py-3"
-        >
-          Calculate my take-home pay
-        </GOVUKButton>
-      </div>
+        <div className="space-y-6">
+          {/* Salary Input */}
+          <PinterestInput
+            label="Annual gross salary"
+            hint="Enter your yearly salary before tax and deductions"
+            placeholder="£45,000"
+            value={displayValue}
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            error={error}
+            className="text-2xl py-4 font-semibold text-center"
+            inputMode="numeric"
+            autoComplete="off"
+          />
+
+          {/* Submit Button */}
+          <div className="flex justify-center pt-4">
+            <PinterestButton
+              onClick={handleSubmit}
+              disabled={!canSubmit}
+              size="lg"
+              className="min-w-[280px]"
+            >
+              Calculate my take-home pay
+            </PinterestButton>
+          </div>
+        </div>
+      </PinterestCard>
     </div>
   );
 }
