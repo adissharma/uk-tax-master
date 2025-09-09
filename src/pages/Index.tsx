@@ -132,10 +132,10 @@ export default function Index() {
       <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           {/* Desktop: Side by side, Mobile: Stacked */}
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
             {/* Step 1: Salary Input */}
             <div className="lg:w-1/3">
-              <PinterestCard className="p-8 h-fit">
+              <PinterestCard className="p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     1
@@ -148,12 +148,12 @@ export default function Index() {
 
             {/* Step 2: Calculation Settings */}
             <div className="lg:w-2/3">
-              <PinterestCard className="p-8">
+              <PinterestCard className="p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     2
                   </span>
-                  <h2 className="heading-lg mb-0">Tweak your details</h2>
+                  <h2 className="heading-lg mb-0">Add adjustments (optional)</h2>
                 </div>
                 <VerticalTabs
                   tabs={tabs}
@@ -164,13 +164,13 @@ export default function Index() {
             </div>
           </div>
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="body-sm text-muted-foreground">
-            Calculations based on 2024-25 UK tax rates and thresholds
-          </p>
-        </div>
       </main>
+
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p className="body-sm text-muted-foreground">
+          Calculations based on 2024-25 UK tax rates and thresholds
+        </p>
+      </div>
       
       <Footer />
     </div>

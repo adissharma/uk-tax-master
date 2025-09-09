@@ -180,7 +180,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
       <nav 
         role="tablist" 
         aria-orientation="vertical"
-        className="lg:w-80 flex-shrink-0"
+        className="flex-shrink-0 lg:min-w-fit lg:max-w-xs"
       >
         <div>
           {tabs.map((tab) => (
