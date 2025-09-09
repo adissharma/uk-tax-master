@@ -12,7 +12,7 @@ export function Header() {
       {/* Logo */}
       <div className="max-w-6xl mx-auto px-4 py-6">
         <img 
-          src="/lovable-uploads/09f9d6fc-85f2-4e97-97bf-fc9a78aaeb62.png" 
+          src="/lovable-uploads/bf032563-ad79-4edf-9dd6-386b1866e55e.png" 
           alt="whatismypay.co.uk"
           className="h-20"
         />
