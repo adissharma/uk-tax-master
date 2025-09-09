@@ -47,10 +47,10 @@ const PinterestInput = forwardRef<HTMLInputElement, PinterestInputProps>(
           <input
             id={inputId}
             className={cn(
-              'w-full px-4 py-3 rounded-2xl border border-input bg-background text-foreground',
+              'w-full px-4 py-3 rounded-2xl border-2 border-gray-300 bg-background text-foreground',
               'placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
               'transition-colors duration-200 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed',
-              error ? 'border-destructive' : 'border-input',
+              error ? 'border-destructive' : 'border-gray-300',
               prefix ? 'pl-10' : '',
               suffix ? 'pr-12' : '',
               className

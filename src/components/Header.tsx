@@ -11,7 +11,7 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-center">
           <h1 className="heading-lg text-foreground mb-0">
-            Salary Calculator
+            UK Salary Calculator 2024-2025
           </h1>
         </div>
       </div>

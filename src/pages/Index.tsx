@@ -130,16 +130,6 @@ export default function Index() {
       <Header />
       
       <main id="main-content" className="container mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <h1 className="display-xl mb-6">
-            UK Salary Calculator 2024-25
-          </h1>
-          <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
-            Calculate your take-home pay with our comprehensive UK salary calculator. 
-            Get accurate breakdowns including tax, National Insurance, student loans, and pension contributions.
-          </p>
-        </div>
-
         <div className="max-w-6xl mx-auto space-y-8">
           {/* Step 1: Salary Input */}
           <PinterestCard className="p-8">
