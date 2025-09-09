@@ -182,7 +182,7 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
         aria-orientation="vertical"
         className="lg:w-80 flex-shrink-0"
       >
-        <div className="border-l-4 border-govuk-light-grey">
+        <div>
           {tabs.map((tab) => (
             <button
               key={tab.id}
