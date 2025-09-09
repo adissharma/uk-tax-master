@@ -131,11 +131,24 @@ export default function Index() {
       
       <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
-          {/* Responsive layout: Stack on smaller tablets, side-by-side from md+ */}
-          <div className="flex flex-col md:flex-row gap-8 md:items-stretch">
+          {/* Desktop: Side by side, Mobile/Tablet: Stacked */}
+          <div className="flex flex-col xl:flex-row gap-6 xl:gap-8 xl:items-stretch">
+            {/* Step 1: Salary Input */}
+            <div className="xl:w-1/4">
+              <PinterestCard className="p-6 xl:p-8 h-full">
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
+                    1
+                  </span>
+                  <h2 className="heading-lg mb-0">Enter your salary</h2>
+                </div>
+                <SalaryCalculator />
+              </PinterestCard>
+            </div>
+
             {/* Step 2: Calculation Settings */}
-            <div className="md:w-2/3 order-2 md:order-1">
-              <PinterestCard className="p-8 h-full">
+            <div className="xl:w-3/4">
+              <PinterestCard className="p-6 xl:p-8 h-full">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
                     2
@@ -147,19 +160,6 @@ export default function Index() {
                   activeTab={activeTab}
                   onTabChange={setActiveTab}
                 />
-              </PinterestCard>
-            </div>
-
-            {/* Step 1: Salary Input */}
-            <div className="md:w-1/3 order-1 md:order-2">
-              <PinterestCard className="p-8 h-full">
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
-                    1
-                  </span>
-                  <h2 className="heading-lg mb-0">Enter your salary</h2>
-                </div>
-                <SalaryCalculator />
               </PinterestCard>
             </div>
           </div>
