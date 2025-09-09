@@ -111,14 +111,14 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
                 onClick={() => handleTabClick(tab)}
                 className="w-full px-4 py-4 text-left border-l-4 border-govuk-light-grey bg-white hover:bg-govuk-light-grey focus:outline-none focus:ring-4 focus:ring-govuk-blue focus:ring-offset-0 transition-colors"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-base font-medium text-govuk-black">{tab.label}</span>
-                  <div className="flex items-center gap-2">
-                    {tab.isActive && (
-                      <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
-                        Active
-                      </span>
-                    )}
+              <div className="flex items-center justify-between">
+                <span className="text-base font-medium text-govuk-black">{tab.label}</span>
+                <div className="flex items-center gap-2">
+                  {tab.isActive && (
+                    <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
+                      In use
+                    </span>
+                  )}
                     <svg 
                       className="w-5 h-5 text-govuk-mid-grey" 
                       fill="none" 
@@ -204,8 +204,8 @@ export function VerticalTabs({ tabs, activeTab, onTabChange, className }: Vertic
               <div className="flex items-center justify-between">
                 <span>{tab.label}</span>
                 {tab.isActive && (
-                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-govuk-green text-white rounded">
-                    Active
+                  <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary text-primary-foreground rounded-full">
+                    In use
                   </span>
                 )}
               </div>
