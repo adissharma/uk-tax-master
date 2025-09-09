@@ -100,7 +100,7 @@ export function SalaryCalculator() {
           size="lg"
           className="min-w-[280px]"
         >
-          Calculate my take-home pay
+          Calculate pay
         </PinterestButton>
       </div>
     </div>
