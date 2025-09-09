@@ -86,7 +86,7 @@ const Results = () => {
 
           {/* Salary Calculation Results */}
           <div className="bg-white rounded-lg border border-muted p-8">
-            <h2 className="govuk-heading-l mb-6">Your salary calculation</h2>
+            <h2 className="govuk-heading-l mb-6">Here's what we calculated</h2>
             
             <div className="border border-muted rounded-lg overflow-hidden">
               <table className="w-full">
@@ -192,14 +192,14 @@ const Results = () => {
           {adjustments.length > 0 && (
             <div className="bg-white rounded-lg border border-muted p-8">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="govuk-heading-l mb-0">Your adjustments</h2>
+                <h2 className="govuk-heading-l mb-0">What you've told us</h2>
                 <GOVUKButton
                   variant="secondary"
                   onClick={() => navigate('/')}
                   className="flex items-center gap-2"
                 >
                   <Edit3 size={16} />
-                  Edit adjustments
+                  Change these details
                 </GOVUKButton>
               </div>
               
@@ -221,7 +221,7 @@ const Results = () => {
               className="flex items-center gap-2"
             >
               <Edit3 size={16} />
-              Recalculate with different salary
+              Try a different salary
             </GOVUKButton>
             <GOVUKButton
               variant="secondary"

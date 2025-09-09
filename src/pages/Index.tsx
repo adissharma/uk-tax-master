@@ -149,7 +149,7 @@ const Index = () => {
               <span className="flex items-center justify-center w-8 h-8 bg-primary text-primary-foreground rounded-full text-sm font-bold">
                 2
               </span>
-              <h2 className="govuk-heading-l mb-0">Adjust your calculation</h2>
+              <h2 className="govuk-heading-l mb-0">Tweak your details</h2>
             </div>
             <VerticalTabs
               tabs={tabs}
