@@ -75,6 +75,48 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
         </div>
       </div>
 
+      {/* Overtime Summary */}
+      {result.overtime && (
+        <div className="bg-green-50 border border-green-200 p-6 rounded-lg">
+          <h3 className="text-xl font-bold text-govuk-black mb-4">Overtime Summary</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-govuk-dark-grey">
+                Annual overtime pay: <span className="font-bold">{formatCurrency(result.overtime.annualAmount)}</span>
+              </p>
+              <p className="text-govuk-dark-grey">
+                Normal hourly rate: <span className="font-bold">
+                  {new Intl.NumberFormat('en-GB', {
+                    style: 'currency',
+                    currency: 'GBP',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(result.overtime.normalHourlyRate)}
+                </span>
+              </p>
+            </div>
+            <div>
+              {result.overtime.overtime1Pay > 0 && (
+                <p className="text-govuk-dark-grey">
+                  Overtime rate 1: <span className="font-bold">{formatCurrency(result.overtime.overtime1Pay)}</span>
+                </p>
+              )}
+              {result.overtime.overtime2Pay > 0 && (
+                <p className="text-govuk-dark-grey">
+                  Overtime rate 2: <span className="font-bold">{formatCurrency(result.overtime.overtime2Pay)}</span>
+                </p>
+              )}
+            </div>
+          </div>
+          
+          <div className="text-sm text-govuk-dark-grey">
+            <p>• Overtime pay is included in your gross salary and subject to Income Tax, National Insurance and Student Loan</p>
+            <p>• Check the Pension tab to include or exclude overtime from pension contributions</p>
+          </div>
+        </div>
+      )}
+
       {/* Bonus Period Comparison */}
       {result.bonus && (
         <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">

@@ -85,6 +85,31 @@ export function PensionTab() {
           </fieldset>
         </div>
 
+        {/* Include overtime in pension calculation */}
+        {((inputs.overtime1Hours && inputs.overtime1Hours > 0) || 
+          (inputs.overtime2Hours && inputs.overtime2Hours > 0) || 
+          (inputs.overtimeCashValue && inputs.overtimeCashValue > 0)) && (
+          <div>
+            <h2 className="heading-lg">Overtime payments</h2>
+            <div className="space-y-3">
+              <label className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={inputs.includeOvertimeInPension || false}
+                  onChange={(e) => updateInputs({ includeOvertimeInPension: e.target.checked })}
+                  className="mt-1 text-primary focus:ring-primary"
+                />
+                <div>
+                  <div className="font-medium">Include overtime in pension contributions</div>
+                  <div className="text-sm text-muted-foreground">
+                    Tick this if your pension scheme includes overtime pay when calculating contributions.
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        )}
+
         {/* Include bonus in pension calculation */}
         {inputs.bonusAmount && inputs.bonusAmount > 0 && (
           <div>

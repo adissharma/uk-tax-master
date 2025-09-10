@@ -10,6 +10,7 @@ import { TaxCodeTab } from './tabs/TaxCodeTab';
 import { StudentLoanTab } from './tabs/StudentLoanTab';
 import { PensionTab } from './tabs/PensionTab';
 import { BonusTab } from './tabs/BonusTab';
+import { OvertimeTab } from './tabs/OvertimeTab';
 import { SummaryTab } from './tabs/SummaryTab';
 
 export function SalaryWizard() {
@@ -64,16 +65,10 @@ export function SalaryWizard() {
     {
       id: 'overtime',
       label: 'Overtime',
-      content: (
-        <div className="space-y-4">
-          <h2 className="heading-lg">Overtime payments</h2>
-          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
-            <p className="body-md">Overtime calculation features will be available in the next update.</p>
-            <p className="body-sm mt-2">Calculate tax on overtime and additional hours worked.</p>
-          </div>
-        </div>
-      ),
-      isActive: false, // Not implemented yet
+      content: <OvertimeTab />,
+      isActive: (inputs.overtime1Hours && inputs.overtime1Hours > 0) || 
+                (inputs.overtime2Hours && inputs.overtime2Hours > 0) || 
+                (inputs.overtimeCashValue && inputs.overtimeCashValue > 0),
     },
     {
       id: 'childcare',

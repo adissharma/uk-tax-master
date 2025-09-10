@@ -8,39 +8,94 @@ const TAX_YEARS = {
 export function calculateSalary(inputs: CalculationInputs): CalculationResult {
   const taxYear = TAX_YEARS[inputs.taxYear] || taxYear202425;
   
-  // Calculate baseline (without bonus) first
-  const baselineResult = calculateBaselineDeductions(inputs, taxYear);
+  // Calculate overtime first
+  const overtimeResult = calculateOvertime(inputs);
+  
+  // Calculate baseline (without bonus) with overtime included
+  const baselineResult = calculateBaselineDeductions(inputs, taxYear, overtimeResult?.annualAmount || 0);
   
   // Calculate bonus scenario if bonus is present
   let bonusResult = null;
   if (inputs.bonusAmount && inputs.bonusAmount > 0) {
-    bonusResult = calculateBonusScenario(inputs, taxYear, baselineResult);
+    bonusResult = calculateBonusScenario(inputs, taxYear, baselineResult, overtimeResult?.annualAmount || 0);
   }
 
   return {
     ...baselineResult,
+    overtime: overtimeResult,
     bonus: bonusResult,
   };
 }
 
-function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any) {
+function calculateOvertime(inputs: CalculationInputs) {
+  if (!inputs.normalWorkingWeek || !inputs.weeksPerYear) {
+    return null;
+  }
+
+  const normalHourlyRate = inputs.grossAnnualSalary / (inputs.weeksPerYear * inputs.normalWorkingWeek);
+  
+  let annualOvertimeAmount = 0;
+  let overtime1Pay = 0;
+  let overtime2Pay = 0;
+  
+  // Check if using cash method
+  if (inputs.overtimeCashValue && inputs.overtimeCashValue > 0) {
+    const multiplier = inputs.overtimeCashPeriod === 'monthly' ? 12 
+      : inputs.overtimeCashPeriod === 'weekly' ? 52 
+      : 1; // annual
+    annualOvertimeAmount = inputs.overtimeCashValue * multiplier;
+  } else {
+    // Calculate from hours and multipliers
+    if (inputs.overtime1Hours && inputs.overtime1Hours > 0 && inputs.overtime1Multiplier) {
+      overtime1Pay = (inputs.overtime1Hours * 12) * inputs.overtime1Multiplier * normalHourlyRate;
+      annualOvertimeAmount += overtime1Pay;
+    }
+    
+    if (inputs.overtime2Hours && inputs.overtime2Hours > 0 && inputs.overtime2Multiplier) {
+      overtime2Pay = (inputs.overtime2Hours * 12) * inputs.overtime2Multiplier * normalHourlyRate;
+      annualOvertimeAmount += overtime2Pay;
+    }
+  }
+  
+  if (annualOvertimeAmount === 0) {
+    return null;
+  }
+  
+  return {
+    annualAmount: annualOvertimeAmount,
+    normalHourlyRate,
+    overtime1Pay,
+    overtime2Pay,
+  };
+}
+
+function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any, overtimeAmount: number = 0) {
+  // Total gross including overtime
+  const totalGrossAnnual = inputs.grossAnnualSalary + overtimeAmount;
+  
   // Calculate personal allowance with taper
   const personalAllowance = calculatePersonalAllowance(
-    inputs.grossAnnualSalary,
+    totalGrossAnnual,
     taxYear.personalAllowance,
     taxYear.personalAllowanceTaperThreshold
   );
   
   // Calculate pension contributions
-  const pensionEmployee = inputs.pensionContribution 
-    ? (inputs.grossAnnualSalary * inputs.pensionContribution) / 100 
-    : 0;
+  let pensionEmployee = 0;
+  if (inputs.pensionContribution) {
+    let pensionableIncome = inputs.grossAnnualSalary;
+    // Include overtime in pension if option is selected
+    if (inputs.includeOvertimeInPension) {
+      pensionableIncome += overtimeAmount;
+    }
+    pensionEmployee = (pensionableIncome * inputs.pensionContribution) / 100;
+  }
   const pensionEmployer = pensionEmployee; // Assuming matching contribution
   
   // Calculate salary after pension (if salary exchange)
   const salaryAfterPension = inputs.salaryExchange 
-    ? inputs.grossAnnualSalary - pensionEmployee
-    : inputs.grossAnnualSalary;
+    ? totalGrossAnnual - pensionEmployee
+    : totalGrossAnnual;
   
   // Calculate taxable income
   const taxableIncome = Math.max(0, salaryAfterPension - personalAllowance);
@@ -62,7 +117,7 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any) {
   
   // Calculate student loan
   const studentLoan = calculateStudentLoan(
-    inputs.grossAnnualSalary,
+    totalGrossAnnual,
     inputs.studentLoanPlan,
     inputs.hasPostgradLoan,
     taxYear.studentLoan
@@ -70,15 +125,15 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any) {
   
   // Calculate net pay
   const totalDeductions = incomeTaxResult.total + nationalInsuranceEmployee + studentLoan;
-  const netAnnual = inputs.grossAnnualSalary - totalDeductions - (inputs.salaryExchange ? 0 : pensionEmployee);
-  
+  const netAnnual = totalGrossAnnual - totalDeductions - (inputs.salaryExchange ? 0 : pensionEmployee);
+
   return {
     gross: {
-      annual: inputs.grossAnnualSalary,
-      monthly: inputs.grossAnnualSalary / 12,
-      weekly: inputs.grossAnnualSalary / 52,
-      daily: inputs.grossAnnualSalary / 260, // 52 weeks * 5 days
-      hourly: inputs.grossAnnualSalary / (52 * 37.5), // Assuming 37.5 hours per week
+      annual: totalGrossAnnual,
+      monthly: totalGrossAnnual / 12,
+      weekly: totalGrossAnnual / 52,
+      daily: totalGrossAnnual / 260, // 52 weeks * 5 days
+      hourly: totalGrossAnnual / (52 * 37.5), // Assuming 37.5 hours per week
     },
     net: {
       annual: netAnnual,
@@ -121,11 +176,11 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any) {
   };
 }
 
-function calculateBonusScenario(inputs: CalculationInputs, taxYear: any, baselineResult: any) {
+function calculateBonusScenario(inputs: CalculationInputs, taxYear: any, baselineResult: any, overtimeAmount: number = 0) {
   const bonusAmount = inputs.bonusAmount || 0;
   
   // Calculate deductions with bonus included
-  const grossWithBonus = inputs.grossAnnualSalary + bonusAmount;
+  const grossWithBonus = inputs.grossAnnualSalary + overtimeAmount + bonusAmount;
   
   // For bonus calculation, pension may or may not include the bonus
   let pensionOnBonus = 0;

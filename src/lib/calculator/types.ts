@@ -37,6 +37,16 @@ export interface CalculationInputs {
   bonusAmount?: number;
   normalPayPeriod?: 'monthly' | 'four-weekly' | 'two-weekly' | 'weekly';
   includeBonusInPension?: boolean;
+  // Overtime fields
+  normalWorkingWeek?: number; // hours per week
+  weeksPerYear?: number; // 52 or 52.14
+  overtime1Hours?: number; // hours per month
+  overtime1Multiplier?: number; // e.g., 1.5 for time-and-a-half
+  overtime2Hours?: number;
+  overtime2Multiplier?: number;
+  overtimeCashValue?: number; // alternative to hours/multiplier
+  overtimeCashPeriod?: 'annual' | 'monthly' | 'weekly';
+  includeOvertimeInPension?: boolean;
 }
 
 export interface CalculationResult {
@@ -85,6 +95,12 @@ export interface CalculationResult {
   };
   personalAllowance: number;
   taxableIncome: number;
+  overtime?: {
+    annualAmount: number;
+    normalHourlyRate: number;
+    overtime1Pay: number;
+    overtime2Pay: number;
+  };
   bonus?: {
     amount: number;
     periodComparison: {

@@ -30,6 +30,16 @@ const defaultInputs: CalculationInputs = {
   bonusAmount: 0,
   normalPayPeriod: 'monthly',
   includeBonusInPension: false,
+  // Overtime defaults
+  normalWorkingWeek: 37.5,
+  weeksPerYear: 52,
+  overtime1Hours: 0,
+  overtime1Multiplier: 1.5,
+  overtime2Hours: 0,
+  overtime2Multiplier: 2.0,
+  overtimeCashValue: 0,
+  overtimeCashPeriod: 'annual',
+  includeOvertimeInPension: false,
 };
 
 export const useCalculatorStore = create<CalculatorState>()(
