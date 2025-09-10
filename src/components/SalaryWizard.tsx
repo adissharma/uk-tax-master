@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Banknote, Settings, BarChart3 } from 'lucide-react';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { PinterestCard } from './PinterestCard';
 import { PinterestButton } from './PinterestButton';
@@ -185,6 +185,46 @@ export function SalaryWizard() {
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Progress Tracker */}
+      <div className="flex justify-center py-8">
+        <div className="flex items-center gap-12">
+          {[
+            { id: 1, label: 'Salary', icon: Banknote },
+            { id: 2, label: 'Adjustments', icon: Settings },
+            { id: 3, label: 'Results', icon: BarChart3 }
+          ].map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <div key={step.id} className="flex items-center">
+                <div className="flex flex-col items-center gap-2">
+                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                    step.id === currentStep 
+                      ? 'border-primary bg-primary text-primary-foreground' 
+                      : step.id < currentStep 
+                        ? 'border-primary bg-primary text-primary-foreground' 
+                        : 'border-muted-foreground/30 text-muted-foreground'
+                  }`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <span className={`text-xs font-medium ${
+                    step.id === currentStep 
+                      ? 'text-foreground' 
+                      : step.id < currentStep 
+                        ? 'text-muted-foreground' 
+                        : 'text-muted-foreground/60'
+                  }`}>
+                    {step.label}
+                  </span>
+                </div>
+                {index < 2 && (
+                  <div className="w-16 h-px bg-border ml-8 mr-4" />
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       <PinterestCard className="p-6 lg:p-8">
         {/* Step Header */}
         <div className="mb-8">
@@ -194,28 +234,18 @@ export function SalaryWizard() {
         {/* Step Content */}
         <div className="mb-8">
           {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
-            <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="body-sm text-muted-foreground mb-1">Annual Salary</p>
-                  <p className="heading-md text-foreground">
-                    £{inputs.grossAnnualSalary.toLocaleString()}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="body-sm text-muted-foreground mb-1">Monthly</p>
-                  <p className="body-md text-foreground">
-                    £{Math.round(inputs.grossAnnualSalary / 12).toLocaleString()}
-                  </p>
-                </div>
-              </div>
+            <div className="bg-muted/30 rounded-lg p-3 mb-6 flex items-center justify-between">
+              <span className="body-sm text-muted-foreground">Annual Salary:</span>
+              <span className="heading-sm text-foreground">
+                £{inputs.grossAnnualSalary.toLocaleString()}
+              </span>
             </div>
           )}
           {renderStepContent()}
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between items-center pt-6 border-t border-border">
+        <div className="flex justify-between items-center pt-6">
           <div>
             {currentStep > 1 && (
               <PinterestButton
