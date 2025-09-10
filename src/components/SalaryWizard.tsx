@@ -192,7 +192,14 @@ export function SalaryWizard() {
             <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
               {currentStep}
             </span>
-            <h1 className="heading-xl mb-0">{getStepTitle()}</h1>
+            <div>
+              <h1 className="heading-xl mb-0">{getStepTitle()}</h1>
+              {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
+                <p className="body-sm text-muted-foreground mt-1">
+                  Salary: £{inputs.grossAnnualSalary.toLocaleString()} per year
+                </p>
+              )}
+            </div>
           </div>
           
           {/* Step Progress */}
