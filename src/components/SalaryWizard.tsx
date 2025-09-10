@@ -187,36 +187,13 @@ export function SalaryWizard() {
     <div className="max-w-4xl mx-auto">
       <PinterestCard className="p-6 lg:p-8">
         {/* Step Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
-              {currentStep}
-            </span>
-            <div>
-              <h1 className="heading-xl mb-0">{getStepTitle()}</h1>
-              {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
-                <p className="body-sm text-muted-foreground mt-1">
-                  Salary: £{inputs.grossAnnualSalary.toLocaleString()} per year
-                </p>
-              )}
-            </div>
-          </div>
-          
-          {/* Step Progress */}
-          <div className="flex gap-2">
-            {[1, 2, 3].map((step) => (
-              <div
-                key={step}
-                className={`w-3 h-3 rounded-full ${
-                  step === currentStep 
-                    ? 'bg-primary' 
-                    : step < currentStep 
-                      ? 'bg-primary/60' 
-                      : 'bg-muted'
-                }`}
-              />
-            ))}
-          </div>
+        <div className="mb-8">
+          <h1 className="heading-xl mb-2">{getStepTitle()}</h1>
+          {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
+            <p className="body-sm text-muted-foreground">
+              Salary: £{inputs.grossAnnualSalary.toLocaleString()} per year
+            </p>
+          )}
         </div>
 
         {/* Step Content */}
