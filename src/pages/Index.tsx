@@ -1,11 +1,8 @@
-import { Header } from '@/components/Header';
 import { SalaryWizard } from "@/components/SalaryWizard";
 
 export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
-      <Header />
-      
       <main id="main-content" className="container mx-auto px-4 py-8">
         <SalaryWizard />
       </main>

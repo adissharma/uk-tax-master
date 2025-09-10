@@ -186,7 +186,7 @@ export function SalaryWizard() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Progress Tracker */}
-      <div className="flex justify-center py-8">
+      <div className="flex justify-center py-8 mt-6">
         <div className="flex items-center gap-12">
           {[
             { id: 1, label: 'Salary', icon: Banknote },
@@ -234,8 +234,8 @@ export function SalaryWizard() {
         {/* Step Content */}
         <div className="mb-8">
           {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
-            <div className="bg-muted/30 rounded-lg p-3 mb-6 flex items-center justify-between">
-              <span className="body-sm text-muted-foreground">Annual Salary:</span>
+            <div className="bg-muted/30 rounded-lg p-3 mb-6 text-center">
+              <span className="body-sm text-muted-foreground">Annual Salary: </span>
               <span className="heading-sm text-foreground">
                 £{inputs.grossAnnualSalary.toLocaleString()}
               </span>
