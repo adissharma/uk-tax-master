@@ -1,173 +1,263 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useCalculatorStore } from '@/store/calculatorStore';
-import { Card, CardContent } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+import { PinterestCard } from './PinterestCard';
+import { PinterestButton } from './PinterestButton';
 import { SalaryCalculator } from './SalaryCalculator';
-import Results from '@/pages/Results';
+import { VerticalTabs } from './VerticalTabs';
+import { TaxCodeTab } from './tabs/TaxCodeTab';
+import { StudentLoanTab } from './tabs/StudentLoanTab';
+import { PensionTab } from './tabs/PensionTab';
+import { SummaryTab } from './tabs/SummaryTab';
 
 export function SalaryWizard() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [salary, setSalary] = useState('');
-  
-  const { updateInputs, calculate } = useCalculatorStore();
+  const navigate = useNavigate();
+  const { 
+    currentStep, 
+    activeTab, 
+    setActiveTab, 
+    nextStep, 
+    previousStep, 
+    inputs,
+    result,
+    calculate,
+    isCalculating 
+  } = useCalculatorStore();
+
+  // Initialize from URL hash on mount for step 2
+  useEffect(() => {
+    if (currentStep === 2) {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        setActiveTab(hash);
+      }
+    }
+  }, [setActiveTab, currentStep]);
+
+  const tabs = [
+    {
+      id: 'tax-code',
+      label: 'Tax Code',
+      content: <TaxCodeTab />,
+      isActive: true, // Tax code is always active
+    },
+    {
+      id: 'student-loan',
+      label: 'Student Loan',
+      content: <StudentLoanTab />,
+      isActive: inputs.studentLoanPlan !== 'none' || inputs.hasPostgradLoan,
+    },
+    {
+      id: 'pension',
+      label: 'Pension',
+      content: <PensionTab />,
+      isActive: inputs.pensionContribution > 0,
+    },
+    {
+      id: 'bonus',
+      label: 'Bonus',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Bonus payments</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Bonus calculation features will be available in the next update.</p>
+            <p className="body-sm mt-2">Add one-off payments and bonuses to see their tax impact.</p>
+          </div>
+        </div>
+      ),
+      isActive: false, // Not implemented yet
+    },
+    {
+      id: 'overtime',
+      label: 'Overtime',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Overtime payments</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Overtime calculation features will be available in the next update.</p>
+            <p className="body-sm mt-2">Calculate tax on overtime and additional hours worked.</p>
+          </div>
+        </div>
+      ),
+      isActive: false, // Not implemented yet
+    },
+    {
+      id: 'childcare',
+      label: 'Childcare',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Childcare vouchers</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Childcare voucher calculations will be available in the next update.</p>
+            <p className="body-sm mt-2">Include childcare vouchers and salary sacrifice schemes.</p>
+          </div>
+        </div>
+      ),
+      isActive: false, // Not implemented yet
+    },
+    {
+      id: 'salary-sacrifice',
+      label: 'Salary Sacrifice',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Salary sacrifice schemes</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Additional salary sacrifice options will be available in the next update.</p>
+            <p className="body-sm mt-2">Beyond pensions - cycle to work, electric cars, etc.</p>
+          </div>
+        </div>
+      ),
+      isActive: inputs.salaryExchange, // Active if salary exchange is enabled
+    },
+    {
+      id: 'taxable-benefits',
+      label: 'Taxable Benefits',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Benefits in kind</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Taxable benefits calculations will be available in the next update.</p>
+            <p className="body-sm mt-2">Company cars, medical insurance, and other taxable benefits.</p>
+          </div>
+        </div>
+      ),
+      isActive: false, // Not implemented yet
+    },
+    {
+      id: 'additional-options',
+      label: 'Additional Options',
+      content: (
+        <div className="space-y-4">
+          <h2 className="heading-lg">Additional calculation options</h2>
+          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
+            <p className="body-md">Advanced options will be available in the next update.</p>
+            <p className="body-sm mt-2">Marriage allowance, blind person's allowance, and other adjustments.</p>
+          </div>
+        </div>
+      ),
+      isActive: false, // Not implemented yet
+    },
+  ];
 
   const handleNext = () => {
-    if (currentStep === 1) {
-      updateInputs({ grossAnnualSalary: parseFloat(salary) });
-      setCurrentStep(2);
+    if (currentStep === 1 && inputs.grossAnnualSalary > 0) {
+      nextStep();
     } else if (currentStep === 2) {
       calculate();
-      setCurrentStep(3);
+      nextStep();
     }
   };
 
-  const handlePrevious = () => {
-    setCurrentStep(currentStep - 1);
+  const canProceed = () => {
+    if (currentStep === 1) return inputs.grossAnnualSalary > 0;
+    if (currentStep === 2) return true;
+    return false;
   };
 
-  const renderStep1 = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="heading-xl mb-3">Enter your salary</h2>
-        <p className="body-md text-muted-foreground">
-          Tell us your annual gross salary to get started
-        </p>
-      </div>
-      
-      <div className="space-y-4">
-        <div>
-          <label htmlFor="salary" className="body-sm font-medium text-foreground mb-3 block">
-            Annual gross salary
-          </label>
-          <Input
-            id="salary"
-            type="number"
-            placeholder="50,000"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-            className="wise-input text-lg"
-          />
-        </div>
-      </div>
-
-      <div className="flex justify-center">
-        <Button 
-          onClick={handleNext}
-          disabled={!salary || parseFloat(salary) <= 0}
-          className="wise-button wise-button-primary w-full"
-        >
-          Continue
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderStep2 = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="heading-xl mb-3">Add adjustments</h2>
-        <p className="body-sm text-muted-foreground mb-6 bg-muted rounded-lg px-4 py-2 inline-block">
-          Annual salary: £{parseFloat(salary).toLocaleString()}
-        </p>
-        <p className="body-md text-muted-foreground">
-          Customize your calculation with additional details
-        </p>
-      </div>
-      
-      <SalaryCalculator />
-
-      <div className="flex gap-3">
-        <Button 
-          variant="outline"
-          onClick={handlePrevious}
-          className="wise-button wise-button-secondary flex-1"
-        >
-          Back
-        </Button>
-        <Button 
-          onClick={handleNext}
-          className="wise-button wise-button-primary flex-1"
-        >
-          Calculate
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderStep3 = () => (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="heading-xl mb-3">Your results</h2>
-        <p className="body-md text-muted-foreground">
-          Here's your salary breakdown
-        </p>
-      </div>
-      
-      <Results />
-
-      <div className="flex gap-3">
-        <Button 
-          variant="outline"
-          onClick={handlePrevious}
-          className="wise-button wise-button-secondary flex-1"
-        >
-          Back
-        </Button>
-        <Button 
-          onClick={() => {
-            setCurrentStep(1);
-            setSalary('');
-          }}
-          className="wise-button wise-button-primary flex-1"
-        >
-          Start Over
-        </Button>
-      </div>
-    </div>
-  );
-
-  const renderCurrentStep = () => {
+  const getStepTitle = () => {
     switch (currentStep) {
-      case 1: return renderStep1();
-      case 2: return renderStep2();
-      case 3: return renderStep3();
-      default: return renderStep1();
+      case 1: return 'Enter your salary';
+      case 2: return 'Add adjustments (optional)';
+      case 3: return 'Your salary breakdown';
+      default: return 'Salary Calculator';
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return <SalaryCalculator />;
+      case 2:
+        return (
+          <VerticalTabs
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
+        );
+      case 3:
+        return result ? <SummaryTab /> : null;
+      default:
+        return null;
     }
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto">
-      {/* Progress indicator */}
-      <div className="flex items-center justify-center mb-8">
-        <div className="flex items-center space-x-2">
-          {[1, 2, 3].map((stepNum) => (
-            <div key={stepNum} className="flex items-center">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                  stepNum === currentStep
-                    ? 'bg-primary text-primary-foreground'
-                    : stepNum < currentStep
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground'
-                }`}
-              >
-                {stepNum}
-              </div>
-              {stepNum < 3 && (
-                <div className={`w-8 h-0.5 mx-2 ${stepNum < currentStep ? 'bg-primary' : 'bg-muted'}`} />
+    <div className="max-w-4xl mx-auto">
+      <PinterestCard className="p-6 lg:p-8">
+        {/* Step Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center justify-center w-10 h-10 border-2 border-primary text-primary bg-transparent rounded-full text-sm font-semibold">
+              {currentStep}
+            </span>
+            <div>
+              <h1 className="heading-xl mb-0">{getStepTitle()}</h1>
+              {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
+                <p className="body-sm text-muted-foreground mt-1">
+                  Salary: £{inputs.grossAnnualSalary.toLocaleString()} per year
+                </p>
               )}
             </div>
-          ))}
+          </div>
+          
+          {/* Step Progress */}
+          <div className="flex gap-2">
+            {[1, 2, 3].map((step) => (
+              <div
+                key={step}
+                className={`w-3 h-3 rounded-full ${
+                  step === currentStep 
+                    ? 'bg-primary' 
+                    : step < currentStep 
+                      ? 'bg-primary/60' 
+                      : 'bg-muted'
+                }`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Main card */}
-      <Card className="wise-card">
-        <CardContent className="p-0">
-          {renderCurrentStep()}
-        </CardContent>
-      </Card>
+        {/* Step Content */}
+        <div className="mb-8">
+          {renderStepContent()}
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-between items-center pt-6 border-t border-border">
+          <div>
+            {currentStep > 1 && (
+              <PinterestButton
+                variant="outline"
+                onClick={previousStep}
+              >
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Back
+              </PinterestButton>
+            )}
+          </div>
+
+          <div>
+            {currentStep < 3 ? (
+              <PinterestButton
+                onClick={handleNext}
+                disabled={!canProceed() || isCalculating}
+              >
+                {currentStep === 1 ? 'Continue' : 'Calculate'}
+                <ChevronRight className="w-4 h-4 ml-2" />
+              </PinterestButton>
+            ) : (
+              <PinterestButton
+                onClick={() => navigate('/')}
+                variant="outline"
+              >
+                Start Over
+              </PinterestButton>
+            )}
+          </div>
+        </div>
+      </PinterestCard>
     </div>
   );
 }
