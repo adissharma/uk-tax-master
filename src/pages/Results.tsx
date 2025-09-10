@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 import { GOVUKButton } from '@/components/GOVUKButton';
 import { ChevronLeft, Edit3 } from 'lucide-react';
 
-const Results = () => {
+export default function Results() {
   const navigate = useNavigate();
   const { inputs, result, isCalculating } = useCalculatorStore();
 
@@ -222,6 +222,4 @@ const Results = () => {
       <Footer />
     </div>
   );
-};
-
-export default Results;
+}
