@@ -7,11 +7,15 @@ interface CalculatorState {
   inputs: CalculationInputs;
   result: CalculationResult | null;
   activeTab: string;
+  currentStep: number;
   isCalculating: boolean;
   
   // Actions
   updateInputs: (inputs: Partial<CalculationInputs>) => void;
   setActiveTab: (tab: string) => void;
+  setCurrentStep: (step: number) => void;
+  nextStep: () => void;
+  previousStep: () => void;
   calculate: () => void;
 }
 
@@ -30,7 +34,8 @@ export const useCalculatorStore = create<CalculatorState>()(
     (set, get) => ({
       inputs: defaultInputs,
       result: null,
-      activeTab: 'summary',
+      activeTab: 'tax-code',
+      currentStep: 1,
       isCalculating: false,
       
       updateInputs: (newInputs) => {
@@ -48,6 +53,24 @@ export const useCalculatorStore = create<CalculatorState>()(
         // Only update URL hash if it's different from current hash to prevent loops
         if (typeof window !== 'undefined' && window.location.hash.slice(1) !== tab) {
           window.location.hash = tab;
+        }
+      },
+      
+      setCurrentStep: (step) => {
+        set({ currentStep: step });
+      },
+      
+      nextStep: () => {
+        const { currentStep } = get();
+        if (currentStep < 3) {
+          set({ currentStep: currentStep + 1 });
+        }
+      },
+      
+      previousStep: () => {
+        const { currentStep } = get();
+        if (currentStep > 1) {
+          set({ currentStep: currentStep - 1 });
         }
       },
       
@@ -73,7 +96,7 @@ export const useCalculatorStore = create<CalculatorState>()(
     {
       name: 'salary-calculator-storage',
       version: 1,
-      partialize: (state) => ({ inputs: state.inputs, activeTab: state.activeTab }),
+      partialize: (state) => ({ inputs: state.inputs, activeTab: state.activeTab, currentStep: state.currentStep }),
     }
   )
 );

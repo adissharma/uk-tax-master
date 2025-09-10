@@ -59,17 +59,14 @@ export function SalaryCalculator() {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       validateAndUpdate(displayValue);
-      if (inputs.grossAnnualSalary > 0 && !error) {
-        calculate();
-        navigate('/results');
-      }
+      // Let the wizard handle navigation
     }
   };
 
   const handleSubmit = () => {
+    // In wizard mode, just move to next step
     if (inputs.grossAnnualSalary > 0 && !error) {
-      calculate();
-      navigate('/results');
+      // This will be handled by the wizard's handleNext
     }
   };
 
@@ -92,13 +89,13 @@ export function SalaryCalculator() {
         autoComplete="off"
       />
 
-      {/* Submit Button */}
+      {/* Submit Button - Hidden in wizard mode */}
       <div className="flex justify-center pt-4">
         <PinterestButton
           onClick={handleSubmit}
           disabled={!canSubmit}
           size="lg"
-          className="min-w-[280px]"
+          className="min-w-[280px] hidden"
         >
           Calculate pay
         </PinterestButton>
