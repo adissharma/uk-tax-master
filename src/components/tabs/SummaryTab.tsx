@@ -1,6 +1,7 @@
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { formatCurrency } from '@/lib/calculator/engine';
 import { GOVUKButton } from '../GOVUKButton';
+import { SalaryBreakdownChart } from '../SalaryBreakdownChart';
 import { Copy } from 'lucide-react';
 
 export function SummaryTab() {
@@ -72,6 +73,11 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
             <p className="text-govuk-dark-grey">Per month</p>
           </div>
         </div>
+      </div>
+
+      {/* Visual Chart */}
+      <div className="bg-white p-6 border border-govuk-mid-grey">
+        <SalaryBreakdownChart result={result} />
       </div>
 
       {/* Detailed Breakdown */}
