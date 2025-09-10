@@ -12,8 +12,28 @@ export function SalaryCalculator() {
   const [displayValue, setDisplayValue] = useState(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
   const [error, setError] = useState('');
 
+  const formatDisplayValue = (value: string) => {
+    // Remove all non-numeric characters except decimal point
+    const numericValue = value.replace(/[^\d.]/g, '');
+    
+    // If empty, return empty
+    if (!numericValue) return '';
+    
+    // Split by decimal point
+    const parts = numericValue.split('.');
+    const integerPart = parts[0];
+    const decimalPart = parts[1];
+    
+    // Add commas to integer part
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    
+    // Return with or without decimal part
+    return decimalPart !== undefined ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+  };
+
   useEffect(() => {
-    setDisplayValue(inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString());
+    const value = inputs.grossAnnualSalary === 0 ? '' : inputs.grossAnnualSalary.toString();
+    setDisplayValue(formatDisplayValue(value));
   }, [inputs.grossAnnualSalary]);
 
   const validateAndUpdate = (value: string) => {
@@ -45,8 +65,11 @@ export function SalaryCalculator() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setDisplayValue(value);
+    const rawValue = e.target.value;
+    // Remove pound sign if user types it
+    const cleanValue = rawValue.replace(/^£/, '');
+    const formatted = formatDisplayValue(cleanValue);
+    setDisplayValue(formatted);
     
     // Clear error immediately when user starts typing
     if (error) setError('');
@@ -78,7 +101,8 @@ export function SalaryCalculator() {
       <PinterestInput
         label="Annual gross salary"
         hint="Enter your yearly salary before tax and deductions"
-        placeholder="£45,000"
+        placeholder="45,000"
+        prefix="£"
         value={displayValue}
         onChange={handleInputChange}
         onBlur={handleBlur}
