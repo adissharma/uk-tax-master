@@ -4,10 +4,10 @@ import { SalaryWizard } from "@/components/SalaryWizard";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      <main id="main-content" className="container mx-auto px-4 py-8">
+      <main id="main-content" className="container mx-auto px-4 py-12">
         <SalaryWizard />
       </main>
 

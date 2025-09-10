@@ -1,232 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base Tailwind Styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Import Inter font for Pinterest aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Wise Design System Variables */
+:root {
+  /* Core Colors - Wise inspired */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 9%;
+  --primary: 78 100% 52%;          /* Wise Green */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 90%;              /* Subtle gray borders */
+  --input: 0 0% 90%;
+  --ring: 78 100% 52%;             /* Wise Green focus ring */
+  --radius: 8px;                   /* Wise-style border radius */
+  --success: 78 100% 52%;          /* Same as primary */
+  --success-foreground: 0 0% 100%;
+  --warning: 45 93% 47%;
+  --warning-foreground: 0 0% 100%;
 
-/* ===== Pinterest Gestalt Design System ===== */
-@layer base {
-  :root {
-    /* Neutral Primary Colors */
-    --neutral-primary: 210 40% 45%;
-    --neutral-primary-dark: 210 40% 35%;
-    --neutral-primary-light: 210 40% 85%;
-    
-    /* Neutral Colors */
-    --gray-0: 0 0% 100%;
-    --gray-50: 0 0% 98%;
-    --gray-100: 0 0% 95%;
-    --gray-200: 0 0% 90%;
-    --gray-300: 0 0% 83%;
-    --gray-400: 0 0% 68%;
-    --gray-500: 0 0% 51%;
-    --gray-600: 0 0% 43%;
-    --gray-700: 0 0% 32%;
-    --gray-800: 0 0% 18%;
-    --gray-900: 0 0% 11%;
+  /* Neutral Palette - Cleaner grays */
+  --neutral-50: 0 0% 97%;
+  --neutral-100: 0 0% 93%;
+  --neutral-200: 0 0% 87%;
+  --neutral-300: 0 0% 75%;
+  --neutral-400: 0 0% 64%;
+  --neutral-500: 0 0% 45%;
+  --neutral-600: 0 0% 32%;
+  --neutral-700: 0 0% 25%;
+  --neutral-800: 0 0% 15%;
+  --neutral-900: 0 0% 9%;
 
-    /* Semantic Colors */
-    --background: var(--gray-0);
-    --foreground: var(--gray-900);
-    --card: var(--gray-0);
-    --card-foreground: var(--gray-900);
-    --popover: var(--gray-0);
-    --popover-foreground: var(--gray-900);
-    --primary: var(--neutral-primary);
-    --primary-foreground: var(--gray-0);
-    --secondary: var(--gray-100);
-    --secondary-foreground: var(--gray-900);
-    --muted: var(--gray-100);
-    --muted-foreground: var(--gray-600);
-    --accent: var(--neutral-primary-light);
-    --accent-foreground: var(--gray-900);
-    --destructive: 0 84% 60%;
-    --destructive-foreground: var(--gray-0);
-    --border: var(--gray-200);
-    --input: var(--gray-0);
-    --ring: var(--neutral-primary);
-    --radius: 16px;
+  /* Typography Scale */
+  --text-5xl: 3rem;
+  --text-4xl: 2.25rem;  
+  --text-3xl: 1.875rem;
+  --text-2xl: 1.5rem;
+  --text-xl: 1.25rem;
+  --text-lg: 1.125rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
 
-    /* Success & Warning Colors */
-    --success: 142 76% 36%;
-    --success-foreground: var(--gray-0);
-    --warning: 45 93% 47%;
-    --warning-foreground: var(--gray-900);
+  /* Spacing Scale */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;  
+  --spacing-16: 64px;
+  --spacing-20: 80px;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--neutral-primary)), hsl(var(--neutral-primary-dark)));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--gray-50)), hsl(var(--gray-100)));
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Shadows - More subtle */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 2px 4px 0 rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 8px 15px -3px rgb(0 0 0 / 0.1);
 
-    /* Typography Scale */
-    --text-xs: 12px;
-    --text-sm: 14px;
-    --text-base: 16px;
-    --text-lg: 18px;
-    --text-xl: 20px;
-    --text-2xl: 24px;
-    --text-3xl: 30px;
-    --text-4xl: 36px;
-    --text-5xl: 48px;
-
-    /* Spacing Scale */
-    --spacing-0: 0px;
-    --spacing-1: 4px;
-    --spacing-2: 8px;
-    --spacing-3: 12px;
-    --spacing-4: 16px;
-    --spacing-5: 20px;
-    --spacing-6: 24px;
-    --spacing-8: 32px;
-    --spacing-10: 40px;
-    --spacing-12: 48px;
-    --spacing-16: 64px;
-    --spacing-20: 80px;
-
-    /* Transitions */
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Dark Mode Support */
-  .dark {
-    --background: var(--gray-900);
-    --foreground: var(--gray-50);
-    --card: var(--gray-800);
-    --card-foreground: var(--gray-50);
-    --popover: var(--gray-800);
-    --popover-foreground: var(--gray-50);
-    --muted: var(--gray-800);
-    --muted-foreground: var(--gray-400);
-    --border: var(--gray-700);
-    --input: var(--gray-800);
-  }
+  /* Transitions */
+  --transition-all: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-colors: color, background-color, border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== Global Styles ===== */
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-  }
+.dark {
+  --background: 0 0% 9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 78 100% 52%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 0% 15%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 78 100% 52%;
+  --success: 78 100% 52%;
+  --success-foreground: 0 0% 9%;
+  --warning: 45 93% 47%;
+  --warning-foreground: 0 0% 9%;
 }
 
-/* ===== Pinterest-Inspired Typography ===== */
-@layer base {
-  /* Display Headings */
-  .display-xl {
-    @apply text-5xl font-semibold text-foreground leading-tight tracking-tight;
-  }
-
-  .display-lg {
-    @apply text-4xl font-semibold text-foreground leading-tight tracking-tight;
-  }
-
-  .display-md {
-    @apply text-3xl font-semibold text-foreground leading-tight;
-  }
-
-  /* Headings */
-  h1, .heading-xl {
-    @apply text-2xl font-semibold text-foreground leading-tight mb-6;
-  }
-
-  h2, .heading-lg {
-    @apply text-xl font-semibold text-foreground leading-tight mb-4;
-  }
-
-  h3, .heading-md {
-    @apply text-lg font-medium text-foreground leading-tight mb-3;
-  }
-
-  h4, .heading-sm {
-    @apply text-base font-medium text-foreground leading-snug mb-2;
-  }
-
-  /* Body Text */
-  .body-lg {
-    @apply text-lg text-foreground leading-relaxed;
-  }
-
-  .body-md, p {
-    @apply text-base text-foreground leading-relaxed;
-  }
-
-  .body-sm {
-    @apply text-sm text-muted-foreground leading-relaxed;
-  }
-
-  .body-xs {
-    @apply text-xs text-muted-foreground leading-normal;
-  }
+/* Global Styles */
+* {
+  border-color: theme('colors.border');
 }
 
-/* ===== Component Styling ===== */
-@layer components {
-  .pinterest-card {
-    @apply bg-card rounded-2xl shadow-sm border border-border overflow-hidden;
-    @apply hover:shadow-md transition-shadow duration-200;
-  }
-
-  .pinterest-button {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full;
-    @apply font-medium text-sm transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
-    @apply disabled:opacity-50 disabled:pointer-events-none;
-  }
-
-  .pinterest-button-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
-    @apply shadow-sm hover:shadow-md;
-  }
-
-  .pinterest-button-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
-    @apply border border-border;
-  }
-
-  .pinterest-input {
-    @apply w-full px-4 py-3 rounded-2xl border border-input bg-background;
-    @apply text-foreground placeholder:text-muted-foreground;
-    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent;
-    @apply transition-colors duration-200;
-  }
-
-  /* Skip link for accessibility */
-  .skip-link {
-    @apply absolute top-0 left-0 z-50 px-4 py-2 bg-primary text-primary-foreground;
-    @apply -translate-y-full focus:translate-y-0 transition-transform duration-200;
-    @apply rounded-br-lg font-medium text-sm;
-  }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  @apply bg-background text-foreground antialiased;
+  line-height: 1.5;
 }
 
-/* ===== Custom Scrollbar ===== */
-@layer utilities {
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
+/* Typography Classes - Wise inspired */
+.display-xl {
+  @apply text-5xl font-medium leading-tight tracking-tight;
+}
 
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-  }
+.display-lg {
+  @apply text-4xl font-medium leading-tight tracking-tight;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted-foreground));
-    border-radius: 3px;
-  }
+.display-md {
+  @apply text-3xl font-medium leading-tight tracking-tight;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--foreground));
-  }
+.heading-xl {
+  @apply text-2xl font-medium leading-tight;
+}
+
+.heading-lg {
+  @apply text-xl font-medium leading-tight;
+}
+
+.heading-md {
+  @apply text-lg font-medium leading-tight;
+}
+
+.heading-sm {
+  @apply text-base font-medium leading-tight;
+}
+
+.body-lg {
+  @apply text-lg leading-relaxed font-normal;
+}
+
+.body-md {
+  @apply text-base leading-relaxed font-normal;
+}
+
+.body-sm {
+  @apply text-sm leading-normal font-normal;
+}
+
+.body-xs {
+  @apply text-xs leading-normal font-normal;
+}
+
+/* Component Styles - Wise inspired */
+.wise-card {
+  @apply bg-card text-card-foreground border border-border rounded-lg p-8 shadow-sm;
+}
+
+.wise-button {
+  @apply inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+}
+
+.wise-button-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.wise-button-secondary {
+  @apply bg-background text-foreground hover:bg-muted border border-border;
+}
+
+.wise-input {
+  @apply flex h-12 w-full rounded-lg border border-input bg-background px-4 py-3 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.skip-link {
+  @apply absolute -top-full left-6 z-50 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium focus:top-6 transition-all;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
 }
