@@ -4,11 +4,40 @@ import { CalculationInputs } from '../types';
 
 describe('Salary Calculator Engine', () => {
   const defaultInputs: CalculationInputs = {
-    grossAnnualSalary: 30000,
+    grossSalary: 30000,
+    payPeriod: 'annual',
     taxYear: '2024-25',
     region: 'england',
-    studentLoanPlan: 'none',
+    taxCode: '1257L',
+    isScottishTaxpayer: false,
+    weeklyHours: 37.5,
+    weeksPerYear: 52,
+    overtimeHours: 0,
+    overtimeMultiplier: 1.5,
+    overtimeCashAmount: 0,
+    bonusAmount: 0,
+    includeBonusInPension: false,
+    pensionType: 'none',
+    pensionContributionRate: 0,
+    pensionCashAmount: 0,
+    pensionOnQualifyingEarnings: true,
+    studentLoanPlans: [],
     hasPostgradLoan: false,
+    salarySacrificeAmount: 0,
+    salarySacrificeNIOnly: false,
+    taxableBenefits: 0,
+    cashAllowances: 0,
+    childcareVoucherAmount: 0,
+    childcareVoucherJoinDate: '',
+    preTaxDeductions: 0,
+    postTaxDeductions: 0,
+    hasBlindPersonAllowance: false,
+    hasMarriedCouplesAllowance: false,
+    noNationalInsurance: false,
+    
+    // Legacy fields
+    grossAnnualSalary: 30000,
+    studentLoanPlan: 'none',
     pensionContribution: 0,
     salaryExchange: false,
   };
@@ -27,6 +56,7 @@ describe('Salary Calculator Engine', () => {
     it('should calculate correct net pay for £50,000 salary', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 50000,
         grossAnnualSalary: 50000,
       });
       
@@ -40,6 +70,7 @@ describe('Salary Calculator Engine', () => {
     it('should handle higher rate tax correctly for £60,000 salary', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 60000,
         grossAnnualSalary: 60000,
       });
       
@@ -55,6 +86,7 @@ describe('Salary Calculator Engine', () => {
     it('should reduce personal allowance for salary over £100,000', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 110000,
         grossAnnualSalary: 110000,
       });
       
@@ -68,6 +100,7 @@ describe('Salary Calculator Engine', () => {
     it('should completely remove personal allowance for very high salaries', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 130000,
         grossAnnualSalary: 130000,
       });
       
@@ -80,6 +113,7 @@ describe('Salary Calculator Engine', () => {
     it('should not charge NI below primary threshold', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 10000,
         grossAnnualSalary: 10000,
       });
       
@@ -89,6 +123,7 @@ describe('Salary Calculator Engine', () => {
     it('should apply correct NI rates above Upper Earnings Limit', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 60000,
         grossAnnualSalary: 60000,
       });
       
@@ -126,7 +161,7 @@ describe('Salary Calculator Engine', () => {
     it('should calculate pension contributions correctly', () => {
       const result = calculateSalary({
         ...defaultInputs,
-        pensionContribution: 5, // 5%
+        pensionContributionRate: 5, // 5%
       });
       
       const expectedPension = 30000 * 0.05; // £1,500
@@ -137,9 +172,10 @@ describe('Salary Calculator Engine', () => {
     it('should handle salary exchange correctly', () => {
       const result = calculateSalary({
         ...defaultInputs,
+        grossSalary: 30000,
         grossAnnualSalary: 30000,
-        pensionContribution: 5,
-        salaryExchange: true,
+        pensionContributionRate: 5,
+        pensionType: 'salary-sacrifice',
       });
       
       // With salary exchange, pension comes off before NI calculation

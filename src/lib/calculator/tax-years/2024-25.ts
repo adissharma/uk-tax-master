@@ -30,7 +30,14 @@ export const taxYear202425: TaxYear = {
       max: null,
     },
   ],
+  blindPersonAllowance: 3130,
+  marriedCouplesAllowance: 1127,
+  marriedCouplesAllowanceMinimum: 436,
+  scottishIncomeTaxBands: [],
   nationalInsurance: {
+    weeklyLowerEarningsLimit: 120,
+    weeklyPrimaryThreshold: 242,
+    weeklyUpperEarningsLimit: 967,
     primaryThreshold: 12570,
     upperEarningsLimit: 50270,
     employeeRate: 0.12,
@@ -42,6 +49,16 @@ export const taxYear202425: TaxYear = {
     plan1: { threshold: 22015, rate: 0.09 },
     plan2: { threshold: 27295, rate: 0.09 },
     plan4: { threshold: 31395, rate: 0.09 },
+    plan5: { threshold: 25000, rate: 0.09 },
     postgrad: { threshold: 21000, rate: 0.06 },
+  },
+  autoEnrolment: {
+    lowerEarningsLimit: 6240,
+    upperEarningsLimit: 50270,
+  },
+  childcareVoucherLimits: {
+    basicRateOrPreApril2011: 2916,
+    higherRatePostApril2011: 1488,
+    additionalRatePostApril2011: 1320,
   },
 };

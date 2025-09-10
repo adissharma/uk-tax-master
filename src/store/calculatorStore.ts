@@ -20,11 +20,40 @@ interface CalculatorState {
 }
 
 const defaultInputs: CalculationInputs = {
-  grossAnnualSalary: 0,
-  taxYear: '2024-25',
+  grossSalary: 0,
+  payPeriod: 'annual' as const,
+  taxYear: '2025-26',
   region: 'england',
-  studentLoanPlan: 'none',
+  taxCode: '1257L',
+  isScottishTaxpayer: false,
+  weeklyHours: 37.5,
+  weeksPerYear: 52,
+  overtimeHours: 0,
+  overtimeMultiplier: 1.5,
+  overtimeCashAmount: 0,
+  bonusAmount: 0,
+  includeBonusInPension: false,
+  pensionType: 'none' as const,
+  pensionContributionRate: 5,
+  pensionCashAmount: 0,
+  pensionOnQualifyingEarnings: true,
+  studentLoanPlans: [],
   hasPostgradLoan: false,
+  salarySacrificeAmount: 0,
+  salarySacrificeNIOnly: false,
+  taxableBenefits: 0,
+  cashAllowances: 0,
+  childcareVoucherAmount: 0,
+  childcareVoucherJoinDate: '',
+  preTaxDeductions: 0,
+  postTaxDeductions: 0,
+  hasBlindPersonAllowance: false,
+  hasMarriedCouplesAllowance: false,
+  noNationalInsurance: false,
+  
+  // Legacy compatibility
+  grossAnnualSalary: 0,
+  studentLoanPlan: 'none' as const,
   pensionContribution: 5,
   salaryExchange: false,
 };
@@ -42,8 +71,13 @@ export const useCalculatorStore = create<CalculatorState>()(
         const inputs = { ...get().inputs, ...newInputs };
         set({ inputs });
         
+        // Sync legacy field
+        if (newInputs.grossAnnualSalary !== undefined) {
+          inputs.grossSalary = newInputs.grossAnnualSalary;
+        }
+        
         // Don't auto-calculate anymore - only update inputs
-        if (inputs.grossAnnualSalary === 0) {
+        if (inputs.grossSalary === 0) {
           set({ result: null, isCalculating: false });
         }
       },
@@ -78,7 +112,7 @@ export const useCalculatorStore = create<CalculatorState>()(
         const { inputs } = get();
         
         // Only calculate if there's a valid salary
-        if (inputs.grossAnnualSalary > 0) {
+        if (inputs.grossSalary > 0 || inputs.grossAnnualSalary > 0) {
           set({ isCalculating: true });
           
           try {

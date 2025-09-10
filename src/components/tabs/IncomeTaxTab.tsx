@@ -67,10 +67,10 @@ export function IncomeTaxTab() {
                   {formatPercentage(band.rate)}
                 </td>
                 <td className="px-4 py-3 text-right">
-                  {band.taxable > 0 ? formatCurrency(band.taxable) : '—'}
+                  {band.taxableAmount > 0 ? formatCurrency(band.taxableAmount) : '—'}
                 </td>
                 <td className="px-4 py-3 text-right font-medium">
-                  {band.tax > 0 ? formatCurrency(band.tax) : '—'}
+                  {band.taxDue > 0 ? formatCurrency(band.taxDue) : '—'}
                 </td>
               </tr>
             ))}
