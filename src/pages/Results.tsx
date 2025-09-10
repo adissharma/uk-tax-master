@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useCalculatorStore } from '@/store/calculatorStore';
 import { formatCurrency } from '@/lib/calculator/engine';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { GOVUKButton } from '@/components/GOVUKButton';
 import { ChevronLeft, Edit3 } from 'lucide-react';
 
@@ -27,7 +26,6 @@ const Results = () => {
             <p>Calculating your results...</p>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -218,8 +216,6 @@ const Results = () => {
           </div>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

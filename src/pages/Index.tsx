@@ -1,5 +1,4 @@
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { SalaryWizard } from "@/components/SalaryWizard";
 
 export default function Index() {
@@ -16,8 +15,6 @@ export default function Index() {
           Calculations based on 2024-25 UK tax rates and thresholds
         </p>
       </div>
-      
-      <Footer />
     </div>
   );
 }

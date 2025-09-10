@@ -189,15 +189,28 @@ export function SalaryWizard() {
         {/* Step Header */}
         <div className="mb-8">
           <h1 className="heading-xl mb-2">{getStepTitle()}</h1>
-          {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
-            <p className="body-sm text-muted-foreground">
-              Salary: £{inputs.grossAnnualSalary.toLocaleString()} per year
-            </p>
-          )}
         </div>
 
         {/* Step Content */}
         <div className="mb-8">
+          {currentStep === 2 && inputs.grossAnnualSalary > 0 && (
+            <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="body-sm text-muted-foreground mb-1">Annual Salary</p>
+                  <p className="heading-md text-foreground">
+                    £{inputs.grossAnnualSalary.toLocaleString()}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="body-sm text-muted-foreground mb-1">Monthly</p>
+                  <p className="body-md text-foreground">
+                    £{Math.round(inputs.grossAnnualSalary / 12).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           {renderStepContent()}
         </div>
 
