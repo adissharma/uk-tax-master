@@ -27,6 +27,9 @@ const defaultInputs: CalculationInputs = {
   hasPostgradLoan: false,
   pensionContribution: 5,
   salaryExchange: false,
+  bonusAmount: 0,
+  normalPayPeriod: 'monthly',
+  includeBonusInPension: false,
 };
 
 export const useCalculatorStore = create<CalculatorState>()(

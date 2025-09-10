@@ -8,6 +8,22 @@ const TAX_YEARS = {
 export function calculateSalary(inputs: CalculationInputs): CalculationResult {
   const taxYear = TAX_YEARS[inputs.taxYear] || taxYear202425;
   
+  // Calculate baseline (without bonus) first
+  const baselineResult = calculateBaselineDeductions(inputs, taxYear);
+  
+  // Calculate bonus scenario if bonus is present
+  let bonusResult = null;
+  if (inputs.bonusAmount && inputs.bonusAmount > 0) {
+    bonusResult = calculateBonusScenario(inputs, taxYear, baselineResult);
+  }
+
+  return {
+    ...baselineResult,
+    bonus: bonusResult,
+  };
+}
+
+function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any) {
   // Calculate personal allowance with taper
   const personalAllowance = calculatePersonalAllowance(
     inputs.grossAnnualSalary,
@@ -103,6 +119,108 @@ export function calculateSalary(inputs: CalculationInputs): CalculationResult {
     personalAllowance,
     taxableIncome,
   };
+}
+
+function calculateBonusScenario(inputs: CalculationInputs, taxYear: any, baselineResult: any) {
+  const bonusAmount = inputs.bonusAmount || 0;
+  
+  // Calculate deductions with bonus included
+  const grossWithBonus = inputs.grossAnnualSalary + bonusAmount;
+  
+  // For bonus calculation, pension may or may not include the bonus
+  let pensionOnBonus = 0;
+  if (inputs.includeBonusInPension && inputs.pensionContribution) {
+    pensionOnBonus = (bonusAmount * inputs.pensionContribution) / 100;
+  }
+  
+  // Calculate personal allowance with bonus (same as baseline unless bonus affects taper)
+  const personalAllowanceWithBonus = calculatePersonalAllowance(
+    grossWithBonus,
+    taxYear.personalAllowance,
+    taxYear.personalAllowanceTaperThreshold
+  );
+  
+  // Calculate salary after pension with bonus
+  const salaryAfterPensionWithBonus = inputs.salaryExchange 
+    ? grossWithBonus - (baselineResult.pension.employee.annual + pensionOnBonus)
+    : grossWithBonus;
+  
+  // Calculate taxable income with bonus
+  const taxableIncomeWithBonus = Math.max(0, salaryAfterPensionWithBonus - personalAllowanceWithBonus);
+  
+  // Calculate deductions with bonus
+  const incomeTaxWithBonus = calculateIncomeTax(taxableIncomeWithBonus, taxYear.incomeTaxBands).total;
+  const niWithBonus = calculateNationalInsurance(salaryAfterPensionWithBonus, taxYear.nationalInsurance, 'employee');
+  const slWithBonus = calculateStudentLoan(grossWithBonus, inputs.studentLoanPlan, inputs.hasPostgradLoan, taxYear.studentLoan);
+  
+  // Calculate deltas (extra deductions due to bonus)
+  const deltaTax = incomeTaxWithBonus - baselineResult.incomeTax.annual;
+  const deltaNI = niWithBonus - baselineResult.nationalInsurance.employee.annual;
+  const deltaSL = slWithBonus - baselineResult.studentLoan.annual;
+  const deltaTotal = deltaTax + deltaNI + deltaSL;
+  
+  // Apply cap: total extra deductions cannot exceed bonus amount
+  const cappedDeltaTotal = Math.min(deltaTotal, bonusAmount);
+  const cappingRatio = deltaTotal > 0 ? cappedDeltaTotal / deltaTotal : 1;
+  
+  const cappedDeltaTax = deltaTax * cappingRatio;
+  const cappedDeltaNI = deltaNI * cappingRatio;
+  const cappedDeltaSL = deltaSL * cappingRatio;
+  
+  // Calculate period comparison based on normal pay period
+  const periodDivisor = getPeriodDivisor(inputs.normalPayPeriod || 'monthly');
+  
+  const normalPeriodGross = inputs.grossAnnualSalary / periodDivisor;
+  const normalPeriodTax = baselineResult.incomeTax.annual / periodDivisor;
+  const normalPeriodNI = baselineResult.nationalInsurance.employee.annual / periodDivisor;
+  const normalPeriodSL = baselineResult.studentLoan.annual / periodDivisor;
+  const normalPeriodPension = baselineResult.pension.employee.annual / periodDivisor;
+  const normalPeriodNet = normalPeriodGross - normalPeriodTax - normalPeriodNI - normalPeriodSL - (inputs.salaryExchange ? 0 : normalPeriodPension);
+  
+  const bonusPeriodGross = normalPeriodGross + bonusAmount;
+  const bonusPeriodTax = normalPeriodTax + cappedDeltaTax;
+  const bonusPeriodNI = normalPeriodNI + cappedDeltaNI;
+  const bonusPeriodSL = normalPeriodSL + cappedDeltaSL;
+  const bonusPeriodPension = normalPeriodPension + pensionOnBonus;
+  const bonusPeriodNet = bonusPeriodGross - bonusPeriodTax - bonusPeriodNI - bonusPeriodSL - (inputs.salaryExchange ? 0 : bonusPeriodPension);
+  
+  return {
+    amount: bonusAmount,
+    extraDeductions: {
+      tax: cappedDeltaTax,
+      ni: cappedDeltaNI,
+      studentLoan: cappedDeltaSL,
+      total: cappedDeltaTotal,
+    },
+    periodComparison: {
+      normalPeriod: {
+        gross: normalPeriodGross,
+        tax: normalPeriodTax,
+        ni: normalPeriodNI,
+        studentLoan: normalPeriodSL,
+        pension: normalPeriodPension,
+        net: normalPeriodNet,
+      },
+      bonusPeriod: {
+        gross: bonusPeriodGross,
+        tax: bonusPeriodTax,
+        ni: bonusPeriodNI,
+        studentLoan: bonusPeriodSL,
+        pension: bonusPeriodPension,
+        net: bonusPeriodNet,
+      },
+    },
+  };
+}
+
+function getPeriodDivisor(period: string): number {
+  switch (period) {
+    case 'weekly': return 52;
+    case 'two-weekly': return 26;
+    case 'four-weekly': return 13;
+    case 'monthly': return 12;
+    default: return 12;
+  }
 }
 
 function calculatePersonalAllowance(grossSalary: number, baseAllowance: number, taperThreshold: number): number {

@@ -9,6 +9,7 @@ import { VerticalTabs } from './VerticalTabs';
 import { TaxCodeTab } from './tabs/TaxCodeTab';
 import { StudentLoanTab } from './tabs/StudentLoanTab';
 import { PensionTab } from './tabs/PensionTab';
+import { BonusTab } from './tabs/BonusTab';
 import { SummaryTab } from './tabs/SummaryTab';
 
 export function SalaryWizard() {
@@ -57,16 +58,8 @@ export function SalaryWizard() {
     {
       id: 'bonus',
       label: 'Bonus',
-      content: (
-        <div className="space-y-4">
-          <h2 className="heading-lg">Bonus payments</h2>
-          <div className="bg-muted border-l-4 border-muted-foreground p-4 rounded-lg">
-            <p className="body-md">Bonus calculation features will be available in the next update.</p>
-            <p className="body-sm mt-2">Add one-off payments and bonuses to see their tax impact.</p>
-          </div>
-        </div>
-      ),
-      isActive: false, // Not implemented yet
+      content: <BonusTab />,
+      isActive: inputs.bonusAmount && inputs.bonusAmount > 0,
     },
     {
       id: 'overtime',

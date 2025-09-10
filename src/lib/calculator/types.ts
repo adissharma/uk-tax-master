@@ -34,6 +34,9 @@ export interface CalculationInputs {
   hasPostgradLoan?: boolean;
   pensionContribution?: number;
   salaryExchange?: boolean;
+  bonusAmount?: number;
+  normalPayPeriod?: 'monthly' | 'four-weekly' | 'two-weekly' | 'weekly';
+  includeBonusInPension?: boolean;
 }
 
 export interface CalculationResult {
@@ -82,4 +85,31 @@ export interface CalculationResult {
   };
   personalAllowance: number;
   taxableIncome: number;
+  bonus?: {
+    amount: number;
+    periodComparison: {
+      normalPeriod: {
+        gross: number;
+        tax: number;
+        ni: number;
+        studentLoan: number;
+        pension: number;
+        net: number;
+      };
+      bonusPeriod: {
+        gross: number;
+        tax: number;
+        ni: number;
+        studentLoan: number;
+        pension: number;
+        net: number;
+      };
+    };
+    extraDeductions: {
+      tax: number;
+      ni: number;
+      studentLoan: number;
+      total: number;
+    };
+  };
 }

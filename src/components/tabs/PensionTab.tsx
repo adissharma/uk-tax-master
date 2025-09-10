@@ -6,6 +6,7 @@ export function PensionTab() {
   const { inputs, updateInputs } = useCalculatorStore();
   const [employeeContribution, setEmployeeContribution] = useState((inputs.pensionContribution || 5).toString());
   const [salaryExchange, setSalaryExchange] = useState(inputs.salaryExchange || false);
+  const [includeBonusInPension, setIncludeBonusInPension] = useState(inputs.includeBonusInPension || false);
 
   const handleContributionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -21,6 +22,12 @@ export function PensionTab() {
     const checked = e.target.checked;
     setSalaryExchange(checked);
     updateInputs({ salaryExchange: checked });
+  };
+
+  const handleIncludeBonusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIncludeBonusInPension(checked);
+    updateInputs({ includeBonusInPension: checked });
   };
 
   return (
@@ -77,6 +84,29 @@ export function PensionTab() {
             </div>
           </fieldset>
         </div>
+
+        {/* Include bonus in pension calculation */}
+        {inputs.bonusAmount && inputs.bonusAmount > 0 && (
+          <div>
+            <h2 className="heading-lg">Bonus payments</h2>
+            <div className="space-y-3">
+              <label className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={includeBonusInPension}
+                  onChange={handleIncludeBonusChange}
+                  className="mt-1 text-primary focus:ring-primary"
+                />
+                <div>
+                  <div className="font-medium">Include bonus in pension contributions</div>
+                  <div className="text-sm text-muted-foreground">
+                    Most employers do not deduct pension from bonus payments. Only tick this if your scheme specifically includes bonuses in pensionable pay.
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

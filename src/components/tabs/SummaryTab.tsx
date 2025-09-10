@@ -75,6 +75,85 @@ Pension: ${formatCurrency(result.pension.employee.annual)}
         </div>
       </div>
 
+      {/* Bonus Period Comparison */}
+      {result.bonus && (
+        <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+          <h3 className="text-xl font-bold text-govuk-black mb-4">Bonus Period Comparison</h3>
+          
+          <div className="mb-4">
+            <p className="text-govuk-dark-grey">
+              Annual bonus: <span className="font-bold">{formatCurrency(result.bonus.amount)}</span>
+            </p>
+            <p className="text-govuk-dark-grey text-sm">
+              Extra deductions due to bonus: <span className="font-bold">{formatCurrency(result.bonus.extraDeductions.total)}</span>
+            </p>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-govuk-mid-grey">
+              <thead>
+                <tr className="bg-govuk-light-grey">
+                  <th className="border border-govuk-mid-grey px-4 py-2 text-left font-bold">Component</th>
+                  <th className="border border-govuk-mid-grey px-4 py-2 text-right font-bold">Normal Period</th>
+                  <th className="border border-govuk-mid-grey px-4 py-2 text-right font-bold">Bonus Period</th>
+                  <th className="border border-govuk-mid-grey px-4 py-2 text-right font-bold">Difference</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" className="border border-govuk-mid-grey px-4 py-2 text-left font-medium">Gross pay</th>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">{formatCurrency(result.bonus.periodComparison.normalPeriod.gross)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">{formatCurrency(result.bonus.periodComparison.bonusPeriod.gross)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right font-bold text-green-600">
+                    +{formatCurrency(result.bonus.periodComparison.bonusPeriod.gross - result.bonus.periodComparison.normalPeriod.gross)}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" className="border border-govuk-mid-grey px-4 py-2 text-left font-medium">Income tax</th>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.normalPeriod.tax)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.bonusPeriod.tax)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right text-red-600">
+                    -{formatCurrency(result.bonus.extraDeductions.tax)}
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" className="border border-govuk-mid-grey px-4 py-2 text-left font-medium">National Insurance</th>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.normalPeriod.ni)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.bonusPeriod.ni)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right text-red-600">
+                    -{formatCurrency(result.bonus.extraDeductions.ni)}
+                  </td>
+                </tr>
+                {result.bonus.extraDeductions.studentLoan > 0 && (
+                  <tr>
+                    <th scope="row" className="border border-govuk-mid-grey px-4 py-2 text-left font-medium">Student loan</th>
+                    <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.normalPeriod.studentLoan)}</td>
+                    <td className="border border-govuk-mid-grey px-4 py-2 text-right">-{formatCurrency(result.bonus.periodComparison.bonusPeriod.studentLoan)}</td>
+                    <td className="border border-govuk-mid-grey px-4 py-2 text-right text-red-600">
+                      -{formatCurrency(result.bonus.extraDeductions.studentLoan)}
+                    </td>
+                  </tr>
+                )}
+                <tr className="bg-govuk-light-grey font-bold">
+                  <th scope="row" className="border border-govuk-mid-grey px-4 py-2 text-left font-bold">Net pay</th>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right font-bold">{formatCurrency(result.bonus.periodComparison.normalPeriod.net)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right font-bold">{formatCurrency(result.bonus.periodComparison.bonusPeriod.net)}</td>
+                  <td className="border border-govuk-mid-grey px-4 py-2 text-right font-bold text-green-600">
+                    +{formatCurrency(result.bonus.periodComparison.bonusPeriod.net - result.bonus.periodComparison.normalPeriod.net)}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="mt-4 text-sm text-govuk-dark-grey">
+            <p>• The bonus period shows your pay when the one-off bonus is added</p>
+            <p>• Extra deductions are capped and cannot exceed the bonus amount</p>
+            <p>• This comparison helps you understand the tax impact of receiving a bonus</p>
+          </div>
+        </div>
+      )}
+
       {/* Visual Chart */}
       <div className="bg-white p-6 border border-govuk-mid-grey">
         <SalaryBreakdownChart result={result} />
