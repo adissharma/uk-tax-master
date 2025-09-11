@@ -4,12 +4,13 @@ import { useState } from 'react';
 
 export function TaxCodeTab() {
   const { inputs, updateInputs } = useCalculatorStore();
-  const [taxCode, setTaxCode] = useState('1257L');
+  const [taxCode, setTaxCode] = useState(inputs.taxCode || '1257L');
   const [region, setRegion] = useState(inputs.region);
 
   const handleTaxCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTaxCode(e.target.value);
-    // Update inputs when user finishes typing
+    const value = e.target.value;
+    setTaxCode(value);
+    updateInputs({ taxCode: value });
   };
 
   const handleRegionChange = (e: React.ChangeEvent<HTMLInputElement>) => {

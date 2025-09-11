@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export function PensionTab() {
   const { inputs, updateInputs } = useCalculatorStore();
-  const [employeeContribution, setEmployeeContribution] = useState((inputs.pensionContribution || 5).toString());
+  const [employeeContribution, setEmployeeContribution] = useState((inputs.pensionContribution || 0).toString());
   const [salaryExchange, setSalaryExchange] = useState(inputs.salaryExchange || false);
   const [includeBonusInPension, setIncludeBonusInPension] = useState(inputs.includeBonusInPension || false);
 

@@ -1,12 +1,16 @@
 import { CalculationInputs, CalculationResult } from './types';
 import { taxYear202425 } from './tax-years/2024-25';
+import { scotlandTaxYear202425 } from './tax-years/scotland-2024-25';
 
 const TAX_YEARS = {
   '2024-25': taxYear202425,
 };
 
 export function calculateSalary(inputs: CalculationInputs): CalculationResult {
-  const taxYear = TAX_YEARS[inputs.taxYear] || taxYear202425;
+  const baseTaxYear = TAX_YEARS[inputs.taxYear] || taxYear202425;
+  
+  // Use Scottish tax year if region is Scotland
+  const taxYear = inputs.region === 'scotland' ? scotlandTaxYear202425 : baseTaxYear;
   
   // Calculate overtime first
   const overtimeResult = calculateOvertime(inputs);
@@ -41,7 +45,7 @@ function calculateOvertime(inputs: CalculationInputs) {
   // Check if using cash method
   if (inputs.overtimeCashValue && inputs.overtimeCashValue > 0) {
     const multiplier = inputs.overtimeCashPeriod === 'monthly' ? 12 
-      : inputs.overtimeCashPeriod === 'weekly' ? 52 
+      : inputs.overtimeCashPeriod === 'weekly' ? 52.14 
       : 1; // annual
     annualOvertimeAmount = inputs.overtimeCashValue * multiplier;
   } else {
@@ -73,8 +77,9 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any, ov
   // Total gross including overtime
   const totalGrossAnnual = inputs.grossAnnualSalary + overtimeAmount;
   
-  // Calculate personal allowance with taper
-  const personalAllowance = calculatePersonalAllowance(
+  // Calculate personal allowance from tax code
+  const personalAllowance = calculatePersonalAllowanceFromTaxCode(
+    inputs.taxCode || '1257L',
     totalGrossAnnual,
     taxYear.personalAllowance,
     taxYear.personalAllowanceTaperThreshold
@@ -97,11 +102,30 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any, ov
     ? totalGrossAnnual - pensionEmployee
     : totalGrossAnnual;
   
-  // Calculate taxable income
-  const taxableIncome = Math.max(0, salaryAfterPension - personalAllowance);
+  // Calculate taxable income and apply special tax codes if needed
+  const parsedTaxCode = parseTaxCode(inputs.taxCode || '1257L');
+  let incomeTaxResult;
   
-  // Calculate income tax
-  const incomeTaxResult = calculateIncomeTax(taxableIncome, taxYear.incomeTaxBands);
+  if (parsedTaxCode.isSpecialCode && parsedTaxCode.specialRate !== undefined) {
+    // For special codes, apply flat rate to all salary
+    const totalTax = salaryAfterPension * parsedTaxCode.specialRate;
+    incomeTaxResult = {
+      total: totalTax,
+      bands: [{
+        name: inputs.taxCode?.toUpperCase() === 'NT' ? 'No Tax' : 
+              inputs.taxCode?.toUpperCase() === 'BR' ? 'Basic Rate (All Income)' :
+              inputs.taxCode?.toUpperCase() === 'D0' ? 'Higher Rate (All Income)' :
+              inputs.taxCode?.toUpperCase() === 'D1' ? 'Additional Rate (All Income)' : 'Special Code',
+        rate: parsedTaxCode.specialRate,
+        taxable: salaryAfterPension,
+        tax: totalTax,
+      }]
+    };
+  } else {
+    // Calculate taxable income normally
+    const taxableIncome = Math.max(0, salaryAfterPension - personalAllowance);
+    incomeTaxResult = calculateIncomeTax(taxableIncome, taxYear.incomeTaxBands);
+  }
   
   // Calculate National Insurance
   const nationalInsuranceEmployee = calculateNationalInsurance(
@@ -172,7 +196,7 @@ function calculateBaselineDeductions(inputs: CalculationInputs, taxYear: any, ov
       },
     },
     personalAllowance,
-    taxableIncome,
+    taxableIncome: parsedTaxCode.isSpecialCode ? salaryAfterPension : Math.max(0, salaryAfterPension - personalAllowance),
   };
 }
 
@@ -188,8 +212,9 @@ function calculateBonusScenario(inputs: CalculationInputs, taxYear: any, baselin
     pensionOnBonus = (bonusAmount * inputs.pensionContribution) / 100;
   }
   
-  // Calculate personal allowance with bonus (same as baseline unless bonus affects taper)
-  const personalAllowanceWithBonus = calculatePersonalAllowance(
+  // Calculate personal allowance from tax code with bonus (same as baseline unless bonus affects taper)
+  const personalAllowanceWithBonus = calculatePersonalAllowanceFromTaxCode(
+    inputs.taxCode || '1257L',
     grossWithBonus,
     taxYear.personalAllowance,
     taxYear.personalAllowanceTaperThreshold
@@ -200,11 +225,16 @@ function calculateBonusScenario(inputs: CalculationInputs, taxYear: any, baselin
     ? grossWithBonus - (baselineResult.pension.employee.annual + pensionOnBonus)
     : grossWithBonus;
   
-  // Calculate taxable income with bonus
-  const taxableIncomeWithBonus = Math.max(0, salaryAfterPensionWithBonus - personalAllowanceWithBonus);
+  // Calculate taxable income and apply special tax codes if needed for bonus scenario
+  const parsedTaxCodeBonus = parseTaxCode(inputs.taxCode || '1257L');
+  let incomeTaxWithBonus;
   
-  // Calculate deductions with bonus
-  const incomeTaxWithBonus = calculateIncomeTax(taxableIncomeWithBonus, taxYear.incomeTaxBands).total;
+  if (parsedTaxCodeBonus.isSpecialCode && parsedTaxCodeBonus.specialRate !== undefined) {
+    incomeTaxWithBonus = salaryAfterPensionWithBonus * parsedTaxCodeBonus.specialRate;
+  } else {
+    const taxableIncomeWithBonus = Math.max(0, salaryAfterPensionWithBonus - personalAllowanceWithBonus);
+    incomeTaxWithBonus = calculateIncomeTax(taxableIncomeWithBonus, taxYear.incomeTaxBands).total;
+  }
   const niWithBonus = calculateNationalInsurance(salaryAfterPensionWithBonus, taxYear.nationalInsurance, 'employee');
   const slWithBonus = calculateStudentLoan(grossWithBonus, inputs.studentLoanPlan, inputs.hasPostgradLoan, taxYear.studentLoan);
   
@@ -276,6 +306,58 @@ function getPeriodDivisor(period: string): number {
     case 'monthly': return 12;
     default: return 12;
   }
+}
+
+function parseTaxCode(taxCode: string): { 
+  personalAllowance: number; 
+  isSpecialCode: boolean; 
+  specialRate?: number; 
+} {
+  const code = taxCode.toUpperCase().trim();
+  
+  // Special codes
+  if (code === 'BR') return { personalAllowance: 0, isSpecialCode: true, specialRate: 0.20 }; // Basic rate on all income
+  if (code === 'D0') return { personalAllowance: 0, isSpecialCode: true, specialRate: 0.40 }; // Higher rate on all income
+  if (code === 'D1') return { personalAllowance: 0, isSpecialCode: true, specialRate: 0.45 }; // Additional rate on all income
+  if (code === 'NT') return { personalAllowance: Infinity, isSpecialCode: true, specialRate: 0 }; // No tax
+  
+  // Handle K codes (negative allowance - not implemented in full)
+  if (code.startsWith('K')) {
+    return { personalAllowance: 0, isSpecialCode: false };
+  }
+  
+  // Standard codes like 1257L, S1257L
+  const match = code.match(/^S?(\d+)L?$/);
+  if (match) {
+    const digits = parseInt(match[1]);
+    // Multiply by 10, not 20 (this was the bug!)
+    return { personalAllowance: digits * 10, isSpecialCode: false };
+  }
+  
+  // Default fallback
+  return { personalAllowance: 12570, isSpecialCode: false };
+}
+
+function calculatePersonalAllowanceFromTaxCode(
+  taxCode: string, 
+  grossSalary: number, 
+  baseTaxYearAllowance: number, 
+  taperThreshold: number
+): number {
+  const parsedCode = parseTaxCode(taxCode);
+  
+  if (parsedCode.isSpecialCode) {
+    return parsedCode.personalAllowance;
+  }
+  
+  // Apply taper if salary exceeds threshold
+  if (grossSalary <= taperThreshold) {
+    return parsedCode.personalAllowance;
+  }
+  
+  const excess = grossSalary - taperThreshold;
+  const reduction = Math.floor(excess / 2);
+  return Math.max(0, parsedCode.personalAllowance - reduction);
 }
 
 function calculatePersonalAllowance(grossSalary: number, baseAllowance: number, taperThreshold: number): number {

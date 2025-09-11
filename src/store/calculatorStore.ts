@@ -23,9 +23,10 @@ const defaultInputs: CalculationInputs = {
   grossAnnualSalary: 0,
   taxYear: '2024-25',
   region: 'england',
+  taxCode: '1257L',
   studentLoanPlan: 'none',
   hasPostgradLoan: false,
-  pensionContribution: 5,
+  pensionContribution: 0, // Don't default to 5% - let user choose
   salaryExchange: false,
   bonusAmount: 0,
   normalPayPeriod: 'monthly',

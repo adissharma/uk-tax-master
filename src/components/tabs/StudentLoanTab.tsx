@@ -21,7 +21,9 @@ export function StudentLoanTab() {
           <div className="space-y-3">
             <label className="flex items-start gap-3">
               <input
-                type="checkbox"
+                type="radio"
+                name="studentLoanPlan"
+                value="none"
                 checked={inputs.studentLoanPlan === 'none'}
                 onChange={() => handlePlanChange('none')}
                 className="mt-1 text-primary focus:ring-primary"
@@ -34,7 +36,9 @@ export function StudentLoanTab() {
 
             <label className="flex items-start gap-3">
               <input
-                type="checkbox"
+                type="radio"
+                name="studentLoanPlan"
+                value="plan1"
                 checked={inputs.studentLoanPlan === 'plan1'}
                 onChange={() => handlePlanChange('plan1')}
                 className="mt-1 text-primary focus:ring-primary"
@@ -49,7 +53,9 @@ export function StudentLoanTab() {
 
             <label className="flex items-start gap-3">
               <input
-                type="checkbox"
+                type="radio"
+                name="studentLoanPlan"
+                value="plan2"
                 checked={inputs.studentLoanPlan === 'plan2'}
                 onChange={() => handlePlanChange('plan2')}
                 className="mt-1 text-primary focus:ring-primary"
@@ -64,7 +70,9 @@ export function StudentLoanTab() {
 
             <label className="flex items-start gap-3">
               <input
-                type="checkbox"
+                type="radio"
+                name="studentLoanPlan"
+                value="plan4"
                 checked={inputs.studentLoanPlan === 'plan4'}
                 onChange={() => handlePlanChange('plan4')}
                 className="mt-1 text-primary focus:ring-primary"

@@ -30,6 +30,7 @@ export interface CalculationInputs {
   grossAnnualSalary: number;
   taxYear: string;
   region: 'england' | 'scotland' | 'wales' | 'northern-ireland';
+  taxCode?: string;
   studentLoanPlan?: 'none' | 'plan1' | 'plan2' | 'plan4';
   hasPostgradLoan?: boolean;
   pensionContribution?: number;
